@@ -10,21 +10,24 @@ namespace lightwaverf
     public class API
     {
         /// <summary>
-        /// 
+        /// Switches off all devices in room
         /// </summary>
         /// <param name="Room">Room to switch all off in.</param>
         public void AllOff(int Room)
         {
-
+            string text = "000,!R" + Room + "Fa";
+            SendRaw(text);
         }
 
         /// <summary>
-        /// 
+        /// sets mood in room
         /// </summary>
         /// <param name="Room">room number </param>
-        /// <param name="mood"></param>
+        /// <param name="mood">mood number</param>
         public void SendMood(int Room, int mood)
         {
+            string text = "000,!R1FmP" + mood + "|";
+            SendRaw(text);
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace lightwaverf
         {
             string pstr;
             pstr = Math.Round(((double)percent / 100 * 32)).ToString();
-            string text = "000,!R" + Room + "D" + Device + "FdP" + pstr;
+            string text = "000,!R" + Room + "D" + Device + "FdP" + pstr + "|";
             SendRaw(text);
         }
 
@@ -51,7 +54,7 @@ namespace lightwaverf
         {
             string statestr;
             if(state) statestr = "1"; else statestr = "0";
-            string text = "000,!R" + Room + "D" + Device + "F" + statestr;
+            string text = "000,!R" + Room + "D" + Device + "F" + statestr + "|";
             SendRaw(text);
         }
 
