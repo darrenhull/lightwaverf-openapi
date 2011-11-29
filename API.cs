@@ -26,7 +26,7 @@ namespace lightwaverf
         /// <param name="mood">mood number</param>
         public void SendMood(int Room, int mood)
         {
-            string text = "000,!R1FmP" + mood + "|";
+            string text = "000,!R"+ Room + "FmP" + mood + "|";
             SendRaw(text);
         }
 
