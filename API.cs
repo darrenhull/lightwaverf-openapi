@@ -24,7 +24,7 @@ namespace lightwaverf
         /// </summary>
         /// <param name="Room">room number </param>
         /// <param name="mood">mood number</param>
-        public void SendMood(int Room, int mood)
+        public void Mood(int Room, int mood)
         {
             string text = "000,!R"+ Room + "FmP" + mood + "|";
             SendRaw(text);
@@ -36,7 +36,7 @@ namespace lightwaverf
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <param name="percent">percentage level for the dim< eg. 50/param>
-        public void SendDim(int Room, int Device, int percent)
+        public void Dim(int Room, int Device, int percent)
         {
             string pstr;
             pstr = Math.Round(((double)percent / 100 * 32)).ToString();
@@ -50,14 +50,26 @@ namespace lightwaverf
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <param name="state">state (0 or 1)</param>
-        public void SendOnOff(int Room, int Device, bool state)
+        public void DeviceOnOff(int Room, int Device, bool state)
         {
             string statestr;
             if(state) statestr = "1"; else statestr = "0";
             string text = "000,!R" + Room + "D" + Device + "F" + statestr + "|";
             SendRaw(text);
         }
-
+        /// <summary>
+        /// send on/off command to a room/device
+        /// </summary>
+        /// <param name="Room">room number </param>
+        /// <param name="Device">device number</param>
+        /// <param name="state">state (0 or 1)</param>
+        public void HeatOnOff(int Room, bool state)
+        {
+            string statestr;
+            if (state) statestr = "1"; else statestr = "0";
+            string text = "000,!R" + Room + "DhF" + statestr + "|";
+            SendRaw(text);
+        }
         /// <summary>
         /// Send raw packet containing 'text' to the wifilink
         /// </summary>
