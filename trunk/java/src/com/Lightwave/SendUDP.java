@@ -46,7 +46,15 @@ public class SendUDP extends Thread {
 		    	if (!m_buffer.isEmpty()){
 		        	//System.out.println("Getting from buffer: " + m_buffer.peek());
 			    	netsendUDP(m_buffer.remove().toString());	// Send item by UDP to LWRF box and remove from buffer.	
-		    	}
+		    	} else 
+		    		{
+		    		try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+		    		
+		    		}
 		
 		  } 
 		
