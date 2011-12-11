@@ -7,14 +7,26 @@ package com.Lightwave;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.Calendar;
 
-
-public class LogToCSV {
+public class FileLogger extends Thread{
 	
-	public static PrintStream out; 
+	String m_filename = "Lightwave_Default_Logger_File.csv"; //Default filename if none given
+	
+	private static PrintStream out; 
 
-	//Open File to output to
-	public static void openFile(String filename){
+	/*
+	 * Constructor
+	 */
+	public FileLogger(String filename) {
+			if (filename == "") filename=m_filename; // Assign default filename if none given
+			else m_filename = filename;
+			this.openFile(m_filename);
+		    start();
+		  }
+	
+	//Open File to output to filesystem.
+	private void openFile(String filename){
 		
 		String m_filename = filename;
 		  try {
@@ -26,7 +38,7 @@ public class LogToCSV {
 	}
 	
 	//Close file that has output
-	public static void closeFile(){
+	public void closeFile(){
 		  try {
 		      		out.close();
 		      		System.out.println("---LOG: Logging file closed.");
@@ -40,11 +52,13 @@ public class LogToCSV {
 		String logEntry - any text to be logged.  Preferably CSV.
 	*/
 	
-	public static void logData(String logEntry){
+	public void logData(String logEntry){
 	   try {
-	
-		     out.println(logEntry);
-	      	 System.out.println("---LOG: Logging entry to file.");
+		   	
+		    Calendar c = Calendar.getInstance();
+		    String log = c.getTime() + "," + logEntry;
+		    out.println(log);
+	      	System.out.println("---LOG: Logging entry to file: " + c.getTime() + "," + logEntry);
 
 		    } catch (Exception e) {
 		      e.printStackTrace();
