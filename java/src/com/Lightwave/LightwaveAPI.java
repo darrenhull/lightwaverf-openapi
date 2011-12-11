@@ -27,7 +27,7 @@ public class LightwaveAPI {
 		server_in = new ReceiveUDP(logger); //Separate UDP receiving server thread
 		server_out = new SendUDP(logger);   //Separate buffered UDP sending server thread
 		PollEnergyMeter m_meter = new PollEnergyMeter(server_out, 5000); //Separate energy meter polling thread, delay between polls
-		m_meter.setPollingPeriod(10000); //Alter polling period during operation
+		m_meter.setPollingPeriod(60000); //Alter polling period during operation
 
 		sendRoomOff (1); // Turn everything off assigned in Room 1
 		littlePause (3500); // Wait to see the result!
