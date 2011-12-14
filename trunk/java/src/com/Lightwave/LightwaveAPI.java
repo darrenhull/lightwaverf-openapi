@@ -19,6 +19,7 @@ public class LightwaveAPI {
 	static ReceiveUDP server_in; // Server for receiving UDP from the wifi box
 	static SendUDP server_out; // Server for buffering and sending UDP from direct commands or polling from meter poller
 	static FileLogger logger; // Logging server
+	static Console console_input;//  Console server
 	
 	// Main Entry - Example Commands calling API 
 	public static void main(String[] args) {	
@@ -26,29 +27,31 @@ public class LightwaveAPI {
 		logger = new FileLogger("LightwaveRF_Test.csv"); //Separate logging thread, log UDP traffic to CSV file
 		server_in = new ReceiveUDP(logger); //Separate UDP receiving server thread
 		server_out = new SendUDP(logger);   //Separate buffered UDP sending server thread
-		PollEnergyMeter m_meter = new PollEnergyMeter(server_out, 5000); //Separate energy meter polling thread, delay between polls
-		m_meter.setPollingPeriod(60000); //Alter polling period during operation
-
-		sendRoomOff (1); // Turn everything off assigned in Room 1
-		littlePause (3500); // Wait to see the result!
+		console_input = new Console(server_out); //Simple console server to accept raw UDP commands and send to LWRF wifi box
 		
+		PollEnergyMeter m_meter = new PollEnergyMeter(server_out, 5000); //Separate energy meter polling thread, delay between polls
+		m_meter.setPollingPeriod(120000); //Alter polling period during operation (milliseconds)
+
+		/*
+		 * Example commands
+		 * 
+		 */
+		
+		/*
+		sendRoomOff(1); // Turn everything off assigned in Room 1
+		littlePause (3500); // Wait to see the result!
 		sendRoomMood (1,3); // Activate predefined Mood 3 in Room 1
 		littlePause (3500); // Wait to see the result!
 		
-		sendDeviceDim (1, 3, 25); // Dim Device 3 in Room 1 to 88% dim level
+		sendDeviceDim (1, 3, 25); // Dim Device 3 in Room 1 to 25% dim level
 		littlePause (3500); // Wait to see the result!
 		
-		sendDeviceDim (1, 2, 100); // Dim Device 3 in Room 1 to 88% dim level
+		sendDeviceDim (1, 2, 100); // Dim Device 2 in Room 1 to 100% dim level
 		littlePause (3500); // Wait to see the result!
 		
 		sendDeviceOnOff (1,3,OFF); // Turn off Device 3 in Room 1 
 		littlePause (3500); // Wait to see the result!
 		
-		sendDeviceDim (1,3,100); // Turn off Device 3 in Room 1 
-		littlePause (3500); // Wait to see the result!
-		
-		
-		/*
 		sendOpenCloseStop(1,6,OPEN); //For for inline relays. Open connects common and circuit 1 connection.
 		littlePause (3500); // Wait to see the result!
 		
@@ -60,9 +63,9 @@ public class LightwaveAPI {
 		
 		sendHeatOnOff(1,ON); // Turn On radiator TRV (radiator valve) in Room 1
 		littlePause (3500); // Wait to see the result!
-		*/
 		
-		//sendAllRoomsOff(); // Turn everything off assigned in All Rooms (1 through to MaxRooms)
+		sendAllRoomsOff(); // Turn everything off assigned in All Rooms (1 through to MaxRooms)
+		*/
 		
 	}
 	
@@ -77,6 +80,12 @@ public class LightwaveAPI {
         server_out.sendUDP(text);
 	}
 	
+	// Send Raw UDP Command
+	public static void sendRawUDP(String text){
+        text = text + "\0";
+        server_out.sendUDP(text);
+	}
+
 	// Switches off all devices in Room
 	public static void sendRoomOff(int Room){
         String text = ",!R" + Room + "Fa\0";
