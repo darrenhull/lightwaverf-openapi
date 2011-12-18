@@ -7,6 +7,7 @@ package com.Lightwave;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class FileLogger extends Thread{
@@ -56,9 +57,11 @@ public class FileLogger extends Thread{
 	   try {
 		   	
 		    Calendar c = Calendar.getInstance();
-		    String log = c.getTime() + "," + logEntry;
+		    SimpleDateFormat date_format = new SimpleDateFormat("dd-MMM-yyyy hh:mm");
+			System.out.println(date_format.format(c.getTime()));
+			String log = date_format.format(c.getTime()) + "," + logEntry;
 		    out.println(log);
-	      	System.out.println("---LOG: Logging entry to file: " + c.getTime() + "," + logEntry);
+	      	System.out.println("---LOGGING: " + log);
 
 		    } catch (Exception e) {
 		      e.printStackTrace();
