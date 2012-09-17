@@ -5,6 +5,7 @@ using System.Text;
 using System.Net.Sockets;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace LightwaveRF
 {
@@ -14,9 +15,11 @@ namespace LightwaveRF
     public delegate void dimEventHandler(object sender, int room,int device, int pct);
     public delegate void heatEventHandler(object sender, int room, int state);
     public delegate void rawEventHandler(object sender, string rawData);
-
+    public delegate void responseEventHandler(object sender, string Data);
     public class API
     {
+        private Thread listenthread;
+        private Thread responsethread;
         public event OnOffEventHandler OnOff;
         /// <summary>
         /// Regex for on/off
@@ -34,22 +37,56 @@ namespace LightwaveRF
         /// Regex for Mood
         /// Matches: Room, Mood
         /// </summary>
-        public Regex moodRegEx = new Regex("...,!R(?<Room>.)FmP(?<mood>.)|");//"000,!R"+ Room + "FmP" + mood + "|"
+        public Regex moodRegEx = new Regex("...,!R(?<Room>.)FmP(?<mood>.)|");//"533,!R"+ Room + "FmP" + mood + "|"
         public event dimEventHandler OnDim;
         /// <summary>
         /// Regex for Dim
         /// Matches: Room, Device, State
         /// </summary>
-        public Regex dimRegEx = new Regex("...,!R(?<Room>.)D(?<Device>.)FdP(?<State>..)|");//"000,!R" + Room + "D" + Device + "FdP" + pstr + "|"
+        public Regex dimRegEx = new Regex("...,!R(?<Room>.)D(?<Device>.)FdP(?<State>..)|");//"533,!R" + Room + "D" + Device + "FdP" + pstr + "|"
         public event heatEventHandler OnHeat;
         /// <summary>
         /// Regex for Heat commands
         /// Matches: Room, State.
         /// </summary>
-        public Regex heatRegEx = new Regex("...,!R(?<Room>.)DhF(?<State>.)|");//"000,!R" + Room + "DhF" + statestr + "|";
+        public Regex heatRegEx = new Regex("...,!R(?<Room>.)DhF(?<State>.)|");//"533,!R" + Room + "DhF" + statestr + "|";
         public event rawEventHandler Raw;
 
+        public event responseEventHandler OnResponse;
         public void Listen()
+        {
+            listenthread = new Thread(new ThreadStart(listenThreadWorker));
+            responsethread = new Thread(new ThreadStart(responseThreadWorker));
+            listenthread.Start();
+            responsethread.Start();
+        }
+        private void responseThreadWorker()
+        {
+            Socket sock = new Socket(AddressFamily.InterNetwork,
+                            SocketType.Dgram, ProtocolType.Udp);
+            IPEndPoint iep = new IPEndPoint(IPAddress.Any, 9761);
+            sock.Bind(iep);
+            EndPoint ep = (EndPoint)iep;
+            Console.WriteLine("Ready to receive...");
+            try
+            {
+                while (true)
+                {
+                    byte[] data = new byte[1024];
+                    int recv = sock.ReceiveFrom(data, ref ep);
+                    string stringData = Encoding.ASCII.GetString(data, 0, recv);
+                    if (OnResponse != null)
+                    {
+                        OnResponse(this, stringData);
+                    }
+                }
+            }
+            finally
+            {
+                sock.Close();
+            }
+        }
+        private void listenThreadWorker()
         {
             Socket sock = new Socket(AddressFamily.InterNetwork,
                             SocketType.Dgram, ProtocolType.Udp);
@@ -65,31 +102,31 @@ namespace LightwaveRF
                     int recv = sock.ReceiveFrom(data, ref ep);
                     string stringData = Encoding.ASCII.GetString(data, 0, recv);
                     Raw(this,stringData);
-                    Match OnOffMatch = OnOffRegEx.Match(stringData);
-                    Match AllOffMatch = allOffRegEx.Match(stringData);
-                    Match MoodMatch = moodRegEx.Match(stringData);
-                    Match DimMatch = dimRegEx.Match(stringData);
-                    Match HeatMatch = heatRegEx.Match(stringData);
-                    if (OnOffMatch.Success)
-                    {
-                          OnOff(this, int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Device"].Value), bool.Parse(OnOffMatch.Groups["State"].Value));
-                    }
-                    if (AllOffMatch.Success)
-                    {
-                        OnAllOff(this, int.Parse(OnOffMatch.Groups["Room"].Value));
-                    }
-                    if (MoodMatch.Success)
-                    {
-                        OnMood(this, int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Mood"].Value));
-                    }
-                    if (DimMatch.Success)
-                    { 
-                        OnDim(this,int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Device"].Value),int.Parse(OnOffMatch.Groups["State"].Value));
-                    }
-                    if (HeatMatch.Success)
-                    { 
-                        OnHeat(this,int.Parse(OnOffMatch.Groups["Room"].Value),int.Parse(OnOffMatch.Groups["State"].Value));
-                    }
+                    //Match OnOffMatch = OnOffRegEx.Match(stringData);
+                    //Match AllOffMatch = allOffRegEx.Match(stringData);
+                    //Match MoodMatch = moodRegEx.Match(stringData);
+                    //Match DimMatch = dimRegEx.Match(stringData);
+                    //Match HeatMatch = heatRegEx.Match(stringData);
+                    //if (OnOffMatch.Success)
+                    //{
+                    //      OnOff(this, int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Device"].Value), bool.Parse(OnOffMatch.Groups["State"].Value));
+                    //}
+                    //if (AllOffMatch.Success)
+                    //{
+                    //    OnAllOff(this, int.Parse(OnOffMatch.Groups["Room"].Value));
+                    //}
+                    //if (MoodMatch.Success)
+                    //{
+                    //    OnMood(this, int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Mood"].Value));
+                    //}
+                    //if (DimMatch.Success)
+                    //{ 
+                    //    OnDim(this,int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Device"].Value),int.Parse(OnOffMatch.Groups["State"].Value));
+                    //}
+                    //if (HeatMatch.Success)
+                    //{ 
+                    //    OnHeat(this,int.Parse(OnOffMatch.Groups["Room"].Value),int.Parse(OnOffMatch.Groups["State"].Value));
+                    //}
                 }
             }
             finally
@@ -104,7 +141,7 @@ namespace LightwaveRF
         /// <param name="Room">Room to switch all off in.</param>
         public void AllOff(int room)
         {
-            string text = @"000,!R" + room + @"Fa|";
+            string text = @"533,!R" + room + @"Fa|";
             sendRaw(text);
         }
 
@@ -115,7 +152,7 @@ namespace LightwaveRF
         /// <param name="mood">mood number</param>
         public void Mood(int room, int mood)
         {
-            string text = @"000,!R"+ room + @"FmP" + mood + @"|";
+            string text = @"533,!R"+ room + @"FmP" + mood + @"|";
             sendRaw(text);
         }
 
@@ -129,7 +166,7 @@ namespace LightwaveRF
         {
             string pstr;
             pstr = Math.Round(((double)percent / 100 * 32)).ToString();
-            string text = @"000,!R" + room + @"D" + device + @"FdP" + pstr + @"|";
+            string text = @"533,!R" + room + @"D" + device + @"FdP" + pstr + @"|";
             sendRaw(text);
         }
 
@@ -156,7 +193,7 @@ namespace LightwaveRF
         {
             string statestr;
             if (state) statestr = "1"; else statestr = "0";
-            string text = @"000,!R" + room + @"DhF" + statestr + @"|";
+            string text = @"533,!R" + room + @"DhF" + statestr + @"|";
             sendRaw(text);
         }
         /// <summary>
