@@ -25,31 +25,31 @@ namespace LightwaveRF
         /// Regex for on/off
         /// matches :Room, Device, and State
         /// </summary>
-        public Regex OnOffRegEx = new Regex("...,!R(?<Room>.)D(?<Device>[.^h])F(?<State>.)|");
+        public Regex OnOffRegEx = new Regex("...,(!R)(?<Room>[0-9])(D)(?<Device>[0-9])(F)(?<State>[0-1])");
         public event AllOffEventHandler OnAllOff;
         /// <summary>
         /// Regex for All off
         /// Matches: Room
         /// </summary>
-        public Regex allOffRegEx = new Regex("...,!R(?<Room>.)Fa");
+        public Regex allOffRegEx = new Regex("...,(!R)(?<Room>[0-9])(Fa)");
         public event moodEventHandler OnMood;
         /// <summary>
         /// Regex for Mood
         /// Matches: Room, Mood
         /// </summary>
-        public Regex moodRegEx = new Regex("...,!R(?<Room>.)FmP(?<mood>.)|");//"533,!R"+ Room + "FmP" + mood + "|"
+        public Regex moodRegEx = new Regex("...,(!R)(?<Room>[0-9])(FmP)(?<mood>[0-9])");//"533,!R"+ Room + "FmP" + mood + "|"
         public event dimEventHandler OnDim;
         /// <summary>
         /// Regex for Dim
         /// Matches: Room, Device, State
         /// </summary>
-        public Regex dimRegEx = new Regex("...,!R(?<Room>.)D(?<Device>.)FdP(?<State>..)|");//"533,!R" + Room + "D" + Device + "FdP" + pstr + "|"
+        public Regex dimRegEx = new Regex("...,(!R)(?<Room>[0-9])(D)(?<Device>[0-9])(FdP)(?<State>[0-9][0-9])");//"533,!R" + Room + "D" + Device + "FdP" + pstr + "|"
         public event heatEventHandler OnHeat;
         /// <summary>
         /// Regex for Heat commands
         /// Matches: Room, State.
         /// </summary>
-        public Regex heatRegEx = new Regex("...,!R(?<Room>.)DhF(?<State>.)|");//"533,!R" + Room + "DhF" + statestr + "|";
+        public Regex heatRegEx = new Regex("...,(!R)(?<Room>[0-9])(DhF)(?<State>[0-9])");//"533,!R" + Room + "DhF" + statestr + "|";
         public event rawEventHandler Raw;
 
         public event responseEventHandler OnResponse;
@@ -102,31 +102,31 @@ namespace LightwaveRF
                     int recv = sock.ReceiveFrom(data, ref ep);
                     string stringData = Encoding.ASCII.GetString(data, 0, recv);
                     Raw(this,stringData);
-                    //Match OnOffMatch = OnOffRegEx.Match(stringData);
-                    //Match AllOffMatch = allOffRegEx.Match(stringData);
-                    //Match MoodMatch = moodRegEx.Match(stringData);
-                    //Match DimMatch = dimRegEx.Match(stringData);
-                    //Match HeatMatch = heatRegEx.Match(stringData);
-                    //if (OnOffMatch.Success)
-                    //{
-                    //      OnOff(this, int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Device"].Value), bool.Parse(OnOffMatch.Groups["State"].Value));
-                    //}
-                    //if (AllOffMatch.Success)
-                    //{
-                    //    OnAllOff(this, int.Parse(OnOffMatch.Groups["Room"].Value));
-                    //}
-                    //if (MoodMatch.Success)
-                    //{
-                    //    OnMood(this, int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Mood"].Value));
-                    //}
-                    //if (DimMatch.Success)
-                    //{ 
-                    //    OnDim(this,int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Device"].Value),int.Parse(OnOffMatch.Groups["State"].Value));
-                    //}
-                    //if (HeatMatch.Success)
-                    //{ 
-                    //    OnHeat(this,int.Parse(OnOffMatch.Groups["Room"].Value),int.Parse(OnOffMatch.Groups["State"].Value));
-                    //}
+                    Match OnOffMatch = OnOffRegEx.Match(stringData);
+                    Match AllOffMatch = allOffRegEx.Match(stringData);
+                    Match MoodMatch = moodRegEx.Match(stringData);
+                    Match DimMatch = dimRegEx.Match(stringData);
+                    Match HeatMatch = heatRegEx.Match(stringData);
+                    if (OnOffMatch.Success && OnOff!=null)
+                    {
+                        OnOff(this, int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Device"].Value), int.Parse(OnOffMatch.Groups["State"].Value)==1);
+                    }
+                    if (AllOffMatch.Success && OnAllOff!=null)
+                    {
+                        OnAllOff(this, int.Parse(AllOffMatch.Groups["Room"].Value));
+                    }
+                    if (MoodMatch.Success && OnMood!=null)
+                    {
+                        OnMood(this, int.Parse(MoodMatch.Groups["Room"].Value), int.Parse(MoodMatch.Groups["Mood"].Value));
+                    }
+                    if (DimMatch.Success && OnDim!=null)
+                    {
+                        OnDim(this, int.Parse(DimMatch.Groups["Room"].Value), int.Parse(DimMatch.Groups["Device"].Value), int.Parse(DimMatch.Groups["State"].Value));
+                    }
+                    if (HeatMatch.Success&& OnHeat!=null)
+                    {
+                        OnHeat(this, int.Parse(HeatMatch.Groups["Room"].Value), int.Parse(HeatMatch.Groups["State"].Value));
+                    }
                 }
             }
             finally
