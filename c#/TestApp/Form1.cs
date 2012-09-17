@@ -68,5 +68,11 @@ namespace TestApp
             x.Dim(int.Parse(cmbRoom.SelectedItem.ToString()), int.Parse(cmbDevice.SelectedItem.ToString()), int.Parse(cmbPct.Text));
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var x = new LightwaveRF.API();
+            x.AllOff(int.Parse(cmbRoom.SelectedItem.ToString()));
+        }
+
     }
 }

@@ -40,6 +40,7 @@
             this.lblMessage = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblResponse = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmbRoom
@@ -140,7 +141,7 @@
             // 
             // HeatOn
             // 
-            this.HeatOn.Location = new System.Drawing.Point(253, 10);
+            this.HeatOn.Location = new System.Drawing.Point(345, 12);
             this.HeatOn.Name = "HeatOn";
             this.HeatOn.Size = new System.Drawing.Size(52, 23);
             this.HeatOn.TabIndex = 7;
@@ -150,7 +151,7 @@
             // 
             // HeatOff
             // 
-            this.HeatOff.Location = new System.Drawing.Point(311, 10);
+            this.HeatOff.Location = new System.Drawing.Point(403, 12);
             this.HeatOff.Name = "HeatOff";
             this.HeatOff.Size = new System.Drawing.Size(60, 23);
             this.HeatOff.TabIndex = 8;
@@ -185,11 +186,22 @@
             this.lblResponse.TabIndex = 11;
             this.lblResponse.Text = "Response";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(283, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(56, 23);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "All Off";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(402, 201);
+            this.ClientSize = new System.Drawing.Size(475, 201);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblResponse);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblMessage);
@@ -224,6 +236,7 @@
         private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblResponse;
+        private System.Windows.Forms.Button button1;
     }
 }
 
