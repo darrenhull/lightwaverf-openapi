@@ -6,14 +6,14 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace lightwaverf
+namespace LightwaveRF
 {
-    public delegate void OnOffEventHandler(object sender, int Room, int Device, bool state);
-    public delegate void AllOffEventHandler(object sender, int Room);
-    public delegate void MoodEventHandler(object sender, int Room, int Mood);
-    public delegate void DimEventHandler(object sender, int Room,int Device, int pct);
-    public delegate void HeatEventHandler(object sender, int Room, int State);
-    public delegate void RawEventHandler(object sender, string RawData);
+    public delegate void OnOffEventHandler(object sender, int room, int device, bool state);
+    public delegate void AllOffEventHandler(object sender, int room);
+    public delegate void moodEventHandler(object sender, int room, int mood);
+    public delegate void dimEventHandler(object sender, int room,int device, int pct);
+    public delegate void heatEventHandler(object sender, int room, int state);
+    public delegate void rawEventHandler(object sender, string rawData);
 
     public class API
     {
@@ -22,34 +22,34 @@ namespace lightwaverf
         /// Regex for on/off
         /// matches :Room, Device, and State
         /// </summary>
-        public Regex OnOffRegEx = new Regex("...,!R(?<Room>.)D(?<Device>[.^h]))F(?<State>.)|");
-        public event AllOffEventHandler AllOff;
+        public Regex OnOffRegEx = new Regex("...,!R(?<Room>.)D(?<Device>[.^h])F(?<State>.)|");
+        public event AllOffEventHandler OnAllOff;
         /// <summary>
         /// Regex for All off
         /// Matches: Room
         /// </summary>
-        public Regex AllOffRegEx = new Regex("...,!R(?<Room>.)Fa");
-        public event MoodEventHandler Mood;
+        public Regex allOffRegEx = new Regex("...,!R(?<Room>.)Fa");
+        public event moodEventHandler OnMood;
         /// <summary>
         /// Regex for Mood
         /// Matches: Room, Mood
         /// </summary>
-        public Regex MoodRegEx = new Regex("...,!R(?<Room>.)FmP(?<mood>.)|");//"000,!R"+ Room + "FmP" + mood + "|"
-        public event DimEventHandler Dim;
+        public Regex moodRegEx = new Regex("...,!R(?<Room>.)FmP(?<mood>.)|");//"000,!R"+ Room + "FmP" + mood + "|"
+        public event dimEventHandler OnDim;
         /// <summary>
         /// Regex for Dim
         /// Matches: Room, Device, State
         /// </summary>
-        public Regex DimRegEx = new Regex("...,!R(?<Room>.)D(?<Device>.))FdP(?<State>..)|");//"000,!R" + Room + "D" + Device + "FdP" + pstr + "|"
-        public event HeatEventHandler Heat;
+        public Regex dimRegEx = new Regex("...,!R(?<Room>.)D(?<Device>.)FdP(?<State>..)|");//"000,!R" + Room + "D" + Device + "FdP" + pstr + "|"
+        public event heatEventHandler OnHeat;
         /// <summary>
         /// Regex for Heat commands
         /// Matches: Room, State.
         /// </summary>
-        public Regex HeatRegEx = new Regex("...,!R(?<Room>.)DhF(?<State>.)|");//"000,!R" + Room + "DhF" + statestr + "|";
-        public event RawEventHandler Raw;
+        public Regex heatRegEx = new Regex("...,!R(?<Room>.)DhF(?<State>.)|");//"000,!R" + Room + "DhF" + statestr + "|";
+        public event rawEventHandler Raw;
 
-        public void listen()
+        public void Listen()
         {
             Socket sock = new Socket(AddressFamily.InterNetwork,
                             SocketType.Dgram, ProtocolType.Udp);
@@ -66,14 +66,29 @@ namespace lightwaverf
                     string stringData = Encoding.ASCII.GetString(data, 0, recv);
                     Raw(this,stringData);
                     Match OnOffMatch = OnOffRegEx.Match(stringData);
-                    Match AllOffMatch = AllOffRegEx.Match(stringData);
-                    Match MoodMatch = MoodRegEx.Match(stringData);
-                    Match DimMatch = DimRegEx.Match(stringData);
-                    Match HeatMatch = HeatRegEx.Match(stringData);
+                    Match AllOffMatch = allOffRegEx.Match(stringData);
+                    Match MoodMatch = moodRegEx.Match(stringData);
+                    Match DimMatch = dimRegEx.Match(stringData);
+                    Match HeatMatch = heatRegEx.Match(stringData);
                     if (OnOffMatch.Success)
                     {
-                        EventArgs e = new EventArgs();
-                        OnOff(this,int.Parse(OnOffMatch.Groups["Room"].Value),int.Parse(OnOffMatch.Groups["Device"].Value)
+                          OnOff(this, int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Device"].Value), bool.Parse(OnOffMatch.Groups["State"].Value));
+                    }
+                    if (AllOffMatch.Success)
+                    {
+                        OnAllOff(this, int.Parse(OnOffMatch.Groups["Room"].Value));
+                    }
+                    if (MoodMatch.Success)
+                    {
+                        OnMood(this, int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Mood"].Value));
+                    }
+                    if (DimMatch.Success)
+                    { 
+                        OnDim(this,int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Device"].Value),int.Parse(OnOffMatch.Groups["State"].Value));
+                    }
+                    if (HeatMatch.Success)
+                    { 
+                        OnHeat(this,int.Parse(OnOffMatch.Groups["Room"].Value),int.Parse(OnOffMatch.Groups["State"].Value));
                     }
                 }
             }
@@ -87,10 +102,10 @@ namespace lightwaverf
         /// Switches off all devices in room
         /// </summary>
         /// <param name="Room">Room to switch all off in.</param>
-        public void AllOff(int Room)
+        public void AllOff(int room)
         {
-            string text = "000,!R" + Room + "Fa|";
-            SendRaw(text);
+            string text = @"000,!R" + room + @"Fa|";
+            sendRaw(text);
         }
 
         /// <summary>
@@ -98,10 +113,10 @@ namespace lightwaverf
         /// </summary>
         /// <param name="Room">room number </param>
         /// <param name="mood">mood number</param>
-        public void Mood(int Room, int mood)
+        public void Mood(int room, int mood)
         {
-            string text = "000,!R"+ Room + "FmP" + mood + "|";
-            SendRaw(text);
+            string text = @"000,!R"+ room + @"FmP" + mood + @"|";
+            sendRaw(text);
         }
 
         /// <summary>
@@ -110,12 +125,12 @@ namespace lightwaverf
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <param name="percent">percentage level for the dim< eg. 50/param>
-        public void Dim(int Room, int Device, int percent)
+        public void Dim(int room, int device, int percent)
         {
             string pstr;
             pstr = Math.Round(((double)percent / 100 * 32)).ToString();
-            string text = "000,!R" + Room + "D" + Device + "FdP" + pstr + "|";
-            SendRaw(text);
+            string text = @"000,!R" + room + @"D" + device + @"FdP" + pstr + @"|";
+            sendRaw(text);
         }
 
         /// <summary>
@@ -124,12 +139,12 @@ namespace lightwaverf
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <param name="state">state (0 or 1)</param>
-        public void DeviceOnOff(int Room, int Device, bool state)
+        public void DeviceOnOff(int room, int device, bool state)
         {
             string statestr;
             if(state) statestr = "1"; else statestr = "0";
-            string text = "000,!R" + Room + "D" + Device + "F" + statestr + "|";
-            SendRaw(text);
+            string text = @"533,!R" + room + @"D" + device + @"F" + statestr + @"|";
+            sendRaw(text);
         }
         /// <summary>
         /// send on/off command to a room/device
@@ -137,24 +152,23 @@ namespace lightwaverf
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <param name="state">state (0 or 1)</param>
-        public void HeatOnOff(int Room, bool state)
+        public void HeatOnOff(int room, bool state)
         {
             string statestr;
             if (state) statestr = "1"; else statestr = "0";
-            string text = "000,!R" + Room + "DhF" + statestr + "|";
-            SendRaw(text);
+            string text = @"000,!R" + room + @"DhF" + statestr + @"|";
+            sendRaw(text);
         }
         /// <summary>
         /// Send raw packet containing 'text' to the wifilink
         /// </summary>
         /// <param name="text">contents of packet.</param>
-        public void SendRaw(string text)
+        public void sendRaw(string text)
         {
-            Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            IPAddress serverAddr = IPAddress.Parse("255.255.255.255");
-            IPEndPoint endPoint = new IPEndPoint(serverAddr, 9760);
+            var udpClient = new UdpClient();
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 9760);
             byte[] send_buffer = Encoding.ASCII.GetBytes(text);
-            sock.SendTo(send_buffer, endPoint);
+            udpClient.Send(send_buffer,send_buffer.Length, endPoint);
         }
 
 
