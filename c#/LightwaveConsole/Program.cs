@@ -19,19 +19,19 @@ namespace LightwaveConsole
                     switch (args[0].ToLowerInvariant())
                     {
                         case "device":
-                            x.DeviceOnOff(int.Parse(args[1]), int.Parse(args[2]), args[3].ToLowerInvariant() == "off");
+                            System.Console.WriteLine(x.DeviceOnOff(int.Parse(args[1]), int.Parse(args[2]), args[3].ToLowerInvariant() == "off"));
                             return 0;
                         case "dim":
-                            x.Dim(int.Parse(args[1]), int.Parse(args[2]), int.Parse(args[3]));
+                            System.Console.WriteLine(x.Dim(int.Parse(args[1]), int.Parse(args[2]), int.Parse(args[3])));
                             return 0;
                         case "heat":
-                            x.HeatOnOff(int.Parse(args[1]), args[3].ToLowerInvariant() == "off");
+                            System.Console.WriteLine(x.HeatOnOff(int.Parse(args[1]), args[3].ToLowerInvariant() == "off"));
                             return 0;
                         case "room":
-                            x.AllOff(int.Parse(args[1]));
+                            System.Console.WriteLine(x.AllOff(int.Parse(args[1])));
                             return 0;
                         case "mood":
-                            x.Mood(int.Parse(args[1]), int.Parse(args[2]));
+                            System.Console.WriteLine(x.Mood(int.Parse(args[1]), int.Parse(args[2])));
                             return 0;
                         case "raw":
                             x.sendRaw(args[1]);
