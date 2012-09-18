@@ -18,13 +18,21 @@ namespace LightwaveRF
     public delegate void responseEventHandler(object sender, string Data);
     public class API
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public API()
         {
             Random r = new Random();
             ind = r.Next(999);
         }
+        /// <summary>
+        /// index used for requests to the wifilink
+        /// </summary>
         int ind = 0;
-
+        /// <summary>
+        /// get the next index and return it.
+        /// </summary>
         private string nextind
         {
             get
@@ -33,10 +41,7 @@ namespace LightwaveRF
                 return(ind.ToString("000"));
             }
         }
-        
-
         private Thread listenthread;
-        private Thread responsethread;
         public event OnOffEventHandler OnOff;
         /// <summary>
         /// Regex for on/off
@@ -68,7 +73,9 @@ namespace LightwaveRF
         /// </summary>
         public Regex heatRegEx = new Regex("...,(!R)(?<Room>[0-9])(DhF)(?<State>[0-9])");//"533,!R" + Room + "DhF" + statestr + "|";
         public event rawEventHandler Raw;
-
+        /// <summary>
+        /// Listen for commands from other devices (and this device)
+        /// </summary>
         public void Listen()
         {
             listenthread = new Thread(new ThreadStart(listenThreadWorker));
@@ -76,6 +83,10 @@ namespace LightwaveRF
             listenthread.Start();
             //responsethread.Start();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>full string response from wifilink</returns>
         private string getResponse()
         {
             Socket sock = new Socket(AddressFamily.InterNetwork,
@@ -148,73 +159,72 @@ namespace LightwaveRF
                 sock.Close();
             }
         }
-
         /// <summary>
         /// Switches off all devices in room
         /// </summary>
         /// <param name="Room">Room to switch all off in.</param>
+        /// <returns>String "OK" otherwise error message</returns>
         public string AllOff(int room)
         {
             string text = nextind + ",!R" + room + @"Fa|";
             sendRaw(text);
             return getResponse().Replace(ind + ",", "");
         }
-
         /// <summary>
         /// capture commands and store them as a sequence.
         /// </summary>
         /// <param name="SequenceName"></param>
+        /// <returns>String "OK" otherwise error message</returns>
         public string recordsequence(string SequenceName)
         {
             throw new NotImplementedException();
         }
-
         /// <summary>
         /// Delete named sequence
         /// </summary>
         /// <param name="SequenceName"></param>
+        /// <returns>String "OK" otherwise error message</returns>
         public string deleteSequence(string SequenceName)
         {
             string text = nextind + ",!FxP\"" + SequenceName +"\"";
             sendRaw(text);
             return getResponse().Replace(ind + ",", "");
         }
-
         /// <summary>
         /// Start named sequence
         /// </summary>
         /// <param name="SequenceName"></param>
+        /// <returns>String "OK" otherwise error message</returns>
         public string startSequence(string SequenceName)
         {
             string text =nextind + "!FqP\"" + SequenceName +"\"|Start Sequence|\"" + SequenceName +"\"";
             sendRaw(text);
             return getResponse().Replace(ind + ",", "");
         }
-
         /// <summary>
         /// sets mood in room
         /// </summary>
         /// <param name="Room">room number </param>
         /// <param name="mood">mood number</param>
+        /// <returns>String "OK" otherwise error message</returns>
         public string Mood(int room, int mood)
         {
             string text = nextind + ",!R"+ room + @"FmP" + mood + @"|Room 1 Mood 1";
             sendRaw(text);
             return getResponse().Replace(ind + ",", "");
         }
-
         /// <summary>
         /// Save the mood preset
         /// </summary>
         /// <param name="room">room number </param>
         /// <param name="mood">mood number</param>
+        /// <returns>String "OK" otherwise error message</returns>
         public string SaveMood(int room, int mood)
         {
             string text = nextind + ",!R"+ room + @"FsP" + mood + @"|MOOD NOW SET";
             sendRaw(text);
             return getResponse().Replace(ind + ",", "");
         }
-
         /// <summary>
         /// Get reading from the wireless meter.
         /// </summary>
@@ -224,13 +234,13 @@ namespace LightwaveRF
             sendRaw(text);
             return getResponse().Replace(ind + ",", "");
         }
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <param name="percent">percentage level for the dim< eg. 50/param>
+        /// <returns>String "OK" otherwise error message</returns>
         public string Dim(int room, int device, int percent)
         {
             string pstr;
@@ -239,13 +249,13 @@ namespace LightwaveRF
             sendRaw(text);
             return getResponse().Replace(ind + ",", "");
         }
-
         /// <summary>
         /// send on/off command to a room/device
         /// </summary>
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <param name="state">state (0 or 1)</param>
+        /// <returns>String "OK" otherwise error message</returns>
         public string DeviceOnOff(int room, int device, bool state)
         {
             string statestr;
@@ -260,6 +270,7 @@ namespace LightwaveRF
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <param name="state">state (0 or 1)</param>
+        /// <returns>String "OK" otherwise error message</returns>
         public string HeatOnOff(int room, bool state)
         {
             string statestr;
@@ -279,7 +290,5 @@ namespace LightwaveRF
             byte[] send_buffer = Encoding.ASCII.GetBytes(text);
             udpClient.Send(send_buffer,send_buffer.Length, endPoint);
         }
-
-
     }
 }
