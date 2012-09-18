@@ -47,7 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\c#\lightwaverfAPI.csproj">
+    <ProjectReference Include="..\lightwaverfAPI.csproj">
       <Project>{8EBA73C2-BCB9-4F09-BFED-C2F8A7E959A4}</Project>
       <Name>lightwaverfAPI</Name>
     </ProjectReference>

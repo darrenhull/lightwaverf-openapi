@@ -18,6 +18,23 @@ namespace LightwaveRF
     public delegate void responseEventHandler(object sender, string Data);
     public class API
     {
+        public API()
+        {
+            Random r = new Random();
+            ind = r.Next(999);
+        }
+        int ind = 0;
+
+        private string nextind
+        {
+            get
+            {
+                ind++;
+                return(ind.ToString("000"));
+            }
+        }
+        
+
         private Thread listenthread;
         private Thread responsethread;
         public event OnOffEventHandler OnOff;
@@ -52,34 +69,31 @@ namespace LightwaveRF
         public Regex heatRegEx = new Regex("...,(!R)(?<Room>[0-9])(DhF)(?<State>[0-9])");//"533,!R" + Room + "DhF" + statestr + "|";
         public event rawEventHandler Raw;
 
-        public event responseEventHandler OnResponse;
         public void Listen()
         {
             listenthread = new Thread(new ThreadStart(listenThreadWorker));
-            responsethread = new Thread(new ThreadStart(responseThreadWorker));
+            //responsethread = new Thread(new ThreadStart(responseThreadWorker));
             listenthread.Start();
-            responsethread.Start();
+            //responsethread.Start();
         }
-        private void responseThreadWorker()
+        private string getResponse()
         {
             Socket sock = new Socket(AddressFamily.InterNetwork,
-                            SocketType.Dgram, ProtocolType.Udp);
+                SocketType.Dgram, ProtocolType.Udp);
+            sock.ReceiveTimeout = 1000;
             IPEndPoint iep = new IPEndPoint(IPAddress.Any, 9761);
             sock.Bind(iep);
             EndPoint ep = (EndPoint)iep;
-            Console.WriteLine("Ready to receive...");
             try
             {
-                while (true)
-                {
-                    byte[] data = new byte[1024];
-                    int recv = sock.ReceiveFrom(data, ref ep);
-                    string stringData = Encoding.ASCII.GetString(data, 0, recv);
-                    if (OnResponse != null)
-                    {
-                        OnResponse(this, stringData);
-                    }
-                }
+                byte[] data = new byte[1024];
+                int recv = sock.ReceiveFrom(data, ref ep);
+                string stringData = Encoding.ASCII.GetString(data, 0, recv);
+                return stringData;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
             }
             finally
             {
@@ -101,7 +115,7 @@ namespace LightwaveRF
                     byte[] data = new byte[1024];
                     int recv = sock.ReceiveFrom(data, ref ep);
                     string stringData = Encoding.ASCII.GetString(data, 0, recv);
-                    Raw(this,stringData);
+                    if(Raw !=null) Raw(this,stringData);
                     Match OnOffMatch = OnOffRegEx.Match(stringData);
                     Match AllOffMatch = allOffRegEx.Match(stringData);
                     Match MoodMatch = moodRegEx.Match(stringData);
@@ -139,10 +153,42 @@ namespace LightwaveRF
         /// Switches off all devices in room
         /// </summary>
         /// <param name="Room">Room to switch all off in.</param>
-        public void AllOff(int room)
+        public string AllOff(int room)
         {
-            string text = @"533,!R" + room + @"Fa|";
+            string text = nextind + ",!R" + room + @"Fa|";
             sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
+        }
+
+        /// <summary>
+        /// capture commands and store them as a sequence.
+        /// </summary>
+        /// <param name="SequenceName"></param>
+        public string recordsequence(string SequenceName)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Delete named sequence
+        /// </summary>
+        /// <param name="SequenceName"></param>
+        public string deleteSequence(string SequenceName)
+        {
+            string text = nextind + ",!FxP\"" + SequenceName +"\"";
+            sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
+        }
+
+        /// <summary>
+        /// Start named sequence
+        /// </summary>
+        /// <param name="SequenceName"></param>
+        public string startSequence(string SequenceName)
+        {
+            string text =nextind + "!FqP\"" + SequenceName +"\"|Start Sequence|\"" + SequenceName +"\"";
+            sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
         }
 
         /// <summary>
@@ -150,10 +196,33 @@ namespace LightwaveRF
         /// </summary>
         /// <param name="Room">room number </param>
         /// <param name="mood">mood number</param>
-        public void Mood(int room, int mood)
+        public string Mood(int room, int mood)
         {
-            string text = @"533,!R"+ room + @"FmP" + mood + @"|";
+            string text = nextind + ",!R"+ room + @"FmP" + mood + @"|Room 1 Mood 1";
             sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
+        }
+
+        /// <summary>
+        /// Save the mood preset
+        /// </summary>
+        /// <param name="room">room number </param>
+        /// <param name="mood">mood number</param>
+        public string SaveMood(int room, int mood)
+        {
+            string text = nextind + ",!R"+ room + @"FsP" + mood + @"|MOOD NOW SET";
+            sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
+        }
+
+        /// <summary>
+        /// Get reading from the wireless meter.
+        /// </summary>
+        public string GetMeterReading()
+        {
+            string text = nextind + ",@?W";
+            sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
         }
 
         /// <summary>
@@ -162,12 +231,13 @@ namespace LightwaveRF
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <param name="percent">percentage level for the dim< eg. 50/param>
-        public void Dim(int room, int device, int percent)
+        public string Dim(int room, int device, int percent)
         {
             string pstr;
             pstr = Math.Round(((double)percent / 100 * 32)).ToString();
-            string text = @"533,!R" + room + @"D" + device + @"FdP" + pstr + @"|";
+            string text = nextind + ",!R" + room + @"D" + device + @"FdP" + pstr + @"|";
             sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
         }
 
         /// <summary>
@@ -176,12 +246,13 @@ namespace LightwaveRF
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <param name="state">state (0 or 1)</param>
-        public void DeviceOnOff(int room, int device, bool state)
+        public string DeviceOnOff(int room, int device, bool state)
         {
             string statestr;
             if(state) statestr = "1"; else statestr = "0";
-            string text = @"533,!R" + room + @"D" + device + @"F" + statestr + @"|";
+            string text = nextind + ",!R" + room + @"D" + device + @"F" + statestr + @"|";
             sendRaw(text);
+            return getResponse().Replace(ind+",","");
         }
         /// <summary>
         /// send on/off command to a room/device
@@ -189,12 +260,13 @@ namespace LightwaveRF
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <param name="state">state (0 or 1)</param>
-        public void HeatOnOff(int room, bool state)
+        public string HeatOnOff(int room, bool state)
         {
             string statestr;
             if (state) statestr = "1"; else statestr = "0";
-            string text = @"533,!R" + room + @"DhF" + statestr + @"|";
+            string text = nextind + ",!R" + room + @"DhF" + statestr + @"|";
             sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
         }
         /// <summary>
         /// Send raw packet containing 'text' to the wifilink

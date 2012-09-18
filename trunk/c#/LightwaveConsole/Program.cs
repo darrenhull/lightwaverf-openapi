@@ -36,6 +36,15 @@ namespace LightwaveConsole
                         case "raw":
                             x.sendRaw(args[1]);
                             return 0;
+                        case "listen":
+                            x.Listen();
+                           // x.OnResponse += new responseEventHandler(x_OnResponse);
+                            x.Raw += new rawEventHandler(x_OnResponse);
+                            while( Console.ReadLine() == "")
+                            {
+
+                            }
+                            return 0;
                     }
                 }
                 catch (Exception ex)
@@ -53,6 +62,7 @@ namespace LightwaveConsole
             System.Console.WriteLine("All in room off        : LightwaveConsole Room   <room>");
             System.Console.WriteLine("Set mood in room       : LightwaveConsole Mood   <room> <mood>");
             System.Console.WriteLine("Send Raw data to wifi  : LightwaveConsole Raw    <Datatosend>");
+            System.Console.WriteLine("listen for response    : LightwaveConsole Listen");
             System.Console.WriteLine();
             System.Console.WriteLine("eg:");
             System.Console.WriteLine("LightwaveConsole Device 1 1 off");
@@ -62,6 +72,11 @@ namespace LightwaveConsole
             System.Console.WriteLine("LightwaveConsole Mood 1 1");
             System.Console.WriteLine("LightwaveConsole Raw 533!R1D1F1");
             return 1;
+        }
+
+        static void x_OnResponse(object sender, string Data)
+        {
+            System.Console.WriteLine(Data);
         }
     }
 }
