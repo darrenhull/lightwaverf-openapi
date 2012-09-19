@@ -75,5 +75,15 @@ namespace TestApp
             lblResponse.Text = apilistener.UnLockDevice(int.Parse(cmbRoom.SelectedItem.ToString()), int.Parse(cmbDevice.SelectedItem.ToString()));
         }
 
+        private void btnSaveMood_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = apilistener.SaveMood(int.Parse(cmbRoom.SelectedItem.ToString()), int.Parse(cmbMood.SelectedItem.ToString()));
+        }
+
+        private void btnSetMood_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = apilistener.Mood(int.Parse(cmbRoom.SelectedItem.ToString()), int.Parse(cmbMood.SelectedItem.ToString()));
+        }
+
     }
 }
