@@ -45,6 +45,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnLock = new System.Windows.Forms.Button();
             this.btnUnlock = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cmbMood = new System.Windows.Forms.ComboBox();
+            this.btnSaveMood = new System.Windows.Forms.Button();
+            this.btnSetMood = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmbRoom
@@ -166,7 +170,7 @@
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(325, 91);
+            this.lblMessage.Location = new System.Drawing.Point(325, 120);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(77, 13);
             this.lblMessage.TabIndex = 9;
@@ -184,7 +188,7 @@
             // lblResponse
             // 
             this.lblResponse.AutoSize = true;
-            this.lblResponse.Location = new System.Drawing.Point(325, 115);
+            this.lblResponse.Location = new System.Drawing.Point(325, 144);
             this.lblResponse.Name = "lblResponse";
             this.lblResponse.Size = new System.Drawing.Size(55, 13);
             this.lblResponse.TabIndex = 11;
@@ -203,7 +207,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(148, 91);
+            this.label3.Location = new System.Drawing.Point(148, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(171, 13);
             this.label3.TabIndex = 13;
@@ -212,7 +216,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(212, 115);
+            this.label5.Location = new System.Drawing.Point(212, 144);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(107, 13);
             this.label5.TabIndex = 14;
@@ -238,11 +242,62 @@
             this.btnUnlock.UseVisualStyleBackColor = true;
             this.btnUnlock.Click += new System.EventHandler(this.btnUnlock_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 70);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(34, 13);
+            this.label6.TabIndex = 18;
+            this.label6.Text = "Mood";
+            // 
+            // cmbMood
+            // 
+            this.cmbMood.FormattingEnabled = true;
+            this.cmbMood.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"});
+            this.cmbMood.Location = new System.Drawing.Point(54, 67);
+            this.cmbMood.Name = "cmbMood";
+            this.cmbMood.Size = new System.Drawing.Size(182, 21);
+            this.cmbMood.TabIndex = 17;
+            this.cmbMood.Text = "1";
+            // 
+            // btnSaveMood
+            // 
+            this.btnSaveMood.Location = new System.Drawing.Point(283, 69);
+            this.btnSaveMood.Name = "btnSaveMood";
+            this.btnSaveMood.Size = new System.Drawing.Size(76, 23);
+            this.btnSaveMood.TabIndex = 20;
+            this.btnSaveMood.Text = "SaveMood";
+            this.btnSaveMood.UseVisualStyleBackColor = true;
+            this.btnSaveMood.Click += new System.EventHandler(this.btnSaveMood_Click);
+            // 
+            // btnSetMood
+            // 
+            this.btnSetMood.Location = new System.Drawing.Point(365, 70);
+            this.btnSetMood.Name = "btnSetMood";
+            this.btnSetMood.Size = new System.Drawing.Size(62, 23);
+            this.btnSetMood.TabIndex = 19;
+            this.btnSetMood.Text = "SetMood";
+            this.btnSetMood.UseVisualStyleBackColor = true;
+            this.btnSetMood.Click += new System.EventHandler(this.btnSetMood_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(631, 189);
+            this.Controls.Add(this.btnSaveMood);
+            this.Controls.Add(this.btnSetMood);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.cmbMood);
             this.Controls.Add(this.btnUnlock);
             this.Controls.Add(this.btnLock);
             this.Controls.Add(this.label5);
@@ -287,6 +342,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnLock;
         private System.Windows.Forms.Button btnUnlock;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox cmbMood;
+        private System.Windows.Forms.Button btnSaveMood;
+        private System.Windows.Forms.Button btnSetMood;
     }
 }
 
