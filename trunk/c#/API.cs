@@ -306,6 +306,18 @@ namespace LightwaveRF
             sendRaw(text);
             return getResponse().Replace(ind + ",", "");
         }
+                /// <summary>
+        /// unlock device
+        /// </summary>
+        /// <param name="Room">room number </param>
+        /// <param name="Device">device number</param>
+        /// <returns>String "OK" otherwise error message</returns>
+        public string UnLockDevice(int room, int device)
+        {
+            string text = nextind + ",!R" + room + @"D" + device + "Fu|";
+            sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
+        }
 
         /// <summary>
         /// open the device
