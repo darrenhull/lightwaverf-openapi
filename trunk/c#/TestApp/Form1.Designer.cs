@@ -37,7 +37,6 @@
             this.cmbPct = new System.Windows.Forms.ComboBox();
             this.HeatOn = new System.Windows.Forms.Button();
             this.HeatOff = new System.Windows.Forms.Button();
-            this.lblMessage = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblResponse = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -50,6 +49,7 @@
             this.btnSaveMood = new System.Windows.Forms.Button();
             this.btnSetMood = new System.Windows.Forms.Button();
             this.btnFullLock = new System.Windows.Forms.Button();
+            this.txtcommands = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // cmbRoom
@@ -168,15 +168,6 @@
             this.HeatOff.UseVisualStyleBackColor = true;
             this.HeatOff.Click += new System.EventHandler(this.HeatOff_Click);
             // 
-            // lblMessage
-            // 
-            this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(325, 120);
-            this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(77, 13);
-            this.lblMessage.TabIndex = 9;
-            this.lblMessage.Text = "Last Command";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -189,7 +180,7 @@
             // lblResponse
             // 
             this.lblResponse.AutoSize = true;
-            this.lblResponse.Location = new System.Drawing.Point(325, 144);
+            this.lblResponse.Location = new System.Drawing.Point(129, 91);
             this.lblResponse.Name = "lblResponse";
             this.lblResponse.Size = new System.Drawing.Size(55, 13);
             this.lblResponse.TabIndex = 11;
@@ -208,20 +199,20 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(148, 120);
+            this.label3.Location = new System.Drawing.Point(7, 111);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(171, 13);
+            this.label3.Size = new System.Drawing.Size(106, 13);
             this.label3.TabIndex = 13;
-            this.label3.Text = "Last command sent by any device:";
+            this.label3.Text = "Detected Commands";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(212, 144);
+            this.label5.Location = new System.Drawing.Point(5, 91);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(107, 13);
+            this.label5.Size = new System.Drawing.Size(118, 13);
             this.label5.TabIndex = 14;
-            this.label5.Text = "response from wifilink";
+            this.label5.Text = "Response From Wifilink";
             // 
             // btnLock
             // 
@@ -300,11 +291,20 @@
             this.btnFullLock.UseVisualStyleBackColor = true;
             this.btnFullLock.Click += new System.EventHandler(this.btnFullLock_Click);
             // 
+            // txtcommands
+            // 
+            this.txtcommands.Location = new System.Drawing.Point(132, 111);
+            this.txtcommands.Multiline = true;
+            this.txtcommands.Name = "txtcommands";
+            this.txtcommands.Size = new System.Drawing.Size(567, 299);
+            this.txtcommands.TabIndex = 22;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 189);
+            this.ClientSize = new System.Drawing.Size(698, 419);
+            this.Controls.Add(this.txtcommands);
             this.Controls.Add(this.btnFullLock);
             this.Controls.Add(this.btnSaveMood);
             this.Controls.Add(this.btnSetMood);
@@ -317,7 +317,6 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblResponse);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.HeatOff);
             this.Controls.Add(this.HeatOn);
             this.Controls.Add(this.cmbPct);
@@ -346,7 +345,6 @@
         private System.Windows.Forms.ComboBox cmbPct;
         private System.Windows.Forms.Button HeatOn;
         private System.Windows.Forms.Button HeatOff;
-        private System.Windows.Forms.Label lblMessage;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblResponse;
         private System.Windows.Forms.Button button1;
@@ -359,6 +357,7 @@
         private System.Windows.Forms.Button btnSaveMood;
         private System.Windows.Forms.Button btnSetMood;
         private System.Windows.Forms.Button btnFullLock;
+        private System.Windows.Forms.TextBox txtcommands;
     }
 }
 

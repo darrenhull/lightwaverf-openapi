@@ -14,7 +14,7 @@ namespace TestApp
         public LightwaveRF.API apilistener = new LightwaveRF.API();
         private void apilistener_Raw(object sender, string rawData)
         {
-            lblMessage.Invoke(new MethodInvoker(delegate { lblMessage.Text = rawData; }));
+            txtcommands.Invoke(new MethodInvoker(delegate { txtcommands.Text += rawData + Environment.NewLine; }));
         }
 
         public Form1()
@@ -31,38 +31,32 @@ namespace TestApp
 
         private void btnOn_Click(object sender, EventArgs e)
         {
-            var x = new LightwaveRF.API();
-            lblResponse.Text = x.DeviceOnOff(int.Parse(cmbRoom.SelectedItem.ToString()), int.Parse(cmbDevice.SelectedItem.ToString()), true);
+            lblResponse.Text = apilistener.DeviceOnOff(int.Parse(cmbRoom.SelectedItem.ToString()), int.Parse(cmbDevice.SelectedItem.ToString()), true);
         }
 
         private void btnOff_Click(object sender, EventArgs e)
         {
-            var x = new LightwaveRF.API();
-            lblResponse.Text = x.DeviceOnOff(int.Parse(cmbRoom.SelectedItem.ToString()), int.Parse(cmbDevice.SelectedItem.ToString()), false);
+            lblResponse.Text = apilistener.DeviceOnOff(int.Parse(cmbRoom.SelectedItem.ToString()), int.Parse(cmbDevice.SelectedItem.ToString()), false);
         }
 
         private void HeatOn_Click(object sender, EventArgs e)
         {
-            var x = new LightwaveRF.API();
-            lblResponse.Text = x.HeatOnOff(int.Parse(cmbRoom.SelectedItem.ToString()), true);
+            lblResponse.Text = apilistener.HeatOnOff(int.Parse(cmbRoom.SelectedItem.ToString()), true);
         }
 
         private void HeatOff_Click(object sender, EventArgs e)
         {
-            var x = new LightwaveRF.API();
-            lblResponse.Text = x.HeatOnOff(int.Parse(cmbRoom.SelectedItem.ToString()), false);
+            lblResponse.Text = apilistener.HeatOnOff(int.Parse(cmbRoom.SelectedItem.ToString()), false);
         }
 
         private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            var x = new LightwaveRF.API();
-            lblResponse.Text = x.Dim(int.Parse(cmbRoom.SelectedItem.ToString()), int.Parse(cmbDevice.SelectedItem.ToString()), int.Parse(cmbPct.Text));
+            lblResponse.Text = apilistener.Dim(int.Parse(cmbRoom.SelectedItem.ToString()), int.Parse(cmbDevice.SelectedItem.ToString()), int.Parse(cmbPct.Text));
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var x = new LightwaveRF.API();
-            lblResponse.Text = x.AllOff(int.Parse(cmbRoom.SelectedItem.ToString()));
+            lblResponse.Text = apilistener.AllOff(int.Parse(cmbRoom.SelectedItem.ToString()));
         }
 
         private void btnLock_Click(object sender, EventArgs e)
