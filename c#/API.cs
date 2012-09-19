@@ -167,8 +167,7 @@ namespace LightwaveRF
         public string AllOff(int room)
         {
             string text = nextind + ",!R" + room + @"Fa|";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
         /// <summary>
         /// capture commands and store them as a sequence.
@@ -187,8 +186,7 @@ namespace LightwaveRF
         public string deleteSequence(string SequenceName)
         {
             string text = nextind + ",!FxP\"" + SequenceName +"\"";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
         /// <summary>
         /// Start named sequence
@@ -198,8 +196,7 @@ namespace LightwaveRF
         public string startSequence(string SequenceName)
         {
             string text =nextind + "!FqP\"" + SequenceName +"\"|Start Sequence|\"" + SequenceName +"\"";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
         /// <summary>
         /// sets mood in room
@@ -210,8 +207,7 @@ namespace LightwaveRF
         public string Mood(int room, int mood)
         {
             string text = nextind + ",!R"+ room + @"FmP" + mood + @"|Room 1 Mood 1";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
         /// <summary>
         /// Save the mood preset
@@ -222,8 +218,7 @@ namespace LightwaveRF
         public string SaveMood(int room, int mood)
         {
             string text = nextind + ",!R"+ room + @"FsP" + mood + @"|MOOD NOW SET";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
         /// <summary>
         /// Get reading from the wireless meter.
@@ -231,8 +226,7 @@ namespace LightwaveRF
         public string GetMeterReading()
         {
             string text = nextind + ",@?W";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
         /// <summary>
         /// 
@@ -247,8 +241,7 @@ namespace LightwaveRF
             if (percent == 0) percent = 1;
             pstr = Math.Round(((double)percent / 100 * 32)).ToString();
             string text = nextind + ",!R" + room + @"D" + device + @"FdP" + pstr + @"|";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
         /// <summary>
         /// send on/off command to a room/device
@@ -262,8 +255,7 @@ namespace LightwaveRF
             string statestr;
             if(state) statestr = "1"; else statestr = "0";
             string text = nextind + ",!R" + room + @"D" + device + @"F" + statestr + @"|";
-            sendRaw(text);
-            return getResponse().Replace(ind+",","");
+            return sendRaw(text).Replace(ind + ",", "");
         }
         /// <summary>
         /// send on/off command to a room/device
@@ -277,8 +269,7 @@ namespace LightwaveRF
             string statestr;
             if (state) statestr = "1"; else statestr = "0";
             string text = nextind + ",!R" + room + @"DhF" + statestr + @"|";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
         
         /// <summary>
@@ -290,8 +281,7 @@ namespace LightwaveRF
         public string ManualLockDevice(int room, int device)
         {
             string text = nextind + ",!R" + room + @"D" + device + "Fk|";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
 
         /// <summary>
@@ -303,8 +293,7 @@ namespace LightwaveRF
         public string FullLockDevice(int room, int device)
         {
             string text = nextind + ",!R" + room + @"D" + device + "Fl|";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
                 /// <summary>
         /// unlock device
@@ -315,8 +304,7 @@ namespace LightwaveRF
         public string UnLockDevice(int room, int device)
         {
             string text = nextind + ",!R" + room + @"D" + device + "Fu|";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
 
         /// <summary>
@@ -328,8 +316,7 @@ namespace LightwaveRF
         public string OpenDevice(int room, int device)
         {
             string text = nextind + ",!R" + room + @"D" + device + "F)|";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
 
         /// <summary>
@@ -341,8 +328,7 @@ namespace LightwaveRF
         public string CloseDevice(int room, int device)
         {
             string text = nextind + ",!R" + room + @"D" + device + "F(|";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
 
         /// <summary>
@@ -354,8 +340,7 @@ namespace LightwaveRF
         public string StopDevice(int room, int device)
         {
             string text = nextind + ",!R" + room + @"D" + device + "F^|";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
 
         /// <summary>
@@ -365,8 +350,7 @@ namespace LightwaveRF
         public string CancelAllSequencesAndTimers()
         {
             string text = nextind + ",!FcP\"*\"|";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
 
         /// <summary>
@@ -376,8 +360,7 @@ namespace LightwaveRF
         public string DeleteAllSequencesAndTimers()
         {
             string text = nextind + ",!FxP\"*\"|";
-            sendRaw(text);
-            return getResponse().Replace(ind + ",", "");
+            return sendRaw(text).Replace(ind + ",", "");
         }
 
         /// <summary>
