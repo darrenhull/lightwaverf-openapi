@@ -43,6 +43,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnLock = new System.Windows.Forms.Button();
+            this.btnUnlock = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmbRoom
@@ -83,7 +85,7 @@
             // 
             // btnOn
             // 
-            this.btnOn.Location = new System.Drawing.Point(57, 85);
+            this.btnOn.Location = new System.Drawing.Point(328, 40);
             this.btnOn.Name = "btnOn";
             this.btnOn.Size = new System.Drawing.Size(32, 23);
             this.btnOn.TabIndex = 2;
@@ -93,7 +95,7 @@
             // 
             // btnOff
             // 
-            this.btnOff.Location = new System.Drawing.Point(12, 85);
+            this.btnOff.Location = new System.Drawing.Point(283, 40);
             this.btnOff.Name = "btnOff";
             this.btnOff.Size = new System.Drawing.Size(39, 23);
             this.btnOff.TabIndex = 3;
@@ -134,7 +136,7 @@
             "80",
             "90",
             "100"});
-            this.cmbPct.Location = new System.Drawing.Point(159, 85);
+            this.cmbPct.Location = new System.Drawing.Point(530, 43);
             this.cmbPct.Name = "cmbPct";
             this.cmbPct.Size = new System.Drawing.Size(77, 21);
             this.cmbPct.TabIndex = 6;
@@ -164,7 +166,7 @@
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(186, 124);
+            this.lblMessage.Location = new System.Drawing.Point(325, 91);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(77, 13);
             this.lblMessage.TabIndex = 9;
@@ -173,7 +175,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(111, 88);
+            this.label4.Location = new System.Drawing.Point(482, 46);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 10;
@@ -182,7 +184,7 @@
             // lblResponse
             // 
             this.lblResponse.AutoSize = true;
-            this.lblResponse.Location = new System.Drawing.Point(186, 148);
+            this.lblResponse.Location = new System.Drawing.Point(325, 115);
             this.lblResponse.Name = "lblResponse";
             this.lblResponse.Size = new System.Drawing.Size(55, 13);
             this.lblResponse.TabIndex = 11;
@@ -201,7 +203,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 124);
+            this.label3.Location = new System.Drawing.Point(148, 91);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(171, 13);
             this.label3.TabIndex = 13;
@@ -210,17 +212,39 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(73, 148);
+            this.label5.Location = new System.Drawing.Point(212, 115);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(107, 13);
             this.label5.TabIndex = 14;
             this.label5.Text = "response from wifilink";
             // 
+            // btnLock
+            // 
+            this.btnLock.Location = new System.Drawing.Point(366, 40);
+            this.btnLock.Name = "btnLock";
+            this.btnLock.Size = new System.Drawing.Size(40, 23);
+            this.btnLock.TabIndex = 15;
+            this.btnLock.Text = "Lock";
+            this.btnLock.UseVisualStyleBackColor = true;
+            this.btnLock.Click += new System.EventHandler(this.btnLock_Click);
+            // 
+            // btnUnlock
+            // 
+            this.btnUnlock.Location = new System.Drawing.Point(412, 41);
+            this.btnUnlock.Name = "btnUnlock";
+            this.btnUnlock.Size = new System.Drawing.Size(61, 23);
+            this.btnUnlock.TabIndex = 16;
+            this.btnUnlock.Text = "UnLock";
+            this.btnUnlock.UseVisualStyleBackColor = true;
+            this.btnUnlock.Click += new System.EventHandler(this.btnUnlock_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 201);
+            this.ClientSize = new System.Drawing.Size(631, 189);
+            this.Controls.Add(this.btnUnlock);
+            this.Controls.Add(this.btnLock);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button1);
@@ -261,6 +285,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnLock;
+        private System.Windows.Forms.Button btnUnlock;
     }
 }
 
