@@ -65,5 +65,15 @@ namespace TestApp
             lblResponse.Text = x.AllOff(int.Parse(cmbRoom.SelectedItem.ToString()));
         }
 
+        private void btnLock_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = apilistener.FullLockDevice(int.Parse(cmbRoom.SelectedItem.ToString()), int.Parse(cmbDevice.SelectedItem.ToString()));
+        }
+
+        private void btnUnlock_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = apilistener.UnLockDevice(int.Parse(cmbRoom.SelectedItem.ToString()), int.Parse(cmbDevice.SelectedItem.ToString()));
+        }
+
     }
 }
