@@ -244,6 +244,7 @@ namespace LightwaveRF
         public string Dim(int room, int device, int percent)
         {
             string pstr;
+            if (percent == 0) percent = 1;
             pstr = Math.Round(((double)percent / 100 * 32)).ToString();
             string text = nextind + ",!R" + room + @"D" + device + @"FdP" + pstr + @"|";
             sendRaw(text);
@@ -279,6 +280,94 @@ namespace LightwaveRF
             sendRaw(text);
             return getResponse().Replace(ind + ",", "");
         }
+        
+        /// <summary>
+        /// lock the manual switch of a device (eg socket)
+        /// </summary>
+        /// <param name="Room">room number </param>
+        /// <param name="Device">device number</param>
+        /// <returns>String "OK" otherwise error message</returns>
+        public string ManualLockDevice(int room, int device)
+        {
+            string text = nextind + ",!R" + room + @"D" + device + "Fk|";
+            sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
+        }
+
+        /// <summary>
+        /// full lock the device (eg socket) (wifi, and radio)
+        /// </summary>
+        /// <param name="Room">room number </param>
+        /// <param name="Device">device number</param>
+        /// <returns>String "OK" otherwise error message</returns>
+        public string FullLockDevice(int room, int device)
+        {
+            string text = nextind + ",!R" + room + @"D" + device + "Fl|";
+            sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
+        }
+
+        /// <summary>
+        /// open the device
+        /// </summary>
+        /// <param name="Room">room number </param>
+        /// <param name="Device">device number</param>
+        /// <returns>String "OK" otherwise error message</returns>
+        public string OpenDevice(int room, int device)
+        {
+            string text = nextind + ",!R" + room + @"D" + device + "F)|";
+            sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
+        }
+
+        /// <summary>
+        /// close the device
+        /// </summary>
+        /// <param name="Room">room number </param>
+        /// <param name="Device">device number</param>
+        /// <returns>String "OK" otherwise error message</returns>
+        public string CloseDevice(int room, int device)
+        {
+            string text = nextind + ",!R" + room + @"D" + device + "F(|";
+            sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
+        }
+
+        /// <summary>
+        /// stop the device
+        /// </summary>
+        /// <param name="Room">room number </param>
+        /// <param name="Device">device number</param>
+        /// <returns>String "OK" otherwise error message</returns>
+        public string StopDevice(int room, int device)
+        {
+            string text = nextind + ",!R" + room + @"D" + device + "F^|";
+            sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
+        }
+
+        /// <summary>
+        /// Cancels all sequences and timers in the wifilink box
+        /// </summary>
+        /// <returns>String "OK" otherwise error message</returns>
+        public string CancelAllSequencesAndTimers()
+        {
+            string text = nextind + ",!FcP\"*\"|";
+            sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
+        }
+
+        /// <summary>
+        /// Delete all sequences and timers in the wifilink box
+        /// </summary>
+        /// <returns>String "OK" otherwise error message</returns>
+        public string DeleteAllSequencesAndTimers()
+        {
+            string text = nextind + ",!FxP\"*\"|";
+            sendRaw(text);
+            return getResponse().Replace(ind + ",", "");
+        }
+
         /// <summary>
         /// Send raw packet containing 'text' to the wifilink
         /// </summary>
