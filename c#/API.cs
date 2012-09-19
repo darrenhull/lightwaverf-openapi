@@ -384,12 +384,13 @@ namespace LightwaveRF
         /// Send raw packet containing 'text' to the wifilink
         /// </summary>
         /// <param name="text">contents of packet.</param>
-        public void sendRaw(string text)
+        public string sendRaw(string text)
         {
             var udpClient = new UdpClient();
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 9760);
             byte[] send_buffer = Encoding.ASCII.GetBytes(text);
-            udpClient.Send(send_buffer,send_buffer.Length, endPoint);
+            udpClient.Send(send_buffer, send_buffer.Length, endPoint);
+            return getResponse().Replace(ind + ",", "");
         }
     }
 }

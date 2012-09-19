@@ -25,7 +25,7 @@ namespace LightwaveConsole
                             System.Console.WriteLine(x.Dim(int.Parse(args[1]), int.Parse(args[2]), int.Parse(args[3])));
                             return 0;
                         case "heat":
-                            System.Console.WriteLine(x.HeatOnOff(int.Parse(args[1]), args[3].ToLowerInvariant() == "off"));
+                            System.Console.WriteLine(x.HeatOnOff(int.Parse(args[1]), args[2].ToLowerInvariant() == "off"));
                             return 0;
                         case "room":
                             System.Console.WriteLine(x.AllOff(int.Parse(args[1])));
@@ -34,7 +34,7 @@ namespace LightwaveConsole
                             System.Console.WriteLine(x.Mood(int.Parse(args[1]), int.Parse(args[2])));
                             return 0;
                         case "raw":
-                            x.sendRaw(args[1]);
+                            System.Console.WriteLine(x.sendRaw(args[1]));
                             return 0;
                         case "listen":
                             x.Listen();
