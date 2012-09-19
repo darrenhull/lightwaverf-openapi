@@ -49,6 +49,7 @@
             this.cmbMood = new System.Windows.Forms.ComboBox();
             this.btnSaveMood = new System.Windows.Forms.Button();
             this.btnSetMood = new System.Windows.Forms.Button();
+            this.btnFullLock = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmbRoom
@@ -140,7 +141,7 @@
             "80",
             "90",
             "100"});
-            this.cmbPct.Location = new System.Drawing.Point(530, 43);
+            this.cmbPct.Location = new System.Drawing.Point(588, 42);
             this.cmbPct.Name = "cmbPct";
             this.cmbPct.Size = new System.Drawing.Size(77, 21);
             this.cmbPct.TabIndex = 6;
@@ -179,7 +180,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(482, 46);
+            this.label4.Location = new System.Drawing.Point(540, 45);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 10;
@@ -234,7 +235,7 @@
             // 
             // btnUnlock
             // 
-            this.btnUnlock.Location = new System.Drawing.Point(412, 41);
+            this.btnUnlock.Location = new System.Drawing.Point(470, 40);
             this.btnUnlock.Name = "btnUnlock";
             this.btnUnlock.Size = new System.Drawing.Size(61, 23);
             this.btnUnlock.TabIndex = 16;
@@ -289,11 +290,22 @@
             this.btnSetMood.UseVisualStyleBackColor = true;
             this.btnSetMood.Click += new System.EventHandler(this.btnSetMood_Click);
             // 
+            // btnFullLock
+            // 
+            this.btnFullLock.Location = new System.Drawing.Point(409, 40);
+            this.btnFullLock.Name = "btnFullLock";
+            this.btnFullLock.Size = new System.Drawing.Size(60, 23);
+            this.btnFullLock.TabIndex = 21;
+            this.btnFullLock.Text = "FullLock";
+            this.btnFullLock.UseVisualStyleBackColor = true;
+            this.btnFullLock.Click += new System.EventHandler(this.btnFullLock_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(631, 189);
+            this.ClientSize = new System.Drawing.Size(698, 189);
+            this.Controls.Add(this.btnFullLock);
             this.Controls.Add(this.btnSaveMood);
             this.Controls.Add(this.btnSetMood);
             this.Controls.Add(this.label6);
@@ -346,6 +358,7 @@
         private System.Windows.Forms.ComboBox cmbMood;
         private System.Windows.Forms.Button btnSaveMood;
         private System.Windows.Forms.Button btnSetMood;
+        private System.Windows.Forms.Button btnFullLock;
     }
 }
 
