@@ -2,7 +2,7 @@
 <plugin-description xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="3.0">
 <plugin-name>LightWaveRF</plugin-name>
 <plugin-id>3492d781-2f95-4284-b380-79c22c8b1140</plugin-id>
-<plugin-version>1.0.0</plugin-version>
+<plugin-version>1.0.2</plugin-version>
 <plugin-state>alpha</plugin-state>
 <short-description>
 interface for the wifilink LightWaveRF device</short-description>
