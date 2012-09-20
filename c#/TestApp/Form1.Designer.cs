@@ -50,6 +50,8 @@
             this.btnSetMood = new System.Windows.Forms.Button();
             this.btnFullLock = new System.Windows.Forms.Button();
             this.txtcommands = new System.Windows.Forms.TextBox();
+            this.btnRecordSequence = new System.Windows.Forms.Button();
+            this.txtSequence = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // cmbRoom
@@ -299,11 +301,31 @@
             this.txtcommands.Size = new System.Drawing.Size(567, 299);
             this.txtcommands.TabIndex = 22;
             // 
+            // btnRecordSequence
+            // 
+            this.btnRecordSequence.Location = new System.Drawing.Point(579, 70);
+            this.btnRecordSequence.Name = "btnRecordSequence";
+            this.btnRecordSequence.Size = new System.Drawing.Size(120, 23);
+            this.btnRecordSequence.TabIndex = 23;
+            this.btnRecordSequence.Text = "Record Sequence";
+            this.btnRecordSequence.UseVisualStyleBackColor = true;
+            this.btnRecordSequence.Click += new System.EventHandler(this.btnRecordSequence_Click);
+            // 
+            // txtSequence
+            // 
+            this.txtSequence.Location = new System.Drawing.Point(461, 71);
+            this.txtSequence.Name = "txtSequence";
+            this.txtSequence.Size = new System.Drawing.Size(121, 20);
+            this.txtSequence.TabIndex = 24;
+            this.txtSequence.Text = "SequenceName";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(698, 419);
+            this.Controls.Add(this.txtSequence);
+            this.Controls.Add(this.btnRecordSequence);
             this.Controls.Add(this.txtcommands);
             this.Controls.Add(this.btnFullLock);
             this.Controls.Add(this.btnSaveMood);
@@ -358,6 +380,8 @@
         private System.Windows.Forms.Button btnSetMood;
         private System.Windows.Forms.Button btnFullLock;
         private System.Windows.Forms.TextBox txtcommands;
+        private System.Windows.Forms.Button btnRecordSequence;
+        private System.Windows.Forms.TextBox txtSequence;
     }
 }
 

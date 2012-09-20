@@ -18,6 +18,9 @@ namespace LightwaveRF
     public delegate void responseEventHandler(object sender, string Data);
     public class API
     {
+        private string RecordedSequence = "";
+        private string RecordedSequenceName = "";
+        private Thread recordsequencethread = null;
         /// <summary>
         /// 
         /// </summary>
@@ -78,10 +81,13 @@ namespace LightwaveRF
         /// </summary>
         public void Listen()
         {
-            listenthread = new Thread(new ThreadStart(listenThreadWorker));
-            //responsethread = new Thread(new ThreadStart(responseThreadWorker));
-            listenthread.Start();
-            //responsethread.Start();
+            if (listenthread == null)
+            {
+                listenthread = new Thread(new ThreadStart(listenThreadWorker));
+                //responsethread = new Thread(new ThreadStart(responseThreadWorker));
+                listenthread.Start();
+                //responsethread.Start();
+            }
         }
         /// <summary>
         /// 
@@ -169,15 +175,49 @@ namespace LightwaveRF
             string text = nextind + ",!R" + room + @"Fa|";
             return sendRaw(text).Replace(ind + ",", "");
         }
+
         /// <summary>
-        /// capture commands and store them as a sequence.
+        /// capture commands and store them as a sequence. 
+        /// will listen for 1 minute after it is told to do this, and record all the commands in that minute to a sequence
         /// </summary>
         /// <param name="SequenceName"></param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string recordsequence(string SequenceName)
+        public string RecordSequence(string SequenceName)
         {
-            throw new NotImplementedException();
+            if (recordsequencethread == null || recordsequencethread.ThreadState==ThreadState.Stopped)
+            {
+                RecordedSequenceName = SequenceName;
+                recordsequencethread = new Thread(new ThreadStart(recordSequenceWorker));
+                recordsequencethread.Start();
+                return "Recording for 20 seconds and will save as " + SequenceName;
+            }
+            return "All ready recording" + RecordedSequenceName + ", wait till that is finished";
         }
+
+        public void recordSequenceWorker()
+        {
+            try
+            {
+                RecordedSequence = "!FeP\"" + RecordedSequenceName + "\"=";
+                Raw += AddEventToSequence;
+                this.Listen();
+                System.Threading.Thread.Sleep(20000);
+                RecordedSequence = RecordedSequence.Substring(0,RecordedSequence.Length -1);
+                Raw -= AddEventToSequence;
+                sendRaw(RecordedSequence);
+                RecordedSequence = "";
+            }
+            finally
+            {
+            }
+        }
+        private void AddEventToSequence(object sender, string rawData)
+        {
+            //!FeP"Test"=!R1D1F1,00:00:03,!R1Fa,00:00:03,!R1D2F0,00:00:03
+            string command = rawData.Substring(4);
+            RecordedSequence = RecordedSequence + command +",00:00:03,";
+        }
+
         /// <summary>
         /// Delete named sequence
         /// </summary>
