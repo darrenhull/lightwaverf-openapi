@@ -194,6 +194,9 @@ namespace LightwaveRF
             return "All ready recording" + RecordedSequenceName + ", wait till that is finished";
         }
 
+        /// <summary>
+        /// capture commands for 20 seconds and store them in the sequence
+        /// </summary>
         public void recordSequenceWorker()
         {
             try
@@ -228,6 +231,33 @@ namespace LightwaveRF
             string text = nextind + ",!FxP\"" + SequenceName +"\"";
             return sendRaw(text).Replace(ind + ",", "");
         }
+
+        /// <summary>
+        /// runs a sequence at the specified time
+        /// </summary>
+        /// <returns></returns>
+        public string saveTimer(string timername,string SequenceName, DateTime AtDateTime)
+        {
+            //130,!FiP"T20120920233337"=!FqP"Test",T01:20,S25/09/12
+            DateTime now = DateTime.Now;
+            string atdatetimeformatted = "T" + AtDateTime.Hour.ToString("00") + ":" + AtDateTime.Minute.ToString("00") + ",S" + AtDateTime.Day.ToString("00") + "/" + AtDateTime.Month.ToString("00") + "/" + AtDateTime.Day.ToString("00");
+            string formattednowstring = "T" + now.Year.ToString("0000") + now.Month.ToString("00") + now.Day.ToString("00") + now.Hour.ToString("00") + now.Minute.ToString("00") + now.Second.ToString("00");
+            string text = nextind + "!FiPT\"" + timername +"\"=FqP\"" + SequenceName + "\"," + atdatetimeformatted;
+            return sendRaw(text).Replace(ind + ",", "");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="timername"></param>
+        /// <returns></returns>
+        public string cancelTimer(string timername)
+        {
+            //440,!FiP"T20120920234815"=!FqP"Test",T00:50,E20/11/12,S01/00/00            //441,!FxP"T201209202348"
+            string text = "!FxP\"" + timername + "\"";
+            return sendRaw(text).Replace(ind + ",", "");
+        }
+
         /// <summary>
         /// Start named sequence
         /// </summary>
