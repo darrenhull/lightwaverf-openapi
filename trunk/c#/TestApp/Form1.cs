@@ -84,5 +84,10 @@ namespace TestApp
             lblResponse.Text = apilistener.FullLockDevice(int.Parse(cmbRoom.SelectedItem.ToString()), int.Parse(cmbDevice.SelectedItem.ToString()));
         }
 
+        private void btnRecordSequence_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = apilistener.RecordSequence(txtSequence.Text);
+        }
+
     }
 }
