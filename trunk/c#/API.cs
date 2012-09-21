@@ -257,7 +257,8 @@ namespace LightwaveRF
         /// <returns></returns>
         public string cancelTimer(string timername)
         {
-            //440,!FiP"T20120920234815"=!FqP"Test",T00:50,E20/11/12,S01/00/00            //441,!FxP"T201209202348"
+            //440,!FiP"T20120920234815"=!FqP"Test",T00:50,E20/11/12,S01/00/00
+            //441,!FxP"T201209202348"
             string text = "!FxP\"" + timername + "\"";
             return sendRaw(text).Replace(ind + ",", "");
         }
