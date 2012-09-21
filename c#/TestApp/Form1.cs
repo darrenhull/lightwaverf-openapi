@@ -12,9 +12,11 @@ namespace TestApp
     public partial class Form1 : Form
     {
         public LightwaveRF.API apilistener = new LightwaveRF.API();
+        string lastcommand = "";
         private void apilistener_Raw(object sender, string rawData)
         {
             txtcommands.Invoke(new MethodInvoker(delegate { txtcommands.Text += rawData + Environment.NewLine; }));
+            lastcommand = rawData;
         }
 
         public Form1()
@@ -88,6 +90,32 @@ namespace TestApp
         {
             lblResponse.Text = apilistener.RecordSequence(txtSequence.Text);
         }
+
+        private void btnRunSequence_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = apilistener.startSequence(txtSequence.Text);
+        }
+
+        private void btnAllHeatOff_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = apilistener.AllHeat(false);                
+        }
+
+        private void btnMaintainRadiatorOff_Click(object sender, EventArgs e)
+        {
+            apilistener.KeepRadiatorState(1,DateTime.Now.AddDays(1));
+        }
+
+        private void btnAllHeatOn_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = apilistener.AllHeat(true);
+        }
+
+        private void btnSendRaw_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = apilistener.sendRaw(txtSendRaw.Text);
+        }
+
 
     }
 }

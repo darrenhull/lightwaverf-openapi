@@ -13,7 +13,7 @@ namespace LightwaveRF
     public delegate void AllOffEventHandler(object sender, int room);
     public delegate void moodEventHandler(object sender, int room, int mood);
     public delegate void dimEventHandler(object sender, int room,int device, int pct);
-    public delegate void heatEventHandler(object sender, int room, int state);
+    public delegate void heatEventHandler(object sender, int room, bool state);
     public delegate void rawEventHandler(object sender, string rawData);
     public delegate void responseEventHandler(object sender, string Data);
     public class API
@@ -21,6 +21,10 @@ namespace LightwaveRF
         private string RecordedSequence = "";
         private string RecordedSequenceName = "";
         private Thread recordsequencethread = null;
+        private Thread radiatorStateThread = null;
+        private int radiatorStateRefreshMins = 10;
+        private DateTime radiatorStateUntilDate;
+        private Dictionary<int,bool> RadiatorStateDictionary = null;
         /// <summary>
         /// 
         /// </summary>
@@ -156,7 +160,7 @@ namespace LightwaveRF
                     }
                     if (HeatMatch.Success&& OnHeat!=null)
                     {
-                        OnHeat(this, int.Parse(HeatMatch.Groups["Room"].Value), int.Parse(HeatMatch.Groups["State"].Value));
+                        OnHeat(this, int.Parse(HeatMatch.Groups["Room"].Value), int.Parse(HeatMatch.Groups["State"].Value) ==1);
                     }
                 }
             }
@@ -170,9 +174,9 @@ namespace LightwaveRF
         /// </summary>
         /// <param name="Room">Room to switch all off in.</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string AllOff(int room)
+        public string AllOff(int room, string message = "")
         {
-            string text = nextind + ",!R" + room + @"Fa|";
+            string text = nextind + ",!R" + room + @"Fa|" + message;
             return sendRaw(text).Replace(ind + ",", "");
         }
 
@@ -197,7 +201,7 @@ namespace LightwaveRF
         /// <summary>
         /// capture commands for 20 seconds and store them in the sequence
         /// </summary>
-        public void recordSequenceWorker()
+        private void recordSequenceWorker()
         {
             try
             {
@@ -276,7 +280,7 @@ namespace LightwaveRF
         /// <returns>String "OK" otherwise error message</returns>
         public string Mood(int room, int mood)
         {
-            string text = nextind + ",!R"+ room + @"FmP" + mood + @"|Room 1 Mood 1";
+            string text = nextind + ",!R"+ room + @"FmP" + mood + @"|Room " + room.ToString() + " Mood " + mood.ToString();
             return sendRaw(text).Replace(ind + ",", "");
         }
         /// <summary>
@@ -331,17 +335,51 @@ namespace LightwaveRF
         /// send on/off command to a room/device
         /// </summary>
         /// <param name="Room">room number </param>
-        /// <param name="Device">device number</param>
-        /// <param name="state">state (0 or 1)</param>
+        /// <param name="state">state true = on false = off</param>
+        /// <param name="message">message to display on wifilink</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string HeatOnOff(int room, bool state)
+        public string HeatOnOff(int room, bool state, string message = "")
         {
             string statestr;
             if (state) statestr = "1"; else statestr = "0";
-            string text = nextind + ",!R" + room + @"DhF" + statestr + @"|";
+            string text = nextind + ",!R" + room + @"DhF" + statestr + @"|" + message;
             return sendRaw(text).Replace(ind + ",", "");
         }
-        
+
+        /// <summary>
+        /// Switch off heat in all rooms
+        /// </summary>
+        /// <returns></returns>
+        public string AllHeat(bool state)
+        {
+            string retval = "";
+            for (int room = 1; room <= 8; room++)
+            {
+                string ret = HeatOnOff(room, state, "All Heat");
+                if (ret != "OK") retval = retval + ret + ";";
+                Thread.Sleep(6000);
+            }
+            if(retval == "") retval = "OK";//all ok so return ok
+            return retval;
+        }
+
+        /// <summary>
+        /// Switch off all devices in all rooms
+        /// </summary>
+        /// <returns></returns>
+        public string AllDevicesOff()
+        {
+            string retval = "";
+            for (int room = 1; room <= 8; room++)
+            {
+                string ret = AllOff(room, "All Devices Off");
+                if (ret != "OK") retval = retval + ret + ";";
+                Thread.Sleep(800);
+            }
+            if (retval == "") retval = "OK";//all ok so return ok
+            return retval;
+        }
+
         /// <summary>
         /// lock the manual switch of a device (eg socket)
         /// </summary>
@@ -431,6 +469,60 @@ namespace LightwaveRF
         {
             string text = nextind + ",!FxP\"*\"|";
             return sendRaw(text).Replace(ind + ",", "");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void RadiatorStateWorker()
+        {
+            while (radiatorStateUntilDate > DateTime.Now)
+            {
+                foreach( var item in RadiatorStateDictionary)
+                {
+                    HeatOnOff(item.Key, item.Value, "API R State");
+                    Thread.Sleep(7000);//Radiators take a while for the command....
+                }
+                Thread.Sleep(radiatorStateRefreshMins * 60000);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="room"></param>
+        /// <param name="state"></param>
+        private void RadiatorStateChange(object sender, int room, bool state)
+        {
+            if (!state)
+            {//make sure we have a note of this room to resend the state to
+                if (!RadiatorStateDictionary.ContainsKey(room)) RadiatorStateDictionary.Add(room, state);
+            }
+            else
+            {//remove this room from the list if it is there
+                RadiatorStateDictionary.Remove(room);
+            }
+        }
+
+        /// <summary>
+        /// listens for radiator off commands and resends them until an on command is received 
+        /// (workaround for air bug in old lightwaverf valves - and pegler Itemp terriers).
+        /// </summary>
+        /// <param name="minutesToRefresh">number of minutes to wait before refreshing the state of the valves.</param>
+        /// 
+        /// <returns></returns>
+        public void KeepRadiatorState(int refreshMins, DateTime untilDate)
+        {
+            Listen();
+            radiatorStateUntilDate = untilDate;
+            radiatorStateRefreshMins = refreshMins;
+            OnHeat +=new heatEventHandler(RadiatorStateChange);
+            if (radiatorStateThread == null || radiatorStateThread.ThreadState == ThreadState.Stopped)
+            {
+                RadiatorStateDictionary = new Dictionary<int, bool>();
+                radiatorStateThread = new Thread(new ThreadStart(RadiatorStateWorker));
+                radiatorStateThread.Start();
+            }
         }
 
         /// <summary>
