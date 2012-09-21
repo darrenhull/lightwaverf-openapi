@@ -103,7 +103,7 @@ namespace TestApp
 
         private void btnMaintainRadiatorOff_Click(object sender, EventArgs e)
         {
-            apilistener.KeepRadiatorState(1,DateTime.Now.AddDays(1));
+            apilistener.KeepRadiatorState(10,DateTime.Now.AddDays(1));
         }
 
         private void btnAllHeatOn_Click(object sender, EventArgs e)

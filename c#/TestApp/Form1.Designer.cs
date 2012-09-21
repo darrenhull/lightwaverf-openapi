@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.cmbRoom = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblResponse = new System.Windows.Forms.Label();
@@ -58,14 +59,14 @@
             this.btnRunSequence = new System.Windows.Forms.Button();
             this.txtSequence = new System.Windows.Forms.TextBox();
             this.btnRecordSequence = new System.Windows.Forms.Button();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.btnSendRaw = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtSendRaw = new System.Windows.Forms.TextBox();
             this.btnAllHeatOff = new System.Windows.Forms.Button();
             this.btnMaintainRadiatorOff = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnAllHeatOn = new System.Windows.Forms.Button();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.txtSendRaw = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.btnSendRaw = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -419,6 +420,45 @@
             this.btnRecordSequence.UseVisualStyleBackColor = true;
             this.btnRecordSequence.Click += new System.EventHandler(this.btnRecordSequence_Click);
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.btnSendRaw);
+            this.tabPage5.Controls.Add(this.label7);
+            this.tabPage5.Controls.Add(this.txtSendRaw);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(680, 39);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Raw";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // btnSendRaw
+            // 
+            this.btnSendRaw.Location = new System.Drawing.Point(572, 8);
+            this.btnSendRaw.Name = "btnSendRaw";
+            this.btnSendRaw.Size = new System.Drawing.Size(75, 23);
+            this.btnSendRaw.TabIndex = 2;
+            this.btnSendRaw.Text = "Send";
+            this.btnSendRaw.UseVisualStyleBackColor = true;
+            this.btnSendRaw.Click += new System.EventHandler(this.btnSendRaw_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 13);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(109, 13);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Send Raw Message: ";
+            // 
+            // txtSendRaw
+            // 
+            this.txtSendRaw.Location = new System.Drawing.Point(117, 10);
+            this.txtSendRaw.Name = "txtSendRaw";
+            this.txtSendRaw.Size = new System.Drawing.Size(449, 20);
+            this.txtSendRaw.TabIndex = 0;
+            this.txtSendRaw.Text = "333!R1D1F0";
+            // 
             // btnAllHeatOff
             // 
             this.btnAllHeatOff.Location = new System.Drawing.Point(227, 12);
@@ -458,45 +498,6 @@
             this.btnAllHeatOn.UseVisualStyleBackColor = true;
             this.btnAllHeatOn.Click += new System.EventHandler(this.btnAllHeatOn_Click);
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.btnSendRaw);
-            this.tabPage5.Controls.Add(this.label7);
-            this.tabPage5.Controls.Add(this.txtSendRaw);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(680, 39);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Raw";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // txtSendRaw
-            // 
-            this.txtSendRaw.Location = new System.Drawing.Point(117, 10);
-            this.txtSendRaw.Name = "txtSendRaw";
-            this.txtSendRaw.Size = new System.Drawing.Size(449, 20);
-            this.txtSendRaw.TabIndex = 0;
-            this.txtSendRaw.Text = "333!R1D1F0";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 13);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(109, 13);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Send Raw Message: ";
-            // 
-            // btnSendRaw
-            // 
-            this.btnSendRaw.Location = new System.Drawing.Point(572, 8);
-            this.btnSendRaw.Name = "btnSendRaw";
-            this.btnSendRaw.Size = new System.Drawing.Size(75, 23);
-            this.btnSendRaw.TabIndex = 2;
-            this.btnSendRaw.Text = "Send";
-            this.btnSendRaw.UseVisualStyleBackColor = true;
-            this.btnSendRaw.Click += new System.EventHandler(this.btnSendRaw_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -514,6 +515,7 @@
             this.Controls.Add(this.lblResponse);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbRoom);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "LightwaveRF OpenAPI Tester";
             this.Load += new System.EventHandler(this.Form1_Load);
