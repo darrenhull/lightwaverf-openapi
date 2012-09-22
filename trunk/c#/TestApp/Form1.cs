@@ -43,12 +43,12 @@ namespace TestApp
 
         private void HeatOn_Click(object sender, EventArgs e)
         {
-            lblResponse.Text = apilistener.HeatOnOff(int.Parse(cmbRoom.SelectedItem.ToString()), true);
+            lblResponse.Text = apilistener.HeatOnOff(int.Parse(cmbRoom.SelectedItem.ToString()), 1);
         }
 
         private void HeatOff_Click(object sender, EventArgs e)
         {
-            lblResponse.Text = apilistener.HeatOnOff(int.Parse(cmbRoom.SelectedItem.ToString()), false);
+            lblResponse.Text = apilistener.HeatOnOff(int.Parse(cmbRoom.SelectedItem.ToString()), 0);
         }
 
         private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -98,17 +98,17 @@ namespace TestApp
 
         private void btnAllHeatOff_Click(object sender, EventArgs e)
         {
-            lblResponse.Text = apilistener.AllHeat(false);                
+            lblResponse.Text = apilistener.AllHeat(0);                
         }
-
+        
         private void btnMaintainRadiatorOff_Click(object sender, EventArgs e)
         {
-            apilistener.KeepRadiatorState(10,DateTime.Now.AddDays(1));
+            apilistener.KeepRadiatorState(1,DateTime.Now.AddDays(1));
         }
 
         private void btnAllHeatOn_Click(object sender, EventArgs e)
         {
-            lblResponse.Text = apilistener.AllHeat(true);
+            lblResponse.Text = apilistener.AllHeat(1);
         }
 
         private void btnSendRaw_Click(object sender, EventArgs e)

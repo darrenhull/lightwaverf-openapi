@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSAPlugin", "OSAPlugin\OSAP
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LightWaveRFInstaller", "LightWaveRFInstaller\LightWaveRFInstaller.vdproj", "{AA6E6E54-3DB1-46D2-9FCA-490471A5AC89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightWaveRFWeb", "..\LightWaveRFWeb\LightWaveRFWeb.csproj", "{F88D47EB-9F3C-4D08-82FE-452AEAD989EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,13 +75,23 @@ Global
 		{AA6E6E54-3DB1-46D2-9FCA-490471A5AC89}.Release|Mixed Platforms.Build.0 = Release
 		{AA6E6E54-3DB1-46D2-9FCA-490471A5AC89}.Release|x86.ActiveCfg = Release
 		{AA6E6E54-3DB1-46D2-9FCA-490471A5AC89}.Release|x86.Build.0 = Release
+		{F88D47EB-9F3C-4D08-82FE-452AEAD989EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F88D47EB-9F3C-4D08-82FE-452AEAD989EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F88D47EB-9F3C-4D08-82FE-452AEAD989EE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F88D47EB-9F3C-4D08-82FE-452AEAD989EE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F88D47EB-9F3C-4D08-82FE-452AEAD989EE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F88D47EB-9F3C-4D08-82FE-452AEAD989EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F88D47EB-9F3C-4D08-82FE-452AEAD989EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F88D47EB-9F3C-4D08-82FE-452AEAD989EE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F88D47EB-9F3C-4D08-82FE-452AEAD989EE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F88D47EB-9F3C-4D08-82FE-452AEAD989EE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_BuildVersioningStyle = None.None.Increment.TimeStamp
-		BuildVersion_UpdateFileVersion = False
 		BuildVersion_UpdateAssemblyVersion = False
+		BuildVersion_UpdateFileVersion = False
+		BuildVersion_BuildVersioningStyle = None.None.Increment.TimeStamp
 	EndGlobalSection
 EndGlobal
