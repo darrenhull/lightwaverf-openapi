@@ -15,7 +15,7 @@ namespace TestApp
         string lastcommand = "";
         private void apilistener_Raw(object sender, string rawData)
         {
-            txtcommands.Invoke(new MethodInvoker(delegate { txtcommands.Text += rawData + Environment.NewLine; }));
+            txtcommands.Invoke(new MethodInvoker(delegate { txtcommands.Text += DateTime.Now.ToString() + "     " + rawData + Environment.NewLine; }));
             lastcommand = rawData;
         }
 
