@@ -409,6 +409,30 @@ namespace LightwaveRF
         }
 
         /// <summary>
+        /// Switch on/off the central heating
+        /// </summary>
+        /// <param name="state">0=off 1=on</param>
+        /// <param name="message">mesage to display on wifilink</param>
+        /// <returns></returns>
+        public string CentralHeatOnOff(int state, string message = "")
+        {
+            string text = nextind + ",!R16D1F" + state.ToString() + @"|" + message;
+            return sendRaw(text).Replace(ind + ",", "");
+        }
+
+        /// <summary>
+        /// Switch on/off the hot water
+        /// </summary>
+        /// <param name="state">0=off 1=on</param>
+        /// <param name="message">mesage to display on wifilink</param>
+        /// <returns></returns>
+        public string HotWaterOnOff(int state, string message = "")
+        {
+            string text = nextind + ",!R16D2F" + state.ToString() + @"|" + message;
+            return sendRaw(text).Replace(ind + ",", "");
+        }
+
+        /// <summary>
         /// Switch off heat in all rooms
         /// </summary>
         /// <returns></returns>
