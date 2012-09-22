@@ -71,10 +71,10 @@ namespace LightWaveRF
                         APIinterface.Dim(room, device, 90);
                         break;
                     case "heat-on":
-                        APIinterface.HeatOnOff(room, true);
+                        APIinterface.HeatOnOff(room, 1);
                         break;
                     case "heat-off":
-                        APIinterface.HeatOnOff(room, false);
+                        APIinterface.HeatOnOff(room, 0);
                         break;
                     case "all-off":
                         APIinterface.AllOff(room);

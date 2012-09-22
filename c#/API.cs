@@ -9,13 +9,43 @@ using System.Threading;
 
 namespace LightwaveRF
 {
-    public delegate void OnOffEventHandler(object sender, int room, int device, bool state);
+    public delegate void OnOffEventHandler(object sender, int room, int device, int state);
     public delegate void AllOffEventHandler(object sender, int room);
     public delegate void moodEventHandler(object sender, int room, int mood);
     public delegate void dimEventHandler(object sender, int room,int device, int pct);
-    public delegate void heatEventHandler(object sender, int room, bool state);
+    public delegate void heatEventHandler(object sender, int room, int state);
     public delegate void rawEventHandler(object sender, string rawData);
     public delegate void responseEventHandler(object sender, string Data);
+
+    public enum DeviceType
+    {
+        OnOffDimmer, OnOff, Radiator, Relay, Boiler
+    }
+
+    public class Device
+    {
+        public Device(int room, int device, string deviceName, DeviceType deviceType, int state)
+        {
+            this.room = room;
+            this.device = device;
+            this.deviceName = deviceName;
+            this.deviceType = deviceType;
+            this.state = state;
+        }
+        public int room {get;set;}
+        public int device {get;set;}
+        public string deviceName {get;set;}
+        public int state {get;set;}
+        public DeviceType deviceType {get;set;}
+        public string deviceIdentifier
+        {
+            get
+            {
+                return room.ToString() + "," + device.ToString();
+            }
+        }
+    }
+
     public class API
     {
         private string RecordedSequence = "";
@@ -24,7 +54,14 @@ namespace LightwaveRF
         private Thread radiatorStateThread = null;
         private int radiatorStateRefreshMins = 10;
         private DateTime radiatorStateUntilDate;
-        private Dictionary<int,bool> RadiatorStateDictionary = null;
+        private Dictionary<string,Device> LastDeviceState = new Dictionary<string,Device>();
+        public Dictionary<string, Device> GetDevices
+        {
+            get
+            {
+                return LastDeviceState;
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -93,7 +130,18 @@ namespace LightwaveRF
                 //responsethread.Start();
             }
         }
+
+        public void updateLastDeviceState(Device thisDevice)
+        {
+            lock (LastDeviceState)
+            {
+                if (LastDeviceState.ContainsKey(thisDevice.deviceIdentifier)) LastDeviceState.Remove(thisDevice.deviceIdentifier);
+                LastDeviceState.Add(thisDevice.deviceIdentifier, thisDevice);
+            }
+        }
+
         /// <summary>
+        /// 
         /// 
         /// </summary>
         /// <returns>full string response from wifilink</returns>
@@ -142,9 +190,14 @@ namespace LightwaveRF
                     Match MoodMatch = moodRegEx.Match(stringData);
                     Match DimMatch = dimRegEx.Match(stringData);
                     Match HeatMatch = heatRegEx.Match(stringData);
-                    if (OnOffMatch.Success && OnOff!=null)
+                    if (OnOffMatch.Success)
                     {
-                        OnOff(this, int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Device"].Value), int.Parse(OnOffMatch.Groups["State"].Value)==1);
+                        var thisDevice = new Device(int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Device"].Value),"Dev " + int.Parse(OnOffMatch.Groups["Device"].Value),DeviceType.OnOff, int.Parse(OnOffMatch.Groups["State"].Value));
+                        updateLastDeviceState(thisDevice);
+                        if (OnOff != null)
+                        {
+                            OnOff(this, thisDevice.room, thisDevice.device, thisDevice.state);
+                        }
                     }
                     if (AllOffMatch.Success && OnAllOff!=null)
                     {
@@ -154,13 +207,23 @@ namespace LightwaveRF
                     {
                         OnMood(this, int.Parse(MoodMatch.Groups["Room"].Value), int.Parse(MoodMatch.Groups["Mood"].Value));
                     }
-                    if (DimMatch.Success && OnDim!=null)
+                    if (DimMatch.Success)
                     {
-                        OnDim(this, int.Parse(DimMatch.Groups["Room"].Value), int.Parse(DimMatch.Groups["Device"].Value), int.Parse(DimMatch.Groups["State"].Value));
+                        var thisDevice = new Device(int.Parse(DimMatch.Groups["Room"].Value), int.Parse(DimMatch.Groups["Device"].Value), "Dev " + int.Parse(DimMatch.Groups["Device"].Value), DeviceType.OnOff, int.Parse(DimMatch.Groups["State"].Value));
+                        updateLastDeviceState(thisDevice);
+                        if (OnDim != null)
+                        {
+                            OnDim(this, thisDevice.room, thisDevice.device, thisDevice.state);
+                        }
                     }
-                    if (HeatMatch.Success&& OnHeat!=null)
+                    if (HeatMatch.Success)
                     {
-                        OnHeat(this, int.Parse(HeatMatch.Groups["Room"].Value), int.Parse(HeatMatch.Groups["State"].Value) ==1);
+                        var thisDevice = new Device(int.Parse(HeatMatch.Groups["Room"].Value), 0, "Rad " + int.Parse(HeatMatch.Groups["Room"].Value), DeviceType.Radiator, int.Parse(HeatMatch.Groups["State"].Value));
+                        updateLastDeviceState(thisDevice);
+                        if (OnHeat != null)
+                        {
+                            OnHeat(this, thisDevice.room, thisDevice.state);
+                        }
                     }
                 }
             }
@@ -336,14 +399,12 @@ namespace LightwaveRF
         /// send on/off command to a room/device
         /// </summary>
         /// <param name="Room">room number </param>
-        /// <param name="state">state true = on false = off</param>
+        /// <param name="state">state 1 = on 0 = off</param>
         /// <param name="message">message to display on wifilink</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string HeatOnOff(int room, bool state, string message = "")
+        public string HeatOnOff(int room, int state, string message = "")
         {
-            string statestr;
-            if (state) statestr = "1"; else statestr = "0";
-            string text = nextind + ",!R" + room + @"DhF" + statestr + @"|" + message;
+            string text = nextind + ",!R" + room + @"DhF" + state.ToString() + @"|" + message;
             return sendRaw(text).Replace(ind + ",", "");
         }
 
@@ -351,7 +412,7 @@ namespace LightwaveRF
         /// Switch off heat in all rooms
         /// </summary>
         /// <returns></returns>
-        public string AllHeat(bool state)
+        public string AllHeat(int state)
         {
             string retval = "";
             for (int room = 1; room <= 8; room++)
@@ -479,29 +540,21 @@ namespace LightwaveRF
         {
             while (radiatorStateUntilDate > DateTime.Now)
             {
-                foreach( var item in RadiatorStateDictionary)
+                lock (LastDeviceState)
                 {
-                    HeatOnOff(item.Key, item.Value, "API R State");
-                    Thread.Sleep(7000);//Radiators take a while for the command....
+                    foreach (var item in LastDeviceState)
+                    {
+                        if (item.Value.deviceType == DeviceType.Radiator)
+                        {
+                            if (item.Value.state == 0)
+                            {
+                                HeatOnOff(item.Value.room, item.Value.state, "API R State");
+                                Thread.Sleep(7000);//Radiators take a while for the command....
+                            }
+                        }
+                    }
                 }
                 Thread.Sleep(radiatorStateRefreshMins * 60000);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="room"></param>
-        /// <param name="state"></param>
-        private void RadiatorStateChange(object sender, int room, bool state)
-        {
-            if (!state)
-            {//make sure we have a note of this room to resend the state to
-                if (!RadiatorStateDictionary.ContainsKey(room)) RadiatorStateDictionary.Add(room, state);
-            }
-            else
-            {//remove this room from the list if it is there
-                RadiatorStateDictionary.Remove(room);
             }
         }
 
@@ -517,10 +570,8 @@ namespace LightwaveRF
             Listen();
             radiatorStateUntilDate = untilDate;
             radiatorStateRefreshMins = refreshMins;
-            OnHeat +=new heatEventHandler(RadiatorStateChange);
             if (radiatorStateThread == null || radiatorStateThread.ThreadState == ThreadState.Stopped)
             {
-                RadiatorStateDictionary = new Dictionary<int, bool>();
                 radiatorStateThread = new Thread(new ThreadStart(RadiatorStateWorker));
                 radiatorStateThread.Start();
             }
