@@ -10,13 +10,19 @@ namespace LightwaveRF
         On =1,Off =0,Open =2,Close=3,Stop=4
     }
 
-    static class StateStrings
+    public static class StateStrings
     {
         public const string On = "1";
         public const string Off = "0";
         public const string Open = ")";
         public const string Close = "(";
         public const string Stop = "^";
+        /// <summary>
+        /// Gets a State enum from the original state string in the commmand.
+        /// eg 1 returns State.On 
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public static State GetStateFromString(string state)
         {
             switch (state)
@@ -29,6 +35,12 @@ namespace LightwaveRF
                 default: return State.Off;
             }
         }
+
+        /// <summary>
+        /// returns the string to match the state (eg. .State.On returns 1)
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public static string GetStateString(State state)
         {
             switch(state)

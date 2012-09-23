@@ -19,27 +19,27 @@ namespace LightwaveConsole
                     switch (args[0].ToLowerInvariant())
                     {
                         case "device":
-                            System.Console.WriteLine(x.DeviceOnOff(int.Parse(args[1]), int.Parse(args[2]), args[3].ToLowerInvariant() == "off"));
+                            System.Console.WriteLine(LightwaveRF.API.DeviceOnOff(int.Parse(args[1]), int.Parse(args[2]), StateStrings.GetStateFromString(args[3])));
                             return 0;
                         case "dim":
-                            System.Console.WriteLine(x.Dim(int.Parse(args[1]), int.Parse(args[2]), int.Parse(args[3])));
+                            System.Console.WriteLine(LightwaveRF.API.Dim(int.Parse(args[1]), int.Parse(args[2]), int.Parse(args[3])));
                             return 0;
                         case "heat":
-                            System.Console.WriteLine(x.HeatOnOff(int.Parse(args[1]), int.Parse(args[2])));
+                            System.Console.WriteLine(LightwaveRF.API.HeatOnOff(int.Parse(args[1]), StateStrings.GetStateFromString(args[2])));
                             return 0;
                         case "room":
-                            System.Console.WriteLine(x.AllOff(int.Parse(args[1])));
+                            System.Console.WriteLine(LightwaveRF.API.AllOff(int.Parse(args[1])));
                             return 0;
                         case "mood":
-                            System.Console.WriteLine(x.Mood(int.Parse(args[1]), int.Parse(args[2])));
+                            System.Console.WriteLine(LightwaveRF.API.Mood(int.Parse(args[1]), int.Parse(args[2])));
                             return 0;
                         case "raw":
-                            System.Console.WriteLine(x.sendRaw(args[1]));
+                            System.Console.WriteLine(LightwaveRF.API.sendRaw(args[1]));
                             return 0;
                         case "listen":
-                            x.Listen();
+                            LightwaveRF.API.Listen();
                            // x.OnResponse += new responseEventHandler(x_OnResponse);
-                            x.Raw += new rawEventHandler(x_OnResponse);
+                            LightwaveRF.API.Raw += new rawEventHandler(x_OnResponse);
                             while( Console.ReadLine() == "")
                             {
 
@@ -65,7 +65,7 @@ namespace LightwaveConsole
             System.Console.WriteLine("listen for other commands : LightwaveConsole Listen");
             System.Console.WriteLine();
             System.Console.WriteLine("eg:");
-            System.Console.WriteLine("LightwaveConsole Device 1 1 off");
+            System.Console.WriteLine("LightwaveConsole Device 1 1 1");
             System.Console.WriteLine("LightwaveConsole Dim 1 1 100");
             System.Console.WriteLine("LightwaveConsole Heat 1 0");
             System.Console.WriteLine("LightwaveConsole Room 1 ");

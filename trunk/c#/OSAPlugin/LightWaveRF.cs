@@ -1,13 +1,13 @@
 ﻿using System;
 using System.AddIn;
 using OpenSourceAutomation;
+using LightwaveRF;
 
 namespace LightWaveRF
 {
     [AddIn("LightWaveRF", Version = "1.0.2")]
     public class LightWaveRF : IOpenSourceAutomationAddInv2
     {
-        LightwaveRF.API APIinterface;
         static private OSAE.OSAE osae = new OSAE.OSAE("LightWaveRF");
         public void ProcessCommand(OSAE.OSAEMethod method)
         {
@@ -38,52 +38,52 @@ namespace LightWaveRF
                 switch (method.MethodName.ToLowerInvariant())
                 {
                     case "on":
-                        APIinterface.DeviceOnOff(room, device, true);
+                        LightwaveRF.API.DeviceOnOff(room, device, State.On);
                         break;
                     case "off":
-                        APIinterface.DeviceOnOff(room, device, false);
+                        LightwaveRF.API.DeviceOnOff(room, device, State.Off);
                         break;
                     case "dim-10%":
-                        APIinterface.Dim(room, device, 10);
+                        LightwaveRF.API.Dim(room, device, 10);
                         break;
                     case "dim-20%":
-                        APIinterface.Dim(room, device, 20);
+                        LightwaveRF.API.Dim(room, device, 20);
                         break;
                     case "dim-30%":
-                        APIinterface.Dim(room, device, 30);
+                        LightwaveRF.API.Dim(room, device, 30);
                         break;
                     case "dim-40%":
-                        APIinterface.Dim(room, device, 40);
+                        LightwaveRF.API.Dim(room, device, 40);
                         break;
                     case "dim-50%":
-                        APIinterface.Dim(room, device, 50);
+                        LightwaveRF.API.Dim(room, device, 50);
                         break;
                     case "dim-60%":
-                        APIinterface.Dim(room, device, 60);
+                        LightwaveRF.API.Dim(room, device, 60);
                         break;
                     case "dim-70%":
-                        APIinterface.Dim(room, device, 70);
+                        LightwaveRF.API.Dim(room, device, 70);
                         break;
                     case "dim-80%":
-                        APIinterface.Dim(room, device, 80);
+                        LightwaveRF.API.Dim(room, device, 80);
                         break;
                     case "dim-90%":
-                        APIinterface.Dim(room, device, 90);
+                        LightwaveRF.API.Dim(room, device, 90);
                         break;
                     case "heat-on":
-                        APIinterface.HeatOnOff(room, 1);
+                        LightwaveRF.API.HeatOnOff(room, State.On);
                         break;
                     case "heat-off":
-                        APIinterface.HeatOnOff(room, 0);
+                        LightwaveRF.API.HeatOnOff(room, 0);
                         break;
                     case "all-off":
-                        APIinterface.AllOff(room);
+                        LightwaveRF.API.AllOff(room);
                         break;
                     case "mood":
-                        APIinterface.Mood(room, mood);
+                        LightwaveRF.API.Mood(room, mood);
                         break;
                     case "raw":
-                        APIinterface.sendRaw(method.Parameter1);
+                        LightwaveRF.API.sendRaw(method.Parameter1);
                         break;
                     default:
                         osae.AddToLog("unknown method:" + method.MethodName, false);
@@ -99,12 +99,10 @@ namespace LightWaveRF
 
         public void RunInterface(string pluginName)
         {
-            APIinterface = new LightwaveRF.API();
         }
 
         public void Shutdown()
         {
-            APIinterface = null;
         }
     }
 }

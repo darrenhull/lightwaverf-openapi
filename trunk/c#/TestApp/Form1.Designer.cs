@@ -73,12 +73,17 @@
             this.btnMaintainRadiatorOff = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnAllHeatOn = new System.Windows.Forms.Button();
+            this.btnDeleteSequence = new System.Windows.Forms.Button();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.btnGetReading = new System.Windows.Forms.Button();
+            this.lblMeterReading = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmbRoom
@@ -159,6 +164,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(8, 68);
             this.tabControl1.Name = "tabControl1";
@@ -452,6 +458,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.btnDeleteSequence);
             this.tabPage4.Controls.Add(this.btnRunSequence);
             this.tabPage4.Controls.Add(this.txtSequence);
             this.tabPage4.Controls.Add(this.btnRecordSequence);
@@ -464,11 +471,11 @@
             // 
             // btnRunSequence
             // 
-            this.btnRunSequence.Location = new System.Drawing.Point(270, 12);
+            this.btnRunSequence.Location = new System.Drawing.Point(197, 11);
             this.btnRunSequence.Name = "btnRunSequence";
-            this.btnRunSequence.Size = new System.Drawing.Size(120, 23);
+            this.btnRunSequence.Size = new System.Drawing.Size(47, 23);
             this.btnRunSequence.TabIndex = 28;
-            this.btnRunSequence.Text = "Run Sequence";
+            this.btnRunSequence.Text = "Run";
             this.btnRunSequence.UseVisualStyleBackColor = true;
             this.btnRunSequence.Click += new System.EventHandler(this.btnRunSequence_Click);
             // 
@@ -484,9 +491,9 @@
             // 
             this.btnRecordSequence.Location = new System.Drawing.Point(137, 12);
             this.btnRecordSequence.Name = "btnRecordSequence";
-            this.btnRecordSequence.Size = new System.Drawing.Size(120, 23);
+            this.btnRecordSequence.Size = new System.Drawing.Size(54, 23);
             this.btnRecordSequence.TabIndex = 26;
-            this.btnRecordSequence.Text = "Record Sequence";
+            this.btnRecordSequence.Text = "Record";
             this.btnRecordSequence.UseVisualStyleBackColor = true;
             this.btnRecordSequence.Click += new System.EventHandler(this.btnRecordSequence_Click);
             // 
@@ -568,6 +575,46 @@
             this.btnAllHeatOn.UseVisualStyleBackColor = true;
             this.btnAllHeatOn.Click += new System.EventHandler(this.btnAllHeatOn_Click);
             // 
+            // btnDeleteSequence
+            // 
+            this.btnDeleteSequence.Location = new System.Drawing.Point(250, 12);
+            this.btnDeleteSequence.Name = "btnDeleteSequence";
+            this.btnDeleteSequence.Size = new System.Drawing.Size(47, 23);
+            this.btnDeleteSequence.TabIndex = 29;
+            this.btnDeleteSequence.Text = "Delete";
+            this.btnDeleteSequence.UseVisualStyleBackColor = true;
+            this.btnDeleteSequence.Click += new System.EventHandler(this.btnDeleteSequence_Click);
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.lblMeterReading);
+            this.tabPage6.Controls.Add(this.btnGetReading);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(680, 39);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Energy Meter";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // btnGetReading
+            // 
+            this.btnGetReading.Location = new System.Drawing.Point(590, 7);
+            this.btnGetReading.Name = "btnGetReading";
+            this.btnGetReading.Size = new System.Drawing.Size(75, 23);
+            this.btnGetReading.TabIndex = 0;
+            this.btnGetReading.Text = "Get Reading";
+            this.btnGetReading.UseVisualStyleBackColor = true;
+            this.btnGetReading.Click += new System.EventHandler(this.btnGetReading_Click);
+            // 
+            // lblMeterReading
+            // 
+            this.lblMeterReading.AutoSize = true;
+            this.lblMeterReading.Location = new System.Drawing.Point(12, 12);
+            this.lblMeterReading.Name = "lblMeterReading";
+            this.lblMeterReading.Size = new System.Drawing.Size(41, 13);
+            this.lblMeterReading.TabIndex = 1;
+            this.lblMeterReading.Text = "label10";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -600,6 +647,8 @@
             this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -651,6 +700,10 @@
         private System.Windows.Forms.Button btnHWon;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnDeleteSequence;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.Label lblMeterReading;
+        private System.Windows.Forms.Button btnGetReading;
     }
 }
 

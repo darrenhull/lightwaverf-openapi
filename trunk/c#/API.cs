@@ -333,10 +333,10 @@ namespace LightwaveRF
         /// <summary>
         /// Get reading from the wireless meter.
         /// </summary>
-        public static string GetMeterReading()
+        public static MeterReading GetMeterReading()
         {
             string text = nextind + ",@?W";
-            return sendRaw(text).Replace(ind + ",", "");
+            return new MeterReading(sendRaw(text).Substring(4)); //Replace(ind + ",", "");
         }
         /// <summary>
         /// 
@@ -540,7 +540,7 @@ namespace LightwaveRF
                     {
                         if (item.Value.deviceType == DeviceType.Radiator)
                         {
-                            if (item.Value.state == 0)
+                            if (item.Value.state == State.Off)
                             {
                                 HeatOnOff(item.Value.room.RoomNum, item.Value.state, "API R State");
                                 Thread.Sleep(7000);//Radiators take a while for the command....

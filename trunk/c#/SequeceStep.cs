@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LightwaveRF
 {
-    class SequeceStep
+    public class SequeceStep
     {
         public TimeSpan duration{get;set;}
         public string command {get;set;}

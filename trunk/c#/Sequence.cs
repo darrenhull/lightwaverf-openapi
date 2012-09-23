@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LightwaveRF
 {
-    class Sequence
+    public class Sequence
     {
         public string SequenceName {get;set;}
         public List<SequeceStep> Steps {get;set;}

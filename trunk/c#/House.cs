@@ -5,11 +5,13 @@ using System.Text;
 
 namespace LightwaveRF
 {
-    class House
+    public class House
     {
+        public int Id { get; set; }
         private State hotWaterState = State.On;
         private State centralHeatingState = State.On;
-        public List<Room> rooms;
+        public List<Room> rooms { get; set; }
+        public List<Sequence> sequences { get; set; }
         public State CentralHeating
         {
             get
