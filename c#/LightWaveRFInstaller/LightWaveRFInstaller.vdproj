@@ -33,31 +33,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5D6880158EA471FFE25D80AD15995DE8"
-        "OwnerKey" = "8:_89EB63731BB07664988B13CA043A2348"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_857BE10794C4DA68ACCF407036CFBB6D"
+        "MsmKey" = "8:_6F8A8629EE61F8FA1358D2DDE3F9180F"
         "OwnerKey" = "8:_0BDA623EDD204D1B9BC5D0089E0EFCF3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_857BE10794C4DA68ACCF407036CFBB6D"
+        "MsmKey" = "8:_6F8A8629EE61F8FA1358D2DDE3F9180F"
         "OwnerKey" = "8:_D15DCA37765A41E3B3D9896F6F206E98"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_857BE10794C4DA68ACCF407036CFBB6D"
-        "OwnerKey" = "8:_58FE4EA9CBBC425696158707C90EBD3B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_89EB63731BB07664988B13CA043A2348"
+        "MsmKey" = "8:_6F8A8629EE61F8FA1358D2DDE3F9180F"
         "OwnerKey" = "8:_58FE4EA9CBBC425696158707C90EBD3B"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -88,6 +76,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_6F8A8629EE61F8FA1358D2DDE3F9180F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_9DDAA2D15190BC121C20E2DD82169166"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -106,19 +100,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_89EB63731BB07664988B13CA043A2348"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_0BDA623EDD204D1B9BC5D0089E0EFCF3"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_857BE10794C4DA68ACCF407036CFBB6D"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -146,6 +128,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.0,Profile=Client"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4 Client Profile (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -205,7 +200,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.0,Profile=Client"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.0"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=131000"
                 }
@@ -244,51 +239,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_857BE10794C4DA68ACCF407036CFBB6D"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6F8A8629EE61F8FA1358D2DDE3F9180F"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:lightwaveRfApi, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_857BE10794C4DA68ACCF407036CFBB6D"
+                    "_6F8A8629EE61F8FA1358D2DDE3F9180F"
                     {
                     "Name" = "8:lightwaveRfApi.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:lightwaveRfApi.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_FAAA593BA15B414FBDC112FB9F398029"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_89EB63731BB07664988B13CA043A2348"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AddInView2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_89EB63731BB07664988B13CA043A2348"
-                    {
-                    "Name" = "8:AddInView2.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:AddInView2.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_FAAA593BA15B414FBDC112FB9F398029"
@@ -437,19 +401,19 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:LightWaveRF Open API"
-        "ProductCode" = "8:{8E15D5A2-C480-44B9-9B62-FEE0CF0F442D}"
-        "PackageCode" = "8:{898F37E0-CDD8-4DF1-8AEB-9903E2B7E999}"
+        "ProductCode" = "8:{1AD603AA-E701-4A77-B43F-8D691979C871}"
+        "PackageCode" = "8:{33AC1F34-46BC-4113-B4A6-AA3B60401AED}"
         "UpgradeCode" = "8:{7C73DA4B-58B0-4220-9570-53F2633BDA05}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.1.0"
+        "ProductVersion" = "8:2.3.0"
         "Manufacturer" = "8:Steve Aitken"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/lightwaverf-openapi/"
-        "Title" = "8:LightWaveRF Open API"
+        "Title" = "8:LightWaveRF Open API 2.3"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Steve Aitken"
         "Keywords" = "8:"
