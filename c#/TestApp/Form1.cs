@@ -116,6 +116,27 @@ namespace TestApp
             lblResponse.Text = apilistener.sendRaw(txtSendRaw.Text);
         }
 
+        private void btnHWon_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = apilistener.HotWaterOnOff(1);
+        }
+
+        private void btnHWoff_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = apilistener.HotWaterOnOff(0);
+        }
+
+        private void btnCHon_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = apilistener.CentralHeatOnOff(1);
+        }
+
+        private void btnCHoff_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = apilistener.CentralHeatOnOff(0);
+        }
+
+
 
     }
 }

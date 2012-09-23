@@ -9,43 +9,13 @@ using System.Threading;
 
 namespace LightwaveRF
 {
-    public delegate void OnOffEventHandler(object sender, int room, int device, int state);
+    public delegate void OnOffEventHandler(object sender, int room, int device, State state);
     public delegate void AllOffEventHandler(object sender, int room);
     public delegate void moodEventHandler(object sender, int room, int mood);
     public delegate void dimEventHandler(object sender, int room,int device, int pct);
-    public delegate void heatEventHandler(object sender, int room, int state);
+    public delegate void heatEventHandler(object sender, int room, State state);
     public delegate void rawEventHandler(object sender, string rawData);
     public delegate void responseEventHandler(object sender, string Data);
-
-    public enum DeviceType
-    {
-        OnOffDimmer, OnOff, Radiator, Relay, Boiler
-    }
-
-    public class Device
-    {
-        public Device(int room, int device, string deviceName, DeviceType deviceType, int state)
-        {
-            this.room = room;
-            this.device = device;
-            this.deviceName = deviceName;
-            this.deviceType = deviceType;
-            this.state = state;
-        }
-        public int room {get;set;}
-        public int device {get;set;}
-        public string deviceName {get;set;}
-        public int state {get;set;}
-        public DeviceType deviceType {get;set;}
-        public string deviceIdentifier
-        {
-            get
-            {
-                return room.ToString() + "," + device.ToString();
-            }
-        }
-    }
-
     public class API
     {
         private string RecordedSequence = "";
@@ -54,7 +24,9 @@ namespace LightwaveRF
         private Thread radiatorStateThread = null;
         private int radiatorStateRefreshMins = 10;
         private DateTime radiatorStateUntilDate;
-        private Dictionary<string,Device> LastDeviceState = new Dictionary<string,Device>();
+        private static Dictionary<string,Device> LastDeviceState = new Dictionary<string,Device>();
+        public List<Room> Rooms;
+        public List<Device> Devices;
         public Dictionary<string, Device> GetDevices
         {
             get
@@ -73,11 +45,11 @@ namespace LightwaveRF
         /// <summary>
         /// index used for requests to the wifilink
         /// </summary>
-        int ind = 0;
+        static int ind = 0;
         /// <summary>
         /// get the next index and return it.
         /// </summary>
-        private string nextind
+        private static string nextind
         {
             get
             {
@@ -85,42 +57,42 @@ namespace LightwaveRF
                 return(ind.ToString("000"));
             }
         }
-        private Thread listenthread;
-        public event OnOffEventHandler OnOff;
+        private static Thread listenthread;
+        public static event OnOffEventHandler OnOff;
         /// <summary>
         /// Regex for on/off
         /// matches :Room, Device, and State
         /// </summary>
-        public Regex OnOffRegEx = new Regex("...,(!R)(?<Room>[0-9])(D)(?<Device>[0-9])(F)(?<State>[0-1])");
-        public event AllOffEventHandler OnAllOff;
+        public const string OnOffRegEx ="...,(!R)(?<Room>[0-9])(D)(?<Device>[0-9])(F)(?<State>[0-1])";
+        public static event AllOffEventHandler OnAllOff;
         /// <summary>
         /// Regex for All off
         /// Matches: Room
         /// </summary>
-        public Regex allOffRegEx = new Regex("...,(!R)(?<Room>[0-9])(Fa)");
-        public event moodEventHandler OnMood;
+        public const string allOffRegEx = "...,(!R)(?<Room>[0-9])(Fa)";
+        public static event moodEventHandler OnMood;
         /// <summary>
         /// Regex for Mood
         /// Matches: Room, Mood
         /// </summary>
-        public Regex moodRegEx = new Regex("...,(!R)(?<Room>[0-9])(FmP)(?<mood>[0-9])");//"533,!R"+ Room + "FmP" + mood + "|"
-        public event dimEventHandler OnDim;
+        public const string moodRegEx = "...,(!R)(?<Room>[0-9])(FmP)(?<mood>[0-9])";//"533,!R"+ Room + "FmP" + mood + "|"
+        public static event dimEventHandler OnDim;
         /// <summary>
         /// Regex for Dim
         /// Matches: Room, Device, State
         /// </summary>
-        public Regex dimRegEx = new Regex("...,(!R)(?<Room>[0-9])(D)(?<Device>[0-9])(FdP)(?<State>[0-9][0-9])");//"533,!R" + Room + "D" + Device + "FdP" + pstr + "|"
-        public event heatEventHandler OnHeat;
+        public const string dimRegEx = "...,(!R)(?<Room>[0-9])(D)(?<Device>[0-9])(FdP)(?<State>[0-9][0-9])";//"533,!R" + Room + "D" + Device + "FdP" + pstr + "|"
+        public static event heatEventHandler OnHeat;
         /// <summary>
         /// Regex for Heat commands
         /// Matches: Room, State.
         /// </summary>
-        public Regex heatRegEx = new Regex("...,(!R)(?<Room>[0-9])(DhF)(?<State>[0-9])");//"533,!R" + Room + "DhF" + statestr + "|";
-        public event rawEventHandler Raw;
+        public const string heatRegEx = "...,(!R)(?<Room>[0-9])(DhF)(?<State>[0-9])";//"533,!R" + Room + "DhF" + statestr + "|";
+        public static event rawEventHandler Raw;
         /// <summary>
         /// Listen for commands from other devices (and this device)
         /// </summary>
-        public void Listen()
+        public static void Listen()
         {
             if (listenthread == null)
             {
@@ -131,7 +103,7 @@ namespace LightwaveRF
             }
         }
 
-        public void updateLastDeviceState(Device thisDevice)
+        public static void updateLastDeviceState(Device thisDevice)
         {
             lock (LastDeviceState)
             {
@@ -145,7 +117,7 @@ namespace LightwaveRF
         /// 
         /// </summary>
         /// <returns>full string response from wifilink</returns>
-        private string getResponse()
+        private static string getResponse()
         {
             Socket sock = new Socket(AddressFamily.InterNetwork,
                 SocketType.Dgram, ProtocolType.Udp);
@@ -169,7 +141,7 @@ namespace LightwaveRF
                 sock.Close();
             }
         }
-        private void listenThreadWorker()
+        private static void listenThreadWorker()
         {
             Socket sock = new Socket(AddressFamily.InterNetwork,
                             SocketType.Dgram, ProtocolType.Udp);
@@ -184,45 +156,45 @@ namespace LightwaveRF
                     byte[] data = new byte[1024];
                     int recv = sock.ReceiveFrom(data, ref ep);
                     string stringData = Encoding.ASCII.GetString(data, 0, recv);
-                    if(Raw !=null) Raw(this,stringData);
-                    Match OnOffMatch = OnOffRegEx.Match(stringData);
-                    Match AllOffMatch = allOffRegEx.Match(stringData);
-                    Match MoodMatch = moodRegEx.Match(stringData);
-                    Match DimMatch = dimRegEx.Match(stringData);
-                    Match HeatMatch = heatRegEx.Match(stringData);
+                    if(Raw !=null) Raw(null,stringData);
+                    Match OnOffMatch = new Regex(OnOffRegEx).Match(stringData);
+                    Match AllOffMatch = new Regex(allOffRegEx).Match(stringData);
+                    Match MoodMatch = new Regex(moodRegEx).Match(stringData);
+                    Match DimMatch = new Regex(dimRegEx).Match(stringData);
+                    Match HeatMatch = new Regex(heatRegEx).Match(stringData);
                     if (OnOffMatch.Success)
                     {
-                        var thisDevice = new Device(int.Parse(OnOffMatch.Groups["Room"].Value), int.Parse(OnOffMatch.Groups["Device"].Value),"Dev " + int.Parse(OnOffMatch.Groups["Device"].Value),DeviceType.OnOff, int.Parse(OnOffMatch.Groups["State"].Value));
+                        var thisDevice = new Device(new Room(int.Parse(OnOffMatch.Groups["Room"].Value)), int.Parse(OnOffMatch.Groups["Device"].Value),"Dev " + int.Parse(OnOffMatch.Groups["Device"].Value),DeviceType.OnOff, StateStrings.GetStateFromString(OnOffMatch.Groups["State"].Value));
                         updateLastDeviceState(thisDevice);
                         if (OnOff != null)
                         {
-                            OnOff(this, thisDevice.room, thisDevice.device, thisDevice.state);
+                            OnOff(null, thisDevice.room.RoomNum, thisDevice.devicenum, thisDevice.state);
                         }
                     }
                     if (AllOffMatch.Success && OnAllOff!=null)
                     {
-                        OnAllOff(this, int.Parse(AllOffMatch.Groups["Room"].Value));
+                        OnAllOff(null, int.Parse(AllOffMatch.Groups["Room"].Value));
                     }
                     if (MoodMatch.Success && OnMood!=null)
                     {
-                        OnMood(this, int.Parse(MoodMatch.Groups["Room"].Value), int.Parse(MoodMatch.Groups["Mood"].Value));
+                        OnMood(null, int.Parse(MoodMatch.Groups["Room"].Value), int.Parse(MoodMatch.Groups["Mood"].Value));
                     }
                     if (DimMatch.Success)
                     {
-                        var thisDevice = new Device(int.Parse(DimMatch.Groups["Room"].Value), int.Parse(DimMatch.Groups["Device"].Value), "Dev " + int.Parse(DimMatch.Groups["Device"].Value), DeviceType.OnOff, int.Parse(DimMatch.Groups["State"].Value));
+                        var thisDevice = new Device(new Room(int.Parse(DimMatch.Groups["Room"].Value)), int.Parse(DimMatch.Groups["Device"].Value), "Dev " + int.Parse(DimMatch.Groups["Device"].Value), DeviceType.OnOff, StateStrings.GetStateFromString(DimMatch.Groups["State"].Value));
                         updateLastDeviceState(thisDevice);
                         if (OnDim != null)
                         {
-                            OnDim(this, thisDevice.room, thisDevice.device, thisDevice.state);
+                            OnDim(null, thisDevice.room.RoomNum, thisDevice.devicenum, thisDevice.DimLevel);
                         }
                     }
                     if (HeatMatch.Success)
                     {
-                        var thisDevice = new Device(int.Parse(HeatMatch.Groups["Room"].Value), 0, "Rad " + int.Parse(HeatMatch.Groups["Room"].Value), DeviceType.Radiator, int.Parse(HeatMatch.Groups["State"].Value));
+                        var thisDevice = new Device(new Room(int.Parse(HeatMatch.Groups["Room"].Value)), 0, "Rad " + int.Parse(HeatMatch.Groups["Room"].Value), DeviceType.Radiator, StateStrings.GetStateFromString(DimMatch.Groups["State"].Value));
                         updateLastDeviceState(thisDevice);
                         if (OnHeat != null)
                         {
-                            OnHeat(this, thisDevice.room, thisDevice.state);
+                            OnHeat(null, thisDevice.room.RoomNum, thisDevice.state);
                         }
                     }
                 }
@@ -237,7 +209,7 @@ namespace LightwaveRF
         /// </summary>
         /// <param name="Room">Room to switch all off in.</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string AllOff(int room, string message = "")
+        public static string AllOff(int room, string message = "")
         {
             string text = nextind + ",!R" + room + @"Fa|" + message;
             return sendRaw(text).Replace(ind + ",", "");
@@ -270,7 +242,7 @@ namespace LightwaveRF
             {
                 RecordedSequence = "!FeP\"" + RecordedSequenceName + "\"=";
                 Raw += AddEventToSequence;
-                this.Listen();
+                Listen();
                 System.Threading.Thread.Sleep(20000);
                 RecordedSequence = RecordedSequence.Substring(0,RecordedSequence.Length -1);
                 Raw -= AddEventToSequence;
@@ -281,7 +253,7 @@ namespace LightwaveRF
             {
             }
         }
-        private void AddEventToSequence(object sender, string rawData)
+        private  void AddEventToSequence(object sender, string rawData)
         {
             //!FeP"Test"=!R1D1F1,00:00:03,!R1Fa,00:00:03,!R1D2F0,00:00:03
             string command = rawData.Substring(4);
@@ -293,7 +265,7 @@ namespace LightwaveRF
         /// </summary>
         /// <param name="SequenceName"></param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string deleteSequence(string SequenceName)
+        public static string deleteSequence(string SequenceName)
         {
             string text = nextind + ",!FxP\"" + SequenceName +"\"";
             return sendRaw(text).Replace(ind + ",", "");
@@ -303,7 +275,7 @@ namespace LightwaveRF
         /// runs a sequence at the specified time
         /// </summary>
         /// <returns></returns>
-        public string saveTimer(string timername,string SequenceName, DateTime AtDateTime)
+        public static string saveTimer(string timername, string SequenceName, DateTime AtDateTime)
         {
             //130,!FiP"T20120920233337"=!FqP"Test",T01:20,S25/09/12
             DateTime now = DateTime.Now;
@@ -318,7 +290,7 @@ namespace LightwaveRF
         /// </summary>
         /// <param name="timername"></param>
         /// <returns></returns>
-        public string cancelTimer(string timername)
+        public static string cancelTimer(string timername)
         {
             //440,!FiP"T20120920234815"=!FqP"Test",T00:50,E20/11/12,S01/00/00
             //441,!FxP"T201209202348"
@@ -331,7 +303,7 @@ namespace LightwaveRF
         /// </summary>
         /// <param name="SequenceName"></param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string startSequence(string SequenceName)
+        public static string startSequence(string SequenceName)
         {
             string text =nextind + "!FqP\"" + SequenceName +"\"|Start Sequence|\"" + SequenceName +"\"";
             return sendRaw(text).Replace(ind + ",", "");
@@ -342,7 +314,7 @@ namespace LightwaveRF
         /// <param name="Room">room number </param>
         /// <param name="mood">mood number</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string Mood(int room, int mood)
+        public static string Mood(int room, int mood)
         {
             string text = nextind + ",!R"+ room + @"FmP" + mood + @"|Room " + room.ToString() + " Mood " + mood.ToString();
             return sendRaw(text).Replace(ind + ",", "");
@@ -353,7 +325,7 @@ namespace LightwaveRF
         /// <param name="room">room number </param>
         /// <param name="mood">mood number</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string SaveMood(int room, int mood)
+        public static string SaveMood(int room, int mood)
         {
             string text = nextind + ",!R"+ room + @"FsP" + mood + @"|MOOD NOW SET";
             return sendRaw(text).Replace(ind + ",", "");
@@ -361,7 +333,7 @@ namespace LightwaveRF
         /// <summary>
         /// Get reading from the wireless meter.
         /// </summary>
-        public string GetMeterReading()
+        public static string GetMeterReading()
         {
             string text = nextind + ",@?W";
             return sendRaw(text).Replace(ind + ",", "");
@@ -373,7 +345,7 @@ namespace LightwaveRF
         /// <param name="Device">device number</param>
         /// <param name="percent">percentage level for the dim< eg. 50/param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string Dim(int room, int device, int percent)
+        public static string Dim(int room, int device, int percent)
         {
             string pstr;
             if (percent == 0) percent = 1;
@@ -388,11 +360,9 @@ namespace LightwaveRF
         /// <param name="Device">device number</param>
         /// <param name="state">state (0 or 1)</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string DeviceOnOff(int room, int device, bool state)
+        public static  string DeviceOnOff(int room, int device, State state)
         {
-            string statestr;
-            if(state) statestr = "1"; else statestr = "0";
-            string text = nextind + ",!R" + room + @"D" + device + @"F" + statestr + @"|";
+            string text = nextind + ",!R" + room + @"D" + device + @"F" + StateStrings.GetStateString(state) + @"|";
             return sendRaw(text).Replace(ind + ",", "");
         }
         /// <summary>
@@ -402,9 +372,9 @@ namespace LightwaveRF
         /// <param name="state">state 1 = on 0 = off</param>
         /// <param name="message">message to display on wifilink</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string HeatOnOff(int room, int state, string message = "")
+        public static string HeatOnOff(int room, State state, string message = "")
         {
-            string text = nextind + ",!R" + room + @"DhF" + state.ToString() + @"|" + message;
+            string text = nextind + ",!R" + room + @"DhF" + StateStrings.GetStateString(state) + @"|" + message;
             return sendRaw(text).Replace(ind + ",", "");
         }
 
@@ -414,9 +384,9 @@ namespace LightwaveRF
         /// <param name="state">0=off 1=on</param>
         /// <param name="message">mesage to display on wifilink</param>
         /// <returns></returns>
-        public string CentralHeatOnOff(int state, string message = "")
+        public static string CentralHeatOnOff(State state, string message = "")
         {
-            string text = nextind + ",!R16D1F" + state.ToString() + @"|" + message;
+            string text = nextind + ",!R16D1F" + StateStrings.GetStateString(state) + @"|" + message;
             return sendRaw(text).Replace(ind + ",", "");
         }
 
@@ -426,9 +396,9 @@ namespace LightwaveRF
         /// <param name="state">0=off 1=on</param>
         /// <param name="message">mesage to display on wifilink</param>
         /// <returns></returns>
-        public string HotWaterOnOff(int state, string message = "")
+        public static string HotWaterOnOff(State state, string message = "")
         {
-            string text = nextind + ",!R16D2F" + state.ToString() + @"|" + message;
+            string text = nextind + ",!R16D2F" + StateStrings.GetStateString(state) + @"|" + message;
             return sendRaw(text).Replace(ind + ",", "");
         }
 
@@ -436,7 +406,7 @@ namespace LightwaveRF
         /// Switch off heat in all rooms
         /// </summary>
         /// <returns></returns>
-        public string AllHeat(int state)
+        public static string AllHeat(State state)
         {
             string retval = "";
             for (int room = 1; room <= 8; room++)
@@ -453,7 +423,7 @@ namespace LightwaveRF
         /// Switch off all devices in all rooms
         /// </summary>
         /// <returns></returns>
-        public string AllDevicesOff()
+        public static string AllDevicesOff()
         {
             string retval = "";
             for (int room = 1; room <= 8; room++)
@@ -472,7 +442,7 @@ namespace LightwaveRF
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string ManualLockDevice(int room, int device)
+        public static string ManualLockDevice(int room, int device)
         {
             string text = nextind + ",!R" + room + @"D" + device + "Fk|";
             return sendRaw(text).Replace(ind + ",", "");
@@ -484,7 +454,7 @@ namespace LightwaveRF
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string FullLockDevice(int room, int device)
+        public static string FullLockDevice(int room, int device)
         {
             string text = nextind + ",!R" + room + @"D" + device + "Fl|";
             return sendRaw(text).Replace(ind + ",", "");
@@ -495,7 +465,7 @@ namespace LightwaveRF
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string UnLockDevice(int room, int device)
+        public static string UnLockDevice(int room, int device)
         {
             string text = nextind + ",!R" + room + @"D" + device + "Fu|";
             return sendRaw(text).Replace(ind + ",", "");
@@ -507,7 +477,7 @@ namespace LightwaveRF
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string OpenDevice(int room, int device)
+        public static string OpenDevice(int room, int device)
         {
             string text = nextind + ",!R" + room + @"D" + device + "F)|";
             return sendRaw(text).Replace(ind + ",", "");
@@ -519,7 +489,7 @@ namespace LightwaveRF
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string CloseDevice(int room, int device)
+        public static string CloseDevice(int room, int device)
         {
             string text = nextind + ",!R" + room + @"D" + device + "F(|";
             return sendRaw(text).Replace(ind + ",", "");
@@ -531,7 +501,7 @@ namespace LightwaveRF
         /// <param name="Room">room number </param>
         /// <param name="Device">device number</param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string StopDevice(int room, int device)
+        public static string StopDevice(int room, int device)
         {
             string text = nextind + ",!R" + room + @"D" + device + "F^|";
             return sendRaw(text).Replace(ind + ",", "");
@@ -541,7 +511,7 @@ namespace LightwaveRF
         /// Cancels all sequences and timers in the wifilink box
         /// </summary>
         /// <returns>String "OK" otherwise error message</returns>
-        public string CancelAllSequencesAndTimers()
+        public static string CancelAllSequencesAndTimers()
         {
             string text = nextind + ",!FcP\"*\"|";
             return sendRaw(text).Replace(ind + ",", "");
@@ -551,7 +521,7 @@ namespace LightwaveRF
         /// Delete all sequences and timers in the wifilink box
         /// </summary>
         /// <returns>String "OK" otherwise error message</returns>
-        public string DeleteAllSequencesAndTimers()
+        public static string DeleteAllSequencesAndTimers()
         {
             string text = nextind + ",!FxP\"*\"|";
             return sendRaw(text).Replace(ind + ",", "");
@@ -560,7 +530,7 @@ namespace LightwaveRF
         /// <summary>
         /// 
         /// </summary>
-        private void RadiatorStateWorker()
+        private  void RadiatorStateWorker()
         {
             while (radiatorStateUntilDate > DateTime.Now)
             {
@@ -572,7 +542,7 @@ namespace LightwaveRF
                         {
                             if (item.Value.state == 0)
                             {
-                                HeatOnOff(item.Value.room, item.Value.state, "API R State");
+                                HeatOnOff(item.Value.room.RoomNum, item.Value.state, "API R State");
                                 Thread.Sleep(7000);//Radiators take a while for the command....
                             }
                         }
@@ -605,7 +575,7 @@ namespace LightwaveRF
         /// Send raw packet containing 'text' to the wifilink
         /// </summary>
         /// <param name="text">contents of packet.</param>
-        public string sendRaw(string text)
+        public static string sendRaw(string text)
         {
             var udpClient = new UdpClient();
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 9760);
