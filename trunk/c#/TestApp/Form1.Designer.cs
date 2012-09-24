@@ -80,6 +80,7 @@
             this.btnMaintainRadiatorOff = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnAllHeatOn = new System.Windows.Forms.Button();
+            this.btnHeatControl = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -416,7 +417,7 @@
             // 
             // btnCHoff
             // 
-            this.btnCHoff.Location = new System.Drawing.Point(555, 6);
+            this.btnCHoff.Location = new System.Drawing.Point(548, 6);
             this.btnCHoff.Name = "btnCHoff";
             this.btnCHoff.Size = new System.Drawing.Size(117, 23);
             this.btnCHoff.TabIndex = 16;
@@ -426,7 +427,7 @@
             // 
             // btnCHon
             // 
-            this.btnCHon.Location = new System.Drawing.Point(437, 6);
+            this.btnCHon.Location = new System.Drawing.Point(430, 6);
             this.btnCHon.Name = "btnCHon";
             this.btnCHon.Size = new System.Drawing.Size(112, 23);
             this.btnCHon.TabIndex = 15;
@@ -436,7 +437,7 @@
             // 
             // btnHWoff
             // 
-            this.btnHWoff.Location = new System.Drawing.Point(349, 6);
+            this.btnHWoff.Location = new System.Drawing.Point(340, 6);
             this.btnHWoff.Name = "btnHWoff";
             this.btnHWoff.Size = new System.Drawing.Size(86, 23);
             this.btnHWoff.TabIndex = 14;
@@ -446,7 +447,7 @@
             // 
             // btnHWon
             // 
-            this.btnHWon.Location = new System.Drawing.Point(262, 6);
+            this.btnHWon.Location = new System.Drawing.Point(257, 6);
             this.btnHWon.Name = "btnHWon";
             this.btnHWon.Size = new System.Drawing.Size(81, 23);
             this.btnHWon.TabIndex = 13;
@@ -457,7 +458,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(186, 11);
+            this.label9.Location = new System.Drawing.Point(178, 11);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(80, 13);
             this.label9.TabIndex = 12;
@@ -651,11 +652,22 @@
             this.btnAllHeatOn.UseVisualStyleBackColor = true;
             this.btnAllHeatOn.Click += new System.EventHandler(this.btnAllHeatOn_Click);
             // 
+            // btnHeatControl
+            // 
+            this.btnHeatControl.Location = new System.Drawing.Point(621, 61);
+            this.btnHeatControl.Name = "btnHeatControl";
+            this.btnHeatControl.Size = new System.Drawing.Size(75, 23);
+            this.btnHeatControl.TabIndex = 31;
+            this.btnHeatControl.Text = "Open Heat Control";
+            this.btnHeatControl.UseVisualStyleBackColor = true;
+            this.btnHeatControl.Click += new System.EventHandler(this.btnHeatControl_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(708, 399);
+            this.Controls.Add(this.btnHeatControl);
             this.Controls.Add(this.btnAllHeatOn);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnMaintainRadiatorOff);
@@ -743,6 +755,7 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnOpen;
+        private System.Windows.Forms.Button btnHeatControl;
     }
 }
 

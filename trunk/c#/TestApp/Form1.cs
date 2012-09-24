@@ -161,6 +161,12 @@ namespace TestApp
         {
             lblResponse.Text = LightwaveRF.API.CloseDevice(int.Parse(cmbRoom.Text), int.Parse(cmbDevice.Text));
         }
+
+        private void btnHeatControl_Click(object sender, EventArgs e)
+        {
+            var x = new HeatControl();
+            x.Show();
+        }
         
     }
 }
