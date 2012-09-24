@@ -120,7 +120,6 @@
             this.txtPostcode.Name = "txtPostcode";
             this.txtPostcode.Size = new System.Drawing.Size(100, 20);
             this.txtPostcode.TabIndex = 6;
-            this.txtPostcode.Text = "AB15 9NX";
             // 
             // label5
             // 
