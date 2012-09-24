@@ -54,6 +54,7 @@ namespace LightwaveRF
             get
             {
                 ind++;
+                if (ind > 999) ind = 1;
                 return(ind.ToString("000"));
             }
         }
