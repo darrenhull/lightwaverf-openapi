@@ -147,7 +147,20 @@ namespace TestApp
             lblMeterReading.Text = "Current:" + x.WattsCurrent.ToString() + " Max Today:" + x.WattsMax + " Total today:" + x.WattsTotalToday + " Total Yesterday:" + x.WattsTotalYesterday; 
         }
 
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = LightwaveRF.API.OpenDevice(int.Parse(cmbRoom.Text), int.Parse(cmbDevice.Text));
+        }
 
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = LightwaveRF.API.StopDevice(int.Parse(cmbRoom.Text), int.Parse(cmbDevice.Text));
+        }
 
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = LightwaveRF.API.CloseDevice(int.Parse(cmbRoom.Text), int.Parse(cmbDevice.Text));
+        }
+        
     }
 }

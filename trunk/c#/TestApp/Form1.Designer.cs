@@ -38,6 +38,9 @@
             this.txtcommands = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.btnOpen = new System.Windows.Forms.Button();
             this.btnFullLock = new System.Windows.Forms.Button();
             this.btnUnlock = new System.Windows.Forms.Button();
             this.btnLock = new System.Windows.Forms.Button();
@@ -62,9 +65,13 @@
             this.HeatOff = new System.Windows.Forms.Button();
             this.HeatOn = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.btnDeleteSequence = new System.Windows.Forms.Button();
             this.btnRunSequence = new System.Windows.Forms.Button();
             this.txtSequence = new System.Windows.Forms.TextBox();
             this.btnRecordSequence = new System.Windows.Forms.Button();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.lblMeterReading = new System.Windows.Forms.Label();
+            this.btnGetReading = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.btnSendRaw = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -73,17 +80,13 @@
             this.btnMaintainRadiatorOff = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnAllHeatOn = new System.Windows.Forms.Button();
-            this.btnDeleteSequence = new System.Windows.Forms.Button();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.btnGetReading = new System.Windows.Forms.Button();
-            this.lblMeterReading = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmbRoom
@@ -174,6 +177,9 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnClose);
+            this.tabPage1.Controls.Add(this.btnStop);
+            this.tabPage1.Controls.Add(this.btnOpen);
             this.tabPage1.Controls.Add(this.btnFullLock);
             this.tabPage1.Controls.Add(this.btnUnlock);
             this.tabPage1.Controls.Add(this.btnLock);
@@ -191,9 +197,39 @@
             this.tabPage1.Text = "Devices";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(556, 7);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(44, 23);
+            this.btnClose.TabIndex = 31;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnStop
+            // 
+            this.btnStop.Location = new System.Drawing.Point(515, 7);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(39, 23);
+            this.btnStop.TabIndex = 30;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // btnOpen
+            // 
+            this.btnOpen.Location = new System.Drawing.Point(470, 7);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(46, 23);
+            this.btnOpen.TabIndex = 29;
+            this.btnOpen.Text = "Open";
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            // 
             // btnFullLock
             // 
-            this.btnFullLock.Location = new System.Drawing.Point(369, 3);
+            this.btnFullLock.Location = new System.Drawing.Point(236, 6);
             this.btnFullLock.Name = "btnFullLock";
             this.btnFullLock.Size = new System.Drawing.Size(60, 23);
             this.btnFullLock.TabIndex = 28;
@@ -203,7 +239,7 @@
             // 
             // btnUnlock
             // 
-            this.btnUnlock.Location = new System.Drawing.Point(430, 3);
+            this.btnUnlock.Location = new System.Drawing.Point(302, 6);
             this.btnUnlock.Name = "btnUnlock";
             this.btnUnlock.Size = new System.Drawing.Size(61, 23);
             this.btnUnlock.TabIndex = 27;
@@ -213,7 +249,7 @@
             // 
             // btnLock
             // 
-            this.btnLock.Location = new System.Drawing.Point(326, 3);
+            this.btnLock.Location = new System.Drawing.Point(190, 6);
             this.btnLock.Name = "btnLock";
             this.btnLock.Size = new System.Drawing.Size(40, 23);
             this.btnLock.TabIndex = 26;
@@ -224,7 +260,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(500, 8);
+            this.label4.Location = new System.Drawing.Point(369, 11);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 25;
@@ -245,16 +281,16 @@
             "80",
             "90",
             "100"});
-            this.cmbPct.Location = new System.Drawing.Point(548, 5);
+            this.cmbPct.Location = new System.Drawing.Point(417, 9);
             this.cmbPct.Name = "cmbPct";
-            this.cmbPct.Size = new System.Drawing.Size(77, 21);
+            this.cmbPct.Size = new System.Drawing.Size(47, 21);
             this.cmbPct.TabIndex = 24;
             this.cmbPct.Text = "0";
             this.cmbPct.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged_1);
             // 
             // btnOff
             // 
-            this.btnOff.Location = new System.Drawing.Point(243, 3);
+            this.btnOff.Location = new System.Drawing.Point(107, 6);
             this.btnOff.Name = "btnOff";
             this.btnOff.Size = new System.Drawing.Size(39, 23);
             this.btnOff.TabIndex = 23;
@@ -264,7 +300,7 @@
             // 
             // btnOn
             // 
-            this.btnOn.Location = new System.Drawing.Point(288, 3);
+            this.btnOn.Location = new System.Drawing.Point(152, 6);
             this.btnOn.Name = "btnOn";
             this.btnOn.Size = new System.Drawing.Size(32, 23);
             this.btnOn.TabIndex = 22;
@@ -295,7 +331,7 @@
             "8"});
             this.cmbDevice.Location = new System.Drawing.Point(45, 6);
             this.cmbDevice.Name = "cmbDevice";
-            this.cmbDevice.Size = new System.Drawing.Size(182, 21);
+            this.cmbDevice.Size = new System.Drawing.Size(56, 21);
             this.cmbDevice.TabIndex = 6;
             this.cmbDevice.Text = "1";
             // 
@@ -315,7 +351,7 @@
             // 
             // btnSaveMood
             // 
-            this.btnSaveMood.Location = new System.Drawing.Point(234, 5);
+            this.btnSaveMood.Location = new System.Drawing.Point(108, 5);
             this.btnSaveMood.Name = "btnSaveMood";
             this.btnSaveMood.Size = new System.Drawing.Size(76, 23);
             this.btnSaveMood.TabIndex = 24;
@@ -325,7 +361,7 @@
             // 
             // btnSetMood
             // 
-            this.btnSetMood.Location = new System.Drawing.Point(316, 6);
+            this.btnSetMood.Location = new System.Drawing.Point(190, 6);
             this.btnSetMood.Name = "btnSetMood";
             this.btnSetMood.Size = new System.Drawing.Size(62, 23);
             this.btnSetMood.TabIndex = 23;
@@ -356,7 +392,7 @@
             "8"});
             this.cmbMood.Location = new System.Drawing.Point(48, 6);
             this.cmbMood.Name = "cmbMood";
-            this.cmbMood.Size = new System.Drawing.Size(182, 21);
+            this.cmbMood.Size = new System.Drawing.Size(53, 21);
             this.cmbMood.TabIndex = 21;
             this.cmbMood.Text = "1";
             // 
@@ -469,6 +505,16 @@
             this.tabPage4.Text = "Sequences";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // btnDeleteSequence
+            // 
+            this.btnDeleteSequence.Location = new System.Drawing.Point(250, 12);
+            this.btnDeleteSequence.Name = "btnDeleteSequence";
+            this.btnDeleteSequence.Size = new System.Drawing.Size(47, 23);
+            this.btnDeleteSequence.TabIndex = 29;
+            this.btnDeleteSequence.Text = "Delete";
+            this.btnDeleteSequence.UseVisualStyleBackColor = true;
+            this.btnDeleteSequence.Click += new System.EventHandler(this.btnDeleteSequence_Click);
+            // 
             // btnRunSequence
             // 
             this.btnRunSequence.Location = new System.Drawing.Point(197, 11);
@@ -496,6 +542,36 @@
             this.btnRecordSequence.Text = "Record";
             this.btnRecordSequence.UseVisualStyleBackColor = true;
             this.btnRecordSequence.Click += new System.EventHandler(this.btnRecordSequence_Click);
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.lblMeterReading);
+            this.tabPage6.Controls.Add(this.btnGetReading);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(680, 39);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Energy Meter";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // lblMeterReading
+            // 
+            this.lblMeterReading.AutoSize = true;
+            this.lblMeterReading.Location = new System.Drawing.Point(12, 12);
+            this.lblMeterReading.Name = "lblMeterReading";
+            this.lblMeterReading.Size = new System.Drawing.Size(192, 13);
+            this.lblMeterReading.TabIndex = 1;
+            this.lblMeterReading.Text = "Press \'Get Reading\' To read from meter";
+            // 
+            // btnGetReading
+            // 
+            this.btnGetReading.Location = new System.Drawing.Point(590, 7);
+            this.btnGetReading.Name = "btnGetReading";
+            this.btnGetReading.Size = new System.Drawing.Size(75, 23);
+            this.btnGetReading.TabIndex = 0;
+            this.btnGetReading.Text = "Get Reading";
+            this.btnGetReading.UseVisualStyleBackColor = true;
+            this.btnGetReading.Click += new System.EventHandler(this.btnGetReading_Click);
             // 
             // tabPage5
             // 
@@ -575,46 +651,6 @@
             this.btnAllHeatOn.UseVisualStyleBackColor = true;
             this.btnAllHeatOn.Click += new System.EventHandler(this.btnAllHeatOn_Click);
             // 
-            // btnDeleteSequence
-            // 
-            this.btnDeleteSequence.Location = new System.Drawing.Point(250, 12);
-            this.btnDeleteSequence.Name = "btnDeleteSequence";
-            this.btnDeleteSequence.Size = new System.Drawing.Size(47, 23);
-            this.btnDeleteSequence.TabIndex = 29;
-            this.btnDeleteSequence.Text = "Delete";
-            this.btnDeleteSequence.UseVisualStyleBackColor = true;
-            this.btnDeleteSequence.Click += new System.EventHandler(this.btnDeleteSequence_Click);
-            // 
-            // tabPage6
-            // 
-            this.tabPage6.Controls.Add(this.lblMeterReading);
-            this.tabPage6.Controls.Add(this.btnGetReading);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(680, 39);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Energy Meter";
-            this.tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // btnGetReading
-            // 
-            this.btnGetReading.Location = new System.Drawing.Point(590, 7);
-            this.btnGetReading.Name = "btnGetReading";
-            this.btnGetReading.Size = new System.Drawing.Size(75, 23);
-            this.btnGetReading.TabIndex = 0;
-            this.btnGetReading.Text = "Get Reading";
-            this.btnGetReading.UseVisualStyleBackColor = true;
-            this.btnGetReading.Click += new System.EventHandler(this.btnGetReading_Click);
-            // 
-            // lblMeterReading
-            // 
-            this.lblMeterReading.AutoSize = true;
-            this.lblMeterReading.Location = new System.Drawing.Point(12, 12);
-            this.lblMeterReading.Name = "lblMeterReading";
-            this.lblMeterReading.Size = new System.Drawing.Size(41, 13);
-            this.lblMeterReading.TabIndex = 1;
-            this.lblMeterReading.Text = "label10";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -645,10 +681,10 @@
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -704,6 +740,9 @@
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Label lblMeterReading;
         private System.Windows.Forms.Button btnGetReading;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.Button btnOpen;
     }
 }
 
