@@ -654,11 +654,11 @@
             // 
             // btnHeatControl
             // 
-            this.btnHeatControl.Location = new System.Drawing.Point(621, 61);
+            this.btnHeatControl.Location = new System.Drawing.Point(505, 61);
             this.btnHeatControl.Name = "btnHeatControl";
-            this.btnHeatControl.Size = new System.Drawing.Size(75, 23);
+            this.btnHeatControl.Size = new System.Drawing.Size(191, 23);
             this.btnHeatControl.TabIndex = 31;
-            this.btnHeatControl.Text = "Open Heat Control";
+            this.btnHeatControl.Text = "Control Heating with weather";
             this.btnHeatControl.UseVisualStyleBackColor = true;
             this.btnHeatControl.Click += new System.EventHandler(this.btnHeatControl_Click);
             // 

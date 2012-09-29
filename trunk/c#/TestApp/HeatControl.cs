@@ -46,6 +46,7 @@ namespace TestApp
             Weatherxml = xmlDoc.GetElementsByTagName("cloudcover");
             if (Weatherxml.Count > 0) cloudcover = double.Parse(Weatherxml[0].InnerText);
             lblCloudCover.Text = cloudcover.ToString("## %");
+            lblLastUpdateWeather.Text = DateTime.Now.ToString() + " Weather updated";
             LightwaveRF.State newheatstate  ;
             if (mintemp > double.Parse(cmbDayMinTempOff.Text))
             {
