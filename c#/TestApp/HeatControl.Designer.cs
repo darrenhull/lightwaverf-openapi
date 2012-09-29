@@ -53,6 +53,7 @@
             this.lblCloudCover = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtAPIKey = new System.Windows.Forms.TextBox();
+            this.lblLastUpdateWeather = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -311,11 +312,20 @@
             this.txtAPIKey.TabIndex = 32;
             this.txtAPIKey.TextChanged += new System.EventHandler(this.txtAPIKey_TextChanged);
             // 
+            // lblLastUpdateWeather
+            // 
+            this.lblLastUpdateWeather.AutoSize = true;
+            this.lblLastUpdateWeather.Location = new System.Drawing.Point(134, 256);
+            this.lblLastUpdateWeather.Name = "lblLastUpdateWeather";
+            this.lblLastUpdateWeather.Size = new System.Drawing.Size(0, 13);
+            this.lblLastUpdateWeather.TabIndex = 33;
+            // 
             // HeatControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(548, 291);
+            this.Controls.Add(this.lblLastUpdateWeather);
             this.Controls.Add(this.txtAPIKey);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.lblCloudCover);
@@ -373,6 +383,7 @@
         private System.Windows.Forms.Label lblCloudCover;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtAPIKey;
+        private System.Windows.Forms.Label lblLastUpdateWeather;
     }
 }
 
