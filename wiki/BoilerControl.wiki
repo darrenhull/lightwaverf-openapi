@@ -1,4 +1,5 @@
 #summary Controlling a boiler with the relay units
+#labels Featured
 
 = Introduction =
 
