@@ -28,42 +28,49 @@ namespace TestApp
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load("http://free.worldweatheronline.com/feed/weather.ashx?key=" + txtAPIKey.Text + "&q=" + txtPostcode.Text + "&num_of_days=1&format=xml");
-            XmlNodeList Weatherxml = xmlDoc.GetElementsByTagName("temp_C");
-            if (Weatherxml.Count > 0) temp = double.Parse(Weatherxml[0].InnerText);
-            lbloutdoortemp.Text = temp.ToString("#0 Deg C");
+            try
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load("http://free.worldweatheronline.com/feed/weather.ashx?key=" + txtAPIKey.Text + "&q=" + txtPostcode.Text + "&num_of_days=1&format=xml");
+                XmlNodeList Weatherxml = xmlDoc.GetElementsByTagName("temp_C");
+                if (Weatherxml.Count > 0) temp = double.Parse(Weatherxml[0].InnerText);
+                lbloutdoortemp.Text = temp.ToString("#0 Deg C");
 
-            Weatherxml = xmlDoc.GetElementsByTagName("tempMaxC");
-            if (Weatherxml.Count > 0) maxtemp = double.Parse(Weatherxml[0].InnerText);
-            lblmaxtemp.Text = maxtemp.ToString("#0 Deg C");
+                Weatherxml = xmlDoc.GetElementsByTagName("tempMaxC");
+                if (Weatherxml.Count > 0) maxtemp = double.Parse(Weatherxml[0].InnerText);
+                lblmaxtemp.Text = maxtemp.ToString("#0 Deg C");
 
-            Weatherxml = xmlDoc.GetElementsByTagName("tempMinC");
-            if (Weatherxml.Count > 0) mintemp = double.Parse(Weatherxml[0].InnerText);
-            lblmintemp.Text = mintemp.ToString("#0 Deg C");
+                Weatherxml = xmlDoc.GetElementsByTagName("tempMinC");
+                if (Weatherxml.Count > 0) mintemp = double.Parse(Weatherxml[0].InnerText);
+                lblmintemp.Text = mintemp.ToString("#0 Deg C");
 
-            Weatherxml = xmlDoc.GetElementsByTagName("cloudcover");
-            if (Weatherxml.Count > 0) cloudcover = double.Parse(Weatherxml[0].InnerText);
-            lblCloudCover.Text = cloudcover.ToString("## %");
-            lblLastUpdateWeather.Text = DateTime.Now.ToString() + " Weather updated";
-            LightwaveRF.State newheatstate  ;
-            if (mintemp > double.Parse(cmbDayMinTempOff.Text))
-            {
-                newheatstate = LightwaveRF.State.Off;
-            }else if (temp > double.Parse(cmbMaxTempOffHeat.Text))
-            {
-                newheatstate = LightwaveRF.State.Off;
-            }
-            else
-            {
-                newheatstate = LightwaveRF.State.On;
-            }
-            if (newheatstate != currentHeatState)
-            {
-                string retval = LightwaveRF.API.CentralHeatOnOff(newheatstate, "AutoCentHeat");
+                Weatherxml = xmlDoc.GetElementsByTagName("cloudcover");
+                if (Weatherxml.Count > 0) cloudcover = double.Parse(Weatherxml[0].InnerText);
+                lblCloudCover.Text = cloudcover.ToString("## %");
+                lblLastUpdateWeather.Text = DateTime.Now.ToString() + " Weather updated";
+                LightwaveRF.State newheatstate;
+                if (mintemp > double.Parse(cmbDayMinTempOff.Text))
+                {
+                    newheatstate = LightwaveRF.State.Off;
+                }
+                else if (temp > double.Parse(cmbMaxTempOffHeat.Text))
+                {
+                    newheatstate = LightwaveRF.State.Off;
+                }
+                else
+                {
+                    newheatstate = LightwaveRF.State.On;
+                }
+                if (newheatstate != currentHeatState)
+                {
+                    string retval = LightwaveRF.API.CentralHeatOnOff(newheatstate, "AutoCentHeat");
                     lblHeatState.Text = "Heating now set to : " + newheatstate + " " + DateTime.Now.ToString();
                     currentHeatState = newheatstate;
+                }
+            }
+            catch(Exception ex)
+            {
+                lblHeatState.Text = " Error getting temp data: " + ex.Message;
             }
         }
 
