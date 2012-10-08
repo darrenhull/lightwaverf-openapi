@@ -46,7 +46,7 @@ namespace TestApp
 
                 Weatherxml = xmlDoc.GetElementsByTagName("cloudcover");
                 if (Weatherxml.Count > 0) cloudcover = double.Parse(Weatherxml[0].InnerText);
-                lblCloudCover.Text = cloudcover.ToString("## %");
+                lblCloudCover.Text = cloudcover.ToString("##");
                 lblLastUpdateWeather.Text = DateTime.Now.ToString() + " Weather updated";
                 LightwaveRF.State newheatstate;
                 if (mintemp > double.Parse(cmbDayMinTempOff.Text))
@@ -64,8 +64,12 @@ namespace TestApp
                 if (newheatstate != currentHeatState)
                 {
                     string retval = LightwaveRF.API.CentralHeatOnOff(newheatstate, "AutoCentHeat");
-                    lblHeatState.Text = "Heating now set to : " + newheatstate + " " + DateTime.Now.ToString();
+                    lblHeatState.Text = "Heating now set to : " + newheatstate + " " + DateTime.Now.ToString() + "Response: " + retval;
                     currentHeatState = newheatstate;
+                }
+                else
+                {
+                    lblHeatState.Text = "Heating still :" + newheatstate + DateTime.Now.ToString();
                 }
             }
             catch(Exception ex)
