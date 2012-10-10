@@ -241,7 +241,7 @@ namespace LightwaveRF
         {
             try
             {
-                RecordedSequence = "!FeP\"" + RecordedSequenceName + "\"=";
+                RecordedSequence = nextind + "!FeP\"" + RecordedSequenceName + "\"=";
                 Raw += AddEventToSequence;
                 Listen();
                 System.Threading.Thread.Sleep(20000);
@@ -257,7 +257,14 @@ namespace LightwaveRF
         private  void AddEventToSequence(object sender, string rawData)
         {
             //!FeP"Test"=!R1D1F1,00:00:03,!R1Fa,00:00:03,!R1D2F0,00:00:03
-            string command = rawData.Substring(4);
+            //remove any comments that would be displayed on the wifilink - they are not allowed in a sequence.
+            int endchar;
+            if (rawData.Contains("|"))
+                endchar = rawData.IndexOf('|') - 4;
+            else
+                endchar = rawData.Length() -4;
+
+            string command = rawData.Substring(4,endchar);
             RecordedSequence = RecordedSequence + command +",00:00:03,";
         }
 
