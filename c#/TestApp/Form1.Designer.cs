@@ -81,6 +81,11 @@
             this.button2 = new System.Windows.Forms.Button();
             this.btnAllHeatOn = new System.Windows.Forms.Button();
             this.btnHeatControl = new System.Windows.Forms.Button();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.txtSequenceNameTimer = new System.Windows.Forms.TextBox();
+            this.dateTimeTimer = new System.Windows.Forms.DateTimePicker();
+            this.btnSetTimer = new System.Windows.Forms.Button();
+            this.txtTimername = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -88,6 +93,7 @@
             this.tabPage4.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage7.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmbRoom
@@ -168,6 +174,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(8, 68);
@@ -662,6 +669,56 @@
             this.btnHeatControl.UseVisualStyleBackColor = true;
             this.btnHeatControl.Click += new System.EventHandler(this.btnHeatControl_Click);
             // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.txtTimername);
+            this.tabPage7.Controls.Add(this.btnSetTimer);
+            this.tabPage7.Controls.Add(this.dateTimeTimer);
+            this.tabPage7.Controls.Add(this.txtSequenceNameTimer);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(680, 39);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Timer";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // txtSequenceNameTimer
+            // 
+            this.txtSequenceNameTimer.Location = new System.Drawing.Point(116, 10);
+            this.txtSequenceNameTimer.Name = "txtSequenceNameTimer";
+            this.txtSequenceNameTimer.Size = new System.Drawing.Size(100, 20);
+            this.txtSequenceNameTimer.TabIndex = 0;
+            this.txtSequenceNameTimer.Text = "SequenceName";
+            // 
+            // dateTimeTimer
+            // 
+            this.dateTimeTimer.CustomFormat = "dd MMM yyyy HH:mm:ss";
+            this.dateTimeTimer.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimeTimer.Location = new System.Drawing.Point(231, 10);
+            this.dateTimeTimer.Name = "dateTimeTimer";
+            this.dateTimeTimer.ShowUpDown = true;
+            this.dateTimeTimer.Size = new System.Drawing.Size(135, 20);
+            this.dateTimeTimer.TabIndex = 1;
+            // 
+            // btnSetTimer
+            // 
+            this.btnSetTimer.Location = new System.Drawing.Point(599, 9);
+            this.btnSetTimer.Name = "btnSetTimer";
+            this.btnSetTimer.Size = new System.Drawing.Size(75, 23);
+            this.btnSetTimer.TabIndex = 2;
+            this.btnSetTimer.Text = "Set Timer";
+            this.btnSetTimer.UseVisualStyleBackColor = true;
+            this.btnSetTimer.Click += new System.EventHandler(this.btnSetTimer_Click);
+            // 
+            // txtTimername
+            // 
+            this.txtTimername.Location = new System.Drawing.Point(11, 10);
+            this.txtTimername.Name = "txtTimername";
+            this.txtTimername.Size = new System.Drawing.Size(100, 20);
+            this.txtTimername.TabIndex = 3;
+            this.txtTimername.Text = "TimerName";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -697,6 +754,8 @@
             this.tabPage6.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -756,6 +815,11 @@
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnOpen;
         private System.Windows.Forms.Button btnHeatControl;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.Button btnSetTimer;
+        private System.Windows.Forms.DateTimePicker dateTimeTimer;
+        private System.Windows.Forms.TextBox txtSequenceNameTimer;
+        private System.Windows.Forms.TextBox txtTimername;
     }
 }
 

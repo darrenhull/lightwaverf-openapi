@@ -167,6 +167,11 @@ namespace TestApp
             var x = new HeatControl();
             x.Show();
         }
+
+        private void btnSetTimer_Click(object sender, EventArgs e)
+        {
+            lblResponse.Text = LightwaveRF.API.saveTimer(txtTimername.Text, txtSequenceNameTimer.Text, dateTimeTimer.Value);
+        }
         
     }
 }
