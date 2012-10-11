@@ -165,6 +165,7 @@
             this.txtcommands.Location = new System.Drawing.Point(129, 166);
             this.txtcommands.Multiline = true;
             this.txtcommands.Name = "txtcommands";
+            this.txtcommands.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtcommands.Size = new System.Drawing.Size(567, 228);
             this.txtcommands.TabIndex = 22;
             // 
