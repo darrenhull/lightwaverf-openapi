@@ -262,7 +262,7 @@ namespace LightwaveRF
             if (rawData.Contains("|"))
                 endchar = rawData.IndexOf('|') - 4;
             else
-                endchar = rawData.Length() -4;
+                endchar = rawData.Length -4;
 
             string command = rawData.Substring(4,endchar);
             RecordedSequence = RecordedSequence + command +",00:00:03,";
