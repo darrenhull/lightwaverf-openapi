@@ -75,6 +75,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_6141C4E80763F779EE3B898E3BB91EB9"
+        "OwnerKey" = "8:_ADAE4AF42B2640CA824F3B12F3B22AD1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_89EB63731BB07664988B13CA043A2348"
         "OwnerKey" = "8:_58FE4EA9CBBC425696158707C90EBD3B"
         "MsmSig" = "8:_UNDEFINED"
@@ -100,6 +106,12 @@
         "Entry"
         {
         "MsmKey" = "8:_A31F80E769EB4C8F8BE2DC9F04FAE0ED"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_ADAE4AF42B2640CA824F3B12F3B22AD1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -149,6 +161,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D15DCA37765A41E3B3D9896F6F206E98"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_ADAE4AF42B2640CA824F3B12F3B22AD1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -308,7 +326,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:LightwaveRF, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:LightwaveRF, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_1CB979ED84A6ED809B80B0D83C88AFCE"
@@ -763,7 +781,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:LightWaveRF Open API"
         "ProductCode" = "8:{1AD603AA-E701-4A77-B43F-8D691979C871}"
-        "PackageCode" = "8:{CBF44A7E-372B-4651-A5EE-2075BC92CB3D}"
+        "PackageCode" = "8:{1737677B-B013-4315-8ECA-AA40BFEDD5F8}"
         "UpgradeCode" = "8:{7C73DA4B-58B0-4220-9570-53F2633BDA05}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -774,7 +792,7 @@
         "Manufacturer" = "8:Steve Aitken"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/lightwaverf-openapi/"
-        "Title" = "8:LightWaveRF Open API 2.3"
+        "Title" = "8:LightWaveRF Open API 2.5"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Steve Aitken"
         "Keywords" = "8:"
@@ -1375,6 +1393,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{81E16452-E891-48DB-BC94-6B944DC829E8}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_ADAE4AF42B2640CA824F3B12F3B22AD1"
+            {
+            "SourcePath" = "8:..\\obj\\Release\\LightwaveRF.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_2F672CE43B0F46DBA0EF9C18052B0B65"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{8EBA73C2-BCB9-4F09-BFED-C2F8A7E959A4}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
