@@ -10,7 +10,6 @@ namespace LightwaveConsole
     {
         static int Main(string[] args)
         {
-            var x = new LightwaveRF.API();
             string message = "";
             if (args.Length > 0)
             {
