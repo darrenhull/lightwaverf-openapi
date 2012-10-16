@@ -32,6 +32,9 @@ namespace LightwaveConsole
                         case "mood":
                             System.Console.WriteLine(LightwaveRF.API.Mood(int.Parse(args[1]), int.Parse(args[2])));
                             return 0;
+                        case "storemood":
+                            System.Console.WriteLine(LightwaveRF.API.SaveMood(int.Parse(args[1]), int.Parse(args[2])));
+                            return 0;
                         case "raw":
                             System.Console.WriteLine(LightwaveRF.API.sendRaw(args[1]));
                             return 0;
@@ -55,12 +58,13 @@ namespace LightwaveConsole
             if (message == "Index was outside the bounds of the array.") message = "Not enough arguments.";
             if (message != "") System.Console.WriteLine(message); System.Console.WriteLine();
             System.Console.WriteLine("Usage:");
-            System.Console.WriteLine("switch device on or off   : LightwaveConsole Device <room> <device> <state>");
-            System.Console.WriteLine("dim device                : LightwaveConsole Dim    <room)> <device> <state>");
-            System.Console.WriteLine("heating device            : LightwaveConsole Heat   <room> <state>");
-            System.Console.WriteLine("All in room off           : LightwaveConsole Room   <room>");
-            System.Console.WriteLine("Set mood in room          : LightwaveConsole Mood   <room> <mood>");
-            System.Console.WriteLine("Send Raw data to wifi     : LightwaveConsole Raw    <Datatosend>");
+            System.Console.WriteLine("switch device on or off   : LightwaveConsole Device    <room> <device> <state>");
+            System.Console.WriteLine("dim device                : LightwaveConsole Dim       <room)> <device> <state>");
+            System.Console.WriteLine("heating device            : LightwaveConsole Heat      <room> <state>");
+            System.Console.WriteLine("All in room off           : LightwaveConsole Room      <room>");
+            System.Console.WriteLine("Set mood in room          : LightwaveConsole Mood      <room> <mood>");
+            System.Console.WriteLine("Store mood in room        : LightwaveConsole StoreMood <room> <mood>");
+            System.Console.WriteLine("Send Raw data to wifi     : LightwaveConsole Raw       <Datatosend>");
             System.Console.WriteLine("listen for other commands : LightwaveConsole Listen");
             System.Console.WriteLine();
             System.Console.WriteLine("eg:");
@@ -69,6 +73,7 @@ namespace LightwaveConsole
             System.Console.WriteLine("LightwaveConsole Heat 1 0");
             System.Console.WriteLine("LightwaveConsole Room 1 ");
             System.Console.WriteLine("LightwaveConsole Mood 1 1");
+            System.Console.WriteLine("LightwaveConsole StoreMood 1 1");
             System.Console.WriteLine("LightwaveConsole Raw 533!R1D1F1");
             return 1;
         }
