@@ -1,7 +1,8 @@
 #summary Command line interface
 #labels Featured
 
-The command line interface can be used as below:
+The command line interface is installed with the API - in Program files\LightwaveRF Open API\
+
 {{{
 Usage:
 switch device on or off   : LightwaveConsole Device <room> <device> <state>
