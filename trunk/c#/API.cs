@@ -16,11 +16,11 @@ namespace LightwaveRF
     public delegate void heatEventHandler(object sender, int room, State state);
     public delegate void rawEventHandler(object sender, string rawData);
     public delegate void responseEventHandler(object sender, string Data);
-    public class API
+    public static class API
     {
-        private string RecordedSequence = "";
-        private string RecordedSequenceName = "";
-        private Thread recordsequencethread = null;
+        private static string RecordedSequence = "";
+        private static string RecordedSequenceName = "";
+        private static Thread recordsequencethread = null;
         public static int radiatorRefreshMins = 20;
         public static TimeSpan keepRadiatorStatefor = new TimeSpan(1, 0, 0, 0);
 
@@ -28,6 +28,13 @@ namespace LightwaveRF
         {
             get
             {
+                if(radiatorStateThread != null)
+                {
+                    if (radiatorStateThread.ThreadState == ThreadState.Aborted || radiatorStateThread.ThreadState == ThreadState.Stopped || radiatorStateThread.ThreadState == ThreadState.WaitSleepJoin)
+                    {
+                        radiatorStateThread = null;
+                    }
+                }
                 return radiatorStateThread != null;
             }
             set
@@ -47,27 +54,20 @@ namespace LightwaveRF
         private static int radiatorStateRefreshMins = 10;
         private static DateTime radiatorStateUntilDate;
         private static Dictionary<string,Device> LastDeviceState = new Dictionary<string,Device>();
-        public List<Room> Rooms;
-        public List<Device> Devices;
-        public Dictionary<string, Device> GetDevices
+        public static    List<Room> Rooms;
+        public static List<Device> Devices;
+        public static Dictionary<string, Device> GetDevices
         {
             get
             {
                 return LastDeviceState;
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        public API()
-        {
-            Random r = new Random();
-            ind = r.Next(999);
-        }
+
         /// <summary>
         /// index used for requests to the wifilink
         /// </summary>
-        static int ind = 0;
+        static int ind = -999;
         /// <summary>
         /// get the next index and return it.
         /// </summary>
@@ -75,6 +75,11 @@ namespace LightwaveRF
         {
             get
             {
+                if (ind == -999)//index not yet initialised. - set it to a random number.
+                {
+                    Random r = new Random();
+                    ind = r.Next(999);
+                }
                 ind++;
                 if (ind > 999) ind = 1;
                 return(ind.ToString("000"));
@@ -244,7 +249,7 @@ namespace LightwaveRF
         /// </summary>
         /// <param name="SequenceName"></param>
         /// <returns>String "OK" otherwise error message</returns>
-        public string RecordSequence(string SequenceName)
+        public static string RecordSequence(string SequenceName)
         {
             if (recordsequencethread == null || recordsequencethread.ThreadState==ThreadState.Stopped)
             {
@@ -259,7 +264,7 @@ namespace LightwaveRF
         /// <summary>
         /// capture commands for 20 seconds and store them in the sequence
         /// </summary>
-        private void recordSequenceWorker()
+        private static void recordSequenceWorker()
         {
             try
             {
@@ -276,7 +281,7 @@ namespace LightwaveRF
             {
             }
         }
-        private  void AddEventToSequence(object sender, string rawData)
+        private static void AddEventToSequence(object sender, string rawData)
         {
             //!FeP"Test"=!R1D1F1,00:00:03,!R1Fa,00:00:03,!R1D2F0,00:00:03
             //remove any comments that would be displayed on the wifilink - they are not allowed in a sequence.
@@ -589,7 +594,7 @@ namespace LightwaveRF
         /// <param name="minutesToRefresh">number of minutes to wait before refreshing the state of the valves.</param>
         /// 
         /// <returns></returns>
-        public static void KeepRadiatorState(int refreshMins, DateTime untilDate)
+        private static void KeepRadiatorState(int refreshMins, DateTime untilDate)
         {
             Listen();
             radiatorStateUntilDate = untilDate;
