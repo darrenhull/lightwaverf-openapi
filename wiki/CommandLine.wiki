@@ -1,4 +1,5 @@
 #summary Command line interface
+#labels Featured
 
 The command line interface can be used as below:
 {{{
