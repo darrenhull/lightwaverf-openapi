@@ -4,7 +4,7 @@ The command line interface can be used as below:
 {{{
 Usage:
 switch device on or off   : LightwaveConsole Device <room> <device> <state>
-dim device                : LightwaveConsole Dim    <room)> <device> <state>
+dim device                : LightwaveConsole Dim    <room> <device> <state>
 heating device            : LightwaveConsole Heat   <room> <state>
 All in room off           : LightwaveConsole Room   <room>
 Set mood in room          : LightwaveConsole Mood   <room> <mood>
