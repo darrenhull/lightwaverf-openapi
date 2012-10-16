@@ -11,7 +11,6 @@ namespace TestApp
 {
     public partial class Form1 : Form
     {
-        public LightwaveRF.API apilistener = new LightwaveRF.API();
         string lastcommand = "";
         private void apilistener_Raw(object sender, string rawData)
         {
@@ -88,7 +87,7 @@ namespace TestApp
 
         private void btnRecordSequence_Click(object sender, EventArgs e)
         {
-            lblResponse.Text = apilistener.RecordSequence(txtSequence.Text);
+            lblResponse.Text = LightwaveRF.API.RecordSequence(txtSequence.Text);
         }
 
         private void btnRunSequence_Click(object sender, EventArgs e)
@@ -101,11 +100,6 @@ namespace TestApp
             lblResponse.Text = LightwaveRF.API.AllHeat(State.Off);                
         }
         
-        private void btnMaintainRadiatorOff_Click(object sender, EventArgs e)
-        {
-            LightwaveRF.API.KeepRadiatorState(1,DateTime.Now.AddDays(1));
-        }
-
         private void btnAllHeatOn_Click(object sender, EventArgs e)
         {
             lblResponse.Text = LightwaveRF.API.AllHeat(State.On);
@@ -172,6 +166,10 @@ namespace TestApp
         {
             lblResponse.Text = LightwaveRF.API.saveTimer(txtTimername.Text, txtSequenceNameTimer.Text, dateTimeTimer.Value);
         }
-        
+
+        private void chkRadiatorState_CheckedChanged(object sender, EventArgs e)
+        {
+            LightwaveRF.API.MaintainRadiatorState = chkRadiatorState.Checked;
+        }
     }
 }
