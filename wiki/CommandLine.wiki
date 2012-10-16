@@ -1,7 +1,7 @@
 #summary Command line interface
 
 The command line interface can be used as below:
-
+{{{
 Usage:
 switch device on or off   : LightwaveConsole Device <room> <device> <state>
 dim device                : LightwaveConsole Dim    <room)> <device> <state>
@@ -18,3 +18,4 @@ LightwaveConsole Heat 1 0
 LightwaveConsole Room 1
 LightwaveConsole Mood 1 1
 LightwaveConsole Raw 533!R1D1F1
+}}}
