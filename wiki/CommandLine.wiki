@@ -5,12 +5,13 @@ The command line interface is installed with the API - in Program files\Lightwav
 
 {{{
 Usage:
-switch device on or off   : LightwaveConsole Device <room> <device> <state>
-dim device                : LightwaveConsole Dim    <room> <device> <state>
-heating device            : LightwaveConsole Heat   <room> <state>
-All in room off           : LightwaveConsole Room   <room>
-Set mood in room          : LightwaveConsole Mood   <room> <mood>
-Send Raw data to wifi     : LightwaveConsole Raw    <Datatosend>
+switch device on or off   : LightwaveConsole Device    <room> <device> <state>
+dim device                : LightwaveConsole Dim       <room)> <device> <state>
+heating device            : LightwaveConsole Heat      <room> <state>
+All in room off           : LightwaveConsole Room      <room>
+Set mood in room          : LightwaveConsole Mood      <room> <mood>
+Store mood in room        : LightwaveConsole StoreMood <room> <mood>
+Send Raw data to wifi     : LightwaveConsole Raw       <Datatosend>
 listen for other commands : LightwaveConsole Listen
 
 eg:
@@ -19,5 +20,6 @@ LightwaveConsole Dim 1 1 100
 LightwaveConsole Heat 1 0
 LightwaveConsole Room 1
 LightwaveConsole Mood 1 1
+LightwaveConsole StoreMood 1 1
 LightwaveConsole Raw 533!R1D1F1
 }}}
