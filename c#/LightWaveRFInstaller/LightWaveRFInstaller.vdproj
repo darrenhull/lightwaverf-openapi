@@ -763,7 +763,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:LightWaveRF Open API"
         "ProductCode" = "8:{1AD603AA-E701-4A77-B43F-8D691979C871}"
-        "PackageCode" = "8:{33AC1F34-46BC-4113-B4A6-AA3B60401AED}"
+        "PackageCode" = "8:{CBF44A7E-372B-4651-A5EE-2075BC92CB3D}"
         "UpgradeCode" = "8:{7C73DA4B-58B0-4220-9570-53F2633BDA05}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -883,6 +883,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_06874D047A4149438EC643C46AF6B598"
+            {
+            "Name" = "8:LightwaveRF console App"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_0BDA623EDD204D1B9BC5D0089E0EFCF3"
+            "Folder" = "8:_D0DA18980991420BB2AF1AC759E003E0"
+            "WorkingFolder" = "8:_FAAA593BA15B414FBDC112FB9F398029"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_0A06B4CA61924DEAB14A0CE3EB937443"
             {
             "Name" = "8:Shortcut to TestApp.csproj"
