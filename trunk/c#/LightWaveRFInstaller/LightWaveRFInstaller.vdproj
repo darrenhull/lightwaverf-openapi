@@ -21,6 +21,36 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1CB979ED84A6ED809B80B0D83C88AFCE"
+        "OwnerKey" = "8:_0BDA623EDD204D1B9BC5D0089E0EFCF3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1CB979ED84A6ED809B80B0D83C88AFCE"
+        "OwnerKey" = "8:_D15DCA37765A41E3B3D9896F6F206E98"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_1CB979ED84A6ED809B80B0D83C88AFCE"
+        "OwnerKey" = "8:_58FE4EA9CBBC425696158707C90EBD3B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2A4E179D83CE4306875CAB2F5409F910"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_44FC3E8C45AB410A99CA17DAFEC2F1FE"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_58FE4EA9CBBC425696158707C90EBD3B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -33,20 +63,26 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_6F8A8629EE61F8FA1358D2DDE3F9180F"
-        "OwnerKey" = "8:_0BDA623EDD204D1B9BC5D0089E0EFCF3"
+        "MsmKey" = "8:_5D6880158EA471FFE25D80AD15995DE8"
+        "OwnerKey" = "8:_89EB63731BB07664988B13CA043A2348"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6F8A8629EE61F8FA1358D2DDE3F9180F"
-        "OwnerKey" = "8:_D15DCA37765A41E3B3D9896F6F206E98"
+        "MsmKey" = "8:_6141C4E80763F779EE3B898E3BB91EB9"
+        "OwnerKey" = "8:_EBDE01F97AAF434AAEE7EDA5D84C430F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6F8A8629EE61F8FA1358D2DDE3F9180F"
+        "MsmKey" = "8:_89EB63731BB07664988B13CA043A2348"
         "OwnerKey" = "8:_58FE4EA9CBBC425696158707C90EBD3B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8E24C7E57CDD4BAB88723ED06A47BD23"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -63,7 +99,49 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A31F80E769EB4C8F8BE2DC9F04FAE0ED"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_D15DCA37765A41E3B3D9896F6F206E98"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D97276CA1582497BA034D0B8FC1BD333"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E1727AABFA014A78B8DBEDA99802B4AB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_E84A6E8C9592418AA95217941D97FAB5"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_EBDE01F97AAF434AAEE7EDA5D84C430F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F2E5FE153A064E88A5CA2BCEDD2A4FEE"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FEE5CB988C7B49B79740BFD882377511"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -76,7 +154,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6F8A8629EE61F8FA1358D2DDE3F9180F"
+        "OwnerKey" = "8:_EBDE01F97AAF434AAEE7EDA5D84C430F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_6141C4E80763F779EE3B898E3BB91EB9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -100,7 +184,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_89EB63731BB07664988B13CA043A2348"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_0BDA623EDD204D1B9BC5D0089E0EFCF3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1CB979ED84A6ED809B80B0D83C88AFCE"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -208,6 +304,77 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1CB979ED84A6ED809B80B0D83C88AFCE"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:LightwaveRF, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_1CB979ED84A6ED809B80B0D83C88AFCE"
+                    {
+                    "Name" = "8:LightwaveRF.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:LightwaveRF.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_FAAA593BA15B414FBDC112FB9F398029"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2A4E179D83CE4306875CAB2F5409F910"
+            {
+            "SourcePath" = "8:..\\TestApp\\HeatControl.Designer.cs"
+            "TargetName" = "8:HeatControl.Designer.cs"
+            "Tag" = "8:"
+            "Folder" = "8:_2F672CE43B0F46DBA0EF9C18052B0B65"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_44FC3E8C45AB410A99CA17DAFEC2F1FE"
+            {
+            "SourcePath" = "8:..\\TestApp\\Form1.Designer.cs"
+            "TargetName" = "8:Form1.Designer.cs"
+            "Tag" = "8:"
+            "Folder" = "8:_2F672CE43B0F46DBA0EF9C18052B0B65"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5D6880158EA471FFE25D80AD15995DE8"
             {
             "AssemblyRegister" = "3:1"
@@ -239,20 +406,51 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6F8A8629EE61F8FA1358D2DDE3F9180F"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6141C4E80763F779EE3B898E3BB91EB9"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:lightwaveRfApi, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6F8A8629EE61F8FA1358D2DDE3F9180F"
+                    "_6141C4E80763F779EE3B898E3BB91EB9"
                     {
-                    "Name" = "8:lightwaveRfApi.dll"
+                    "Name" = "8:EntityFramework.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:lightwaveRfApi.dll"
+            "SourcePath" = "8:EntityFramework.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D39842437BA845D982D35DBC7023F338"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_89EB63731BB07664988B13CA043A2348"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AddInView2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_89EB63731BB07664988B13CA043A2348"
+                    {
+                    "Name" = "8:AddInView2.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AddInView2.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_FAAA593BA15B414FBDC112FB9F398029"
@@ -268,6 +466,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8E24C7E57CDD4BAB88723ED06A47BD23"
+            {
+            "SourcePath" = "8:..\\TestApp\\Program.cs"
+            "TargetName" = "8:Program.cs"
+            "Tag" = "8:"
+            "Folder" = "8:_2F672CE43B0F46DBA0EF9C18052B0B65"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9DDAA2D15190BC121C20E2DD82169166"
@@ -301,6 +519,126 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A31F80E769EB4C8F8BE2DC9F04FAE0ED"
+            {
+            "SourcePath" = "8:..\\TestApp\\TestApp.csproj"
+            "TargetName" = "8:TestApp.csproj"
+            "Tag" = "8:"
+            "Folder" = "8:_2F672CE43B0F46DBA0EF9C18052B0B65"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D97276CA1582497BA034D0B8FC1BD333"
+            {
+            "SourcePath" = "8:..\\TestApp\\HeatControl.cs"
+            "TargetName" = "8:HeatControl.cs"
+            "Tag" = "8:"
+            "Folder" = "8:_2F672CE43B0F46DBA0EF9C18052B0B65"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E1727AABFA014A78B8DBEDA99802B4AB"
+            {
+            "SourcePath" = "8:..\\TestApp\\Form1.resx"
+            "TargetName" = "8:Form1.resx"
+            "Tag" = "8:"
+            "Folder" = "8:_2F672CE43B0F46DBA0EF9C18052B0B65"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_E84A6E8C9592418AA95217941D97FAB5"
+            {
+            "SourcePath" = "8:..\\TestApp\\HeatControl.resx"
+            "TargetName" = "8:HeatControl.resx"
+            "Tag" = "8:"
+            "Folder" = "8:_2F672CE43B0F46DBA0EF9C18052B0B65"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F2E5FE153A064E88A5CA2BCEDD2A4FEE"
+            {
+            "SourcePath" = "8:..\\TestApp\\logo.ico"
+            "TargetName" = "8:logo.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_2F672CE43B0F46DBA0EF9C18052B0B65"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FEE5CB988C7B49B79740BFD882377511"
+            {
+            "SourcePath" = "8:..\\TestApp\\Form1.cs"
+            "TargetName" = "8:Form1.cs"
+            "Tag" = "8:"
+            "Folder" = "8:_2F672CE43B0F46DBA0EF9C18052B0B65"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -325,8 +663,31 @@
                     "Property" = "8:_B945D32C9E3A4B93BA6764A7B98D666E"
                         "Folders"
                         {
+                            "{9EF0B969-E518-4E46-987F-47570745A589}:_2F672CE43B0F46DBA0EF9C18052B0B65"
+                            {
+                            "Name" = "8:TestApp"
+                            "AlwaysCreate" = "11:FALSE"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "Property" = "8:_E1AE10CCC3AA4E068BD5820F4EC27187"
+                                "Folders"
+                                {
+                                }
+                            }
                         }
                     }
+                }
+            }
+            "{994432C3-9487-495D-8656-3E829A8DBDDE}:_D39842437BA845D982D35DBC7023F338"
+            {
+            "DefaultLocation" = "8:C:\\lightwaverf-openapi\\c#\\bin\\Release\\"
+            "Name" = "8:LightwaverfAPI Dll location"
+            "AlwaysCreate" = "11:TRUE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:NEWPROPERTY1"
+                "Folders"
+                {
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_DE5CB46C01C14B809F120FC58975BA69"
@@ -522,6 +883,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_0A06B4CA61924DEAB14A0CE3EB937443"
+            {
+            "Name" = "8:Shortcut to TestApp.csproj"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_A31F80E769EB4C8F8BE2DC9F04FAE0ED"
+            "Folder" = "8:_D0DA18980991420BB2AF1AC759E003E0"
+            "WorkingFolder" = "8:_2F672CE43B0F46DBA0EF9C18052B0B65"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6904C2EB4CDC4FB3A453C455BB957298"
             {
             "Name" = "8:TestApp"
@@ -1042,6 +1417,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:ContentFiles"
             "OutputProjectGuid" = "8:{81E16452-E891-48DB-BC94-6B944DC829E8}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_EBDE01F97AAF434AAEE7EDA5D84C430F"
+            {
+            "SourcePath" = "8:..\\obj\\Release\\LightwaveRF.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D39842437BA845D982D35DBC7023F338"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{8EBA73C2-BCB9-4F09-BFED-C2F8A7E959A4}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
