@@ -21,9 +21,31 @@ namespace LightwaveRF
         private string RecordedSequence = "";
         private string RecordedSequenceName = "";
         private Thread recordsequencethread = null;
-        private Thread radiatorStateThread = null;
-        private int radiatorStateRefreshMins = 10;
-        private DateTime radiatorStateUntilDate;
+        public static int radiatorRefreshMins = 20;
+        public static TimeSpan keepRadiatorStatefor = new TimeSpan(1, 0, 0, 0);
+
+        public static bool MaintainRadiatorState
+        {
+            get
+            {
+                return radiatorStateThread != null;
+            }
+            set
+            {
+                if (value)
+                {
+                    KeepRadiatorState(radiatorRefreshMins, DateTime.Now.Add(keepRadiatorStatefor));
+                }
+                else
+                {
+                    radiatorStateThread.Abort();
+                    radiatorStateThread = null;
+                }
+            }
+        }
+        private static Thread radiatorStateThread = null;
+        private static int radiatorStateRefreshMins = 10;
+        private static DateTime radiatorStateUntilDate;
         private static Dictionary<string,Device> LastDeviceState = new Dictionary<string,Device>();
         public List<Room> Rooms;
         public List<Device> Devices;
@@ -538,7 +560,7 @@ namespace LightwaveRF
         /// <summary>
         /// 
         /// </summary>
-        private  void RadiatorStateWorker()
+        private static void RadiatorStateWorker()
         {
             while (radiatorStateUntilDate > DateTime.Now)
             {
@@ -567,7 +589,7 @@ namespace LightwaveRF
         /// <param name="minutesToRefresh">number of minutes to wait before refreshing the state of the valves.</param>
         /// 
         /// <returns></returns>
-        public void KeepRadiatorState(int refreshMins, DateTime untilDate)
+        public static void KeepRadiatorState(int refreshMins, DateTime untilDate)
         {
             Listen();
             radiatorStateUntilDate = untilDate;
