@@ -9,3 +9,9 @@ This method retains a list of the valves that are currently in the off state, an
 
 == 2. What is the 'Detected Commands' box in the test app ==
 This textbox shows all the commands sent on the network to the wifilink. - if you want to copy a command that another device (eg. iPhone) sends then send it from the iPhone, and you will see it in here. you can test this new command using the 'Raw' tab to send a Raw message. if you have a command you would like to add to the API - then either post a patch, or request it in the issues.
+
+== 3. How can I control my boiler without a boiler control ==
+see [BoilerControl Boiler Control]
+
+== 4. I can't program - how can I use the API ==
+try the [CommandLine command-line app] - it will allow you to make simple batch scripts, or scheduled tasks in windows to do things.
