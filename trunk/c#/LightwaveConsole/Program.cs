@@ -59,12 +59,12 @@ namespace LightwaveConsole
             if (message != "") System.Console.WriteLine(message); System.Console.WriteLine();
             System.Console.WriteLine("Usage:");
             System.Console.WriteLine("switch device on or off   : LightwaveConsole Device    <room> <device> <state>");
-            System.Console.WriteLine("dim device                : LightwaveConsole Dim       <room)> <device> <state>");
+            System.Console.WriteLine("dim device                : LightwaveConsole Dim       <room> <device> <state>");
             System.Console.WriteLine("heating device            : LightwaveConsole Heat      <room> <state>");
             System.Console.WriteLine("All in room off           : LightwaveConsole Room      <room>");
             System.Console.WriteLine("Set mood in room          : LightwaveConsole Mood      <room> <mood>");
             System.Console.WriteLine("Store mood in room        : LightwaveConsole StoreMood <room> <mood>");
-            System.Console.WriteLine("Send Raw data to wifi     : LightwaveConsole Raw       <Datatosend>");
+            System.Console.WriteLine("Send Raw data to wifi     : LightwaveConsole Raw       <datatosend>");
             System.Console.WriteLine("listen for other commands : LightwaveConsole Listen");
             System.Console.WriteLine();
             System.Console.WriteLine("eg:");
