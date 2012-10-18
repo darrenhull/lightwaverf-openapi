@@ -616,7 +616,7 @@ namespace LightwaveRF
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 9760);
             byte[] send_buffer = Encoding.ASCII.GetBytes(text);
             udpClient.Send(send_buffer, send_buffer.Length, endPoint);
-            return getResponse().Replace(ind + ",", "");
+            return getResponse().Replace(ind + ",", "").Trim();
         }
     }
 }
