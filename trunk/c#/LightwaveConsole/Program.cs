@@ -47,6 +47,15 @@ namespace LightwaveConsole
 
                             }
                             return 0;
+			            case "allheat":
+                            System.Console.WriteLine(LightwaveRF.API.AllHeat(LightwaveRF.StateStrings.GetStateFromString(args[1])));
+			                return 0;
+                        case "boiler":
+                            System.Console.WriteLine(LightwaveRF.API.CentralHeatOnOff(LightwaveRF.StateStrings.GetStateFromString(args[1])));
+                            return 0;
+                        case "hotwater":
+                            System.Console.WriteLine(LightwaveRF.API.HotWaterOnOff(LightwaveRF.StateStrings.GetStateFromString(args[1])));
+                            return 0;
                     }
                 }
                 catch (Exception ex)
@@ -60,7 +69,10 @@ namespace LightwaveConsole
             System.Console.WriteLine("Usage:");
             System.Console.WriteLine("switch device on or off   : LightwaveConsole Device    <room> <device> <state>");
             System.Console.WriteLine("dim device                : LightwaveConsole Dim       <room> <device> <state>");
-            System.Console.WriteLine("heating device            : LightwaveConsole Heat      <room> <state>");
+            System.Console.WriteLine("radiator on/off           : LightwaveConsole Heat      <room> <state>");
+	        System.Console.WriteLine("All radiators             : LightwaveConsole AllHeat   <state>");
+            System.Console.WriteLine("Central Heating / Boiler  : LightwaveConsole Boiler    <state>");
+            System.Console.WriteLine("Hot Water                 : LightwaveConsole HotWater  <state>");
             System.Console.WriteLine("All in room off           : LightwaveConsole Room      <room>");
             System.Console.WriteLine("Set mood in room          : LightwaveConsole Mood      <room> <mood>");
             System.Console.WriteLine("Store mood in room        : LightwaveConsole StoreMood <room> <mood>");
@@ -71,6 +83,7 @@ namespace LightwaveConsole
             System.Console.WriteLine("LightwaveConsole Device 1 1 1");
             System.Console.WriteLine("LightwaveConsole Dim 1 1 100");
             System.Console.WriteLine("LightwaveConsole Heat 1 0");
+   	        System.Console.WriteLine("LightwaveConsole AllHeat 0");
             System.Console.WriteLine("LightwaveConsole Room 1 ");
             System.Console.WriteLine("LightwaveConsole Mood 1 1");
             System.Console.WriteLine("LightwaveConsole StoreMood 1 1");
@@ -80,7 +93,7 @@ namespace LightwaveConsole
 
         static void x_OnResponse(object sender, string Data)
         {
-            System.Console.WriteLine(Data);
+            System.Console.WriteLine(DateTime.Now.ToString() + ": " + Data);
         }
     }
 }
