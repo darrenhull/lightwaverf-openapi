@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSAPlugin", "OSAPlugin\OSAP
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LightWaveRFInstaller", "LightWaveRFInstaller\LightWaveRFInstaller.vdproj", "{AA6E6E54-3DB1-46D2-9FCA-490471A5AC89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LightwaveSite", "..\LightwaveSite\LightwaveSite.csproj", "{B33320A4-5A54-4BC3-BED3-A3E42C8C93F1}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LightWaveSiteInstaller", "LightWaveSiteInstaller\LightWaveSiteInstaller.vdproj", "{A9019002-52AD-4159-BC10-521A3884F359}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,13 +81,29 @@ Global
 		{AA6E6E54-3DB1-46D2-9FCA-490471A5AC89}.Release|Mixed Platforms.Build.0 = Release
 		{AA6E6E54-3DB1-46D2-9FCA-490471A5AC89}.Release|x86.ActiveCfg = Release
 		{AA6E6E54-3DB1-46D2-9FCA-490471A5AC89}.Release|x86.Build.0 = Release
+		{B33320A4-5A54-4BC3-BED3-A3E42C8C93F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B33320A4-5A54-4BC3-BED3-A3E42C8C93F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B33320A4-5A54-4BC3-BED3-A3E42C8C93F1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B33320A4-5A54-4BC3-BED3-A3E42C8C93F1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B33320A4-5A54-4BC3-BED3-A3E42C8C93F1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B33320A4-5A54-4BC3-BED3-A3E42C8C93F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B33320A4-5A54-4BC3-BED3-A3E42C8C93F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B33320A4-5A54-4BC3-BED3-A3E42C8C93F1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B33320A4-5A54-4BC3-BED3-A3E42C8C93F1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B33320A4-5A54-4BC3-BED3-A3E42C8C93F1}.Release|x86.ActiveCfg = Release|Any CPU
+		{A9019002-52AD-4159-BC10-521A3884F359}.Debug|Any CPU.ActiveCfg = Debug
+		{A9019002-52AD-4159-BC10-521A3884F359}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{A9019002-52AD-4159-BC10-521A3884F359}.Debug|x86.ActiveCfg = Debug
+		{A9019002-52AD-4159-BC10-521A3884F359}.Release|Any CPU.ActiveCfg = Release
+		{A9019002-52AD-4159-BC10-521A3884F359}.Release|Mixed Platforms.ActiveCfg = Release
+		{A9019002-52AD-4159-BC10-521A3884F359}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_BuildVersioningStyle = None.None.Increment.TimeStamp
-		BuildVersion_UpdateFileVersion = False
 		BuildVersion_UpdateAssemblyVersion = False
+		BuildVersion_UpdateFileVersion = False
+		BuildVersion_BuildVersioningStyle = None.None.Increment.TimeStamp
 	EndGlobalSection
 EndGlobal
