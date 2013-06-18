@@ -10,7 +10,8 @@ namespace TestApp
     {
         static private NotifyIcon trayIcon;
         static private ContextMenu trayMenu;
-
+        static private Form1 APIForm;
+        static private HeatControl HeatingForm;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -34,19 +35,23 @@ namespace TestApp
             // Add menu to tray icon and show it.
             trayIcon.ContextMenu = trayMenu;
             trayIcon.Visible     = true;
+            APIForm = new Form1();
+            APIForm.Show();
+            APIForm.Hide();
+            HeatingForm = new HeatControl();
+            HeatingForm.Show();
+            HeatingForm.Hide();
             Application.Run();
         }
 
         static private void OnAPI(object sender, EventArgs e)
         {
-            var x = new Form1();
-            x.Show();
+            APIForm.Show();
         }
 
         static private void OnHeating(object sender, EventArgs e)
         {
-            var x = new HeatControl();
-            x.Show();
+            HeatingForm.Show();
         }
 
         static private void OnExit(object sender, EventArgs e)

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using LightwaveRF;
+
 namespace TestApp
 {
     public partial class Form1 : Form
@@ -14,7 +15,7 @@ namespace TestApp
         string lastcommand = "";
         private void apilistener_Raw(object sender, string rawData)
         {
-            txtcommands.Invoke(new MethodInvoker(delegate { txtcommands.Text += DateTime.Now.ToString() + "     " + rawData + Environment.NewLine; }));
+            txtcommands.Invoke(new MethodInvoker(delegate { txtcommands.Text = DateTime.Now.ToString() + "     " + rawData + Environment.NewLine + txtcommands.Text; }));
             lastcommand = rawData;
         }
 
@@ -27,7 +28,7 @@ namespace TestApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            chkRadiatorState.Checked = TestApp.Properties.Settings.Default.MaintainRadiatorState;
         }
 
         private void btnOn_Click(object sender, EventArgs e)
@@ -170,6 +171,14 @@ namespace TestApp
         private void chkRadiatorState_CheckedChanged(object sender, EventArgs e)
         {
             LightwaveRF.API.MaintainRadiatorState = chkRadiatorState.Checked;
+            TestApp.Properties.Settings.Default.MaintainRadiatorState = chkRadiatorState.Checked;
+            TestApp.Properties.Settings.Default.Save();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
         }
     }
 }

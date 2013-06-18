@@ -23,7 +23,12 @@ namespace TestApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            txtAPIKey.Text = TestApp.Properties.Settings.Default.WorldWeatherKey;
+            txtPostcode.Text = TestApp.Properties.Settings.Default.PostCode;
+            cmbDayMinTempOff.Text = TestApp.Properties.Settings.Default.OutdoorMinTempLim.ToString();
+            cmbMaxTempOffHeat.Text = TestApp.Properties.Settings.Default.OutdoorTempLim.ToString();
+            dateTimePicker1.Value = TestApp.Properties.Settings.Default.HolidayToDate;
+            checkBox1.Checked = TestApp.Properties.Settings.Default.Holiday;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -86,7 +91,50 @@ namespace TestApp
 
         private void txtAPIKey_TextChanged(object sender, EventArgs e)
         {
+            TestApp.Properties.Settings.Default.WorldWeatherKey = txtAPIKey.Text;
+            TestApp.Properties.Settings.Default.Save();
             timer1_Tick(this, null);
+        }
+
+        private void txtPostcode_TextChanged(object sender, EventArgs e)
+        {
+            TestApp.Properties.Settings.Default.PostCode = txtPostcode.Text;
+            TestApp.Properties.Settings.Default.Save();
+            timer1_Tick(this, null);
+        }
+
+        private void cmbMaxTempOffHeat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TestApp.Properties.Settings.Default.OutdoorTempLim = decimal.Parse(cmbMaxTempOffHeat.Text);
+            TestApp.Properties.Settings.Default.Save();
+            timer1_Tick(this, null);
+        }
+
+        private void cmbDayMinTempOff_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TestApp.Properties.Settings.Default.OutdoorMinTempLim = decimal.Parse(cmbDayMinTempOff.Text);
+            TestApp.Properties.Settings.Default.Save();
+            timer1_Tick(this, null);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            TestApp.Properties.Settings.Default.Holiday = checkBox1.Checked;
+            TestApp.Properties.Settings.Default.Save();
+            timer1_Tick(this, null);
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            TestApp.Properties.Settings.Default.HolidayToDate = dateTimePicker1.Value;
+            TestApp.Properties.Settings.Default.Save();
+            timer1_Tick(this, null);
+        }
+
+        private void HeatControl_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
         }
     }
 }
