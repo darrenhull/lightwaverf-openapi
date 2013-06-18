@@ -114,6 +114,7 @@
             this.cmbDayMinTempOff.Size = new System.Drawing.Size(64, 21);
             this.cmbDayMinTempOff.TabIndex = 3;
             this.cmbDayMinTempOff.Text = "19";
+            this.cmbDayMinTempOff.SelectedIndexChanged += new System.EventHandler(this.cmbDayMinTempOff_SelectedIndexChanged);
             // 
             // txtPostcode
             // 
@@ -121,6 +122,7 @@
             this.txtPostcode.Name = "txtPostcode";
             this.txtPostcode.Size = new System.Drawing.Size(100, 20);
             this.txtPostcode.TabIndex = 6;
+            this.txtPostcode.TextChanged += new System.EventHandler(this.txtPostcode_TextChanged);
             // 
             // label5
             // 
@@ -249,6 +251,7 @@
             this.cmbMaxTempOffHeat.Size = new System.Drawing.Size(64, 21);
             this.cmbMaxTempOffHeat.TabIndex = 0;
             this.cmbMaxTempOffHeat.Text = "17";
+            this.cmbMaxTempOffHeat.SelectedIndexChanged += new System.EventHandler(this.cmbMaxTempOffHeat_SelectedIndexChanged);
             // 
             // button1
             // 
@@ -269,6 +272,7 @@
             this.checkBox1.TabIndex = 27;
             this.checkBox1.Text = "Holiday until";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // dateTimePicker1
             // 
@@ -276,6 +280,7 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(133, 20);
             this.dateTimePicker1.TabIndex = 28;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // label6
             // 
@@ -351,6 +356,7 @@
             this.Controls.Add(this.cmbMaxTempOffHeat);
             this.Name = "HeatControl";
             this.Text = "HeatControl";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HeatControl_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
