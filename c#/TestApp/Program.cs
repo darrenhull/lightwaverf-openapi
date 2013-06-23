@@ -57,6 +57,8 @@ namespace TestApp
         static private void OnExit(object sender, EventArgs e)
         {
             trayIcon.Dispose();
+            HeatingForm.Dispose();
+            APIForm.Dispose();
             Application.Exit();
         }
 
