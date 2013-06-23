@@ -18,6 +18,15 @@ namespace LightwaveRF
     public delegate void responseEventHandler(object sender, string Data);
     public static class API
     {
+        /// <summary>
+        /// Shuts down all worker threads 
+        /// </summary>
+        public static void Dispose()
+        {
+            if(radiatorStateThread!=null) radiatorStateThread.Abort();
+            if (listenthread != null) { listenthread.Abort(); LightwaveRF.API.GetMeterReading(); }
+            if(recordsequencethread!=null) {recordsequencethread.Abort(); LightwaveRF.API.GetMeterReading(); }
+        }
         private static string RecordedSequence = "";
         private static string RecordedSequenceName = "";
         private static Thread recordsequencethread = null;
@@ -118,7 +127,7 @@ namespace LightwaveRF
         public const string heatRegEx = "...,(!R)(?<Room>[0-9])(DhF)(?<State>[0-9])";//"533,!R" + Room + "DhF" + statestr + "|";
         public static event rawEventHandler Raw;
         /// <summary>
-        /// Listen for commands from other devices (and this device)
+        /// Listen for commands from other devices (and this device) be sure to call Dispose() to stop this.
         /// </summary>
         public static void Listen()
         {
