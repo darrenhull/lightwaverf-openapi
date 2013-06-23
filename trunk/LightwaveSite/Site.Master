@@ -14,14 +14,11 @@
         <div class="header">
             <div class="title">
                 <h1>
-                    My ASP.NET Application
+                    LightwaveRF API
                 </h1>
             </div>
             <div class="loginDisplay">
                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
-                    <AnonymousTemplate>
-                        [ <a href="~/Account/Login.aspx" ID="HeadLoginStatus" runat="server">Log In</a> ]
-                    </AnonymousTemplate>
                     <LoggedInTemplate>
                         Welcome <span class="bold"><asp:LoginName ID="HeadLoginName" runat="server" /></span>!
                         [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out" LogoutPageUrl="~/"/> ]
@@ -31,14 +28,26 @@
             <div class="clear hideSkiplink">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
-                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home"/>
-                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
+                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Devices"/>
+                        <asp:MenuItem NavigateUrl="~/Moods.aspx" Text="Moods"/>
+                        <asp:MenuItem NavigateUrl="~/Heating.aspx" Text="Heating" Value="Heating">
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Sequences.aspx" Text="Sequences" Value="Sequences">
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Timer.aspx" Text="Timer" Value="Timer">
+                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/EnergyMeter.aspx" Text="Energy Meter" 
+                            Value="Energy Meter"></asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Raw.aspx" Text="Raw" Value="Raw"></asp:MenuItem>
                     </Items>
                 </asp:Menu>
             </div>
         </div>
         <div class="main">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+            
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+
+                        </asp:ContentPlaceHolder>
         </div>
         <div class="clear">
         </div>

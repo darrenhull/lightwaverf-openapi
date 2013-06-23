@@ -13,12 +13,13 @@ namespace LightwaveSite
         {
             // Code that runs on application startup
             //Application.Add("APIinstance", new LightwaveRF.API());
+            LightwaveRF.API.Listen();
         }
 
         void Application_End(object sender, EventArgs e)
         {
             //  Code that runs on application shutdown
-
+            LightwaveRF.API.Dispose();
         }
 
         void Application_Error(object sender, EventArgs e)
