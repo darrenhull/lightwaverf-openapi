@@ -7,6 +7,12 @@
     <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
+    <style type="text/css">
+        .style1
+        {
+            font-size: xx-small;
+        }
+    </style>
 </head>
 <body>
     <form runat="server">
@@ -15,6 +21,7 @@
             <div class="title">
                 <h1>
                     LightwaveRF API
+                    - <span class="style1"><a href="LightwaveService.asmx">SErvice </a></span>
                 </h1>
             </div>
             <div class="loginDisplay">
