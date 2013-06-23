@@ -87,8 +87,7 @@ namespace TestApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var x = new Form1();
-            x.Show();
+            Program.APIForm.Show();
         }
 
         private void txtAPIKey_TextChanged(object sender, EventArgs e)
