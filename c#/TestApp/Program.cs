@@ -10,8 +10,8 @@ namespace TestApp
     {
         static private NotifyIcon trayIcon;
         static private ContextMenu trayMenu;
-        static private Form1 APIForm;
-        static private HeatControl HeatingForm;
+        static public Form1 APIForm;
+        static public HeatControl HeatingForm;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -56,6 +56,7 @@ namespace TestApp
 
         static private void OnExit(object sender, EventArgs e)
         {
+            LightwaveRF.API.Dispose();
             trayIcon.Dispose();
             HeatingForm.Dispose();
             APIForm.Dispose();

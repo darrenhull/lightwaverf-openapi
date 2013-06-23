@@ -159,8 +159,7 @@ namespace TestApp
 
         private void btnHeatControl_Click(object sender, EventArgs e)
         {
-            var x = new HeatControl();
-            x.Show();
+            Program.HeatingForm.Show();
         }
 
         private void btnSetTimer_Click(object sender, EventArgs e)
