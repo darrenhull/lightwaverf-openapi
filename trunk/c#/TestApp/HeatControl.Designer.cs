@@ -54,6 +54,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtAPIKey = new System.Windows.Forms.TextBox();
             this.lblLastUpdateWeather = new System.Windows.Forms.Label();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -325,11 +326,22 @@
             this.lblLastUpdateWeather.Size = new System.Drawing.Size(0, 13);
             this.lblLastUpdateWeather.TabIndex = 33;
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(347, 256);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 34;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // HeatControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(548, 291);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lblLastUpdateWeather);
             this.Controls.Add(this.txtAPIKey);
             this.Controls.Add(this.label7);
@@ -390,6 +402,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtAPIKey;
         private System.Windows.Forms.Label lblLastUpdateWeather;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 
