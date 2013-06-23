@@ -25,6 +25,7 @@ namespace LightwaveRF
         {
             if(radiatorStateThread!=null) radiatorStateThread.Abort();
             if (listenthread != null) { listenthread.Abort(); LightwaveRF.API.GetMeterReading(); }
+            //we need to send a datagram to stop the listening threads locking - so call GetMeterReading as that doesn't actually change anything.
             if(recordsequencethread!=null) {recordsequencethread.Abort(); LightwaveRF.API.GetMeterReading(); }
         }
         private static string RecordedSequence = "";
