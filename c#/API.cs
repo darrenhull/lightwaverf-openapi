@@ -65,7 +65,7 @@ namespace LightwaveRF
         private static DateTime radiatorStateUntilDate;
         private static Dictionary<string,Device> LastDeviceState = new Dictionary<string,Device>();
         public static    List<Room> Rooms;
-        public static List<Device> Devices;
+        public static List<Device> Devices = new List<Device>();
         public static Dictionary<string, Device> GetDevices
         {
             get
@@ -101,7 +101,7 @@ namespace LightwaveRF
         /// Regex for on/off
         /// matches :Room, Device, and State
         /// </summary>
-        public const string OnOffRegEx ="...,(!R)(?<Room>[0-9])(D)(?<Device>[0-9])(F)(?<State>[0-1])";
+        public const string OnOffRegEx ="...,(!R)(?<Room>[0-9])(D)(?<Device>[0-9])(F)(?<State>[0,1,(,),k,l,u,\\^])";
         public static event AllOffEventHandler OnAllOff;
         /// <summary>
         /// Regex for All off
@@ -119,7 +119,7 @@ namespace LightwaveRF
         /// Regex for Dim
         /// Matches: Room, Device, State
         /// </summary>
-        public const string dimRegEx = "...,(!R)(?<Room>[0-9])(D)(?<Device>[0-9])(FdP)(?<State>[0-9][0-9])";//"533,!R" + Room + "D" + Device + "FdP" + pstr + "|"
+        public const string dimRegEx = "...,(!R)(?<Room>[0-9])(D)(?<Device>[0-9])(FdP)(?<State>[0-9]?[0-9])";//"533,!R" + Room + "D" + Device + "FdP" + pstr + "|"
         public static event heatEventHandler OnHeat;
         /// <summary>
         /// Regex for Heat commands
@@ -147,6 +147,19 @@ namespace LightwaveRF
             {
                 if (LastDeviceState.ContainsKey(thisDevice.deviceIdentifier)) LastDeviceState.Remove(thisDevice.deviceIdentifier);
                 LastDeviceState.Add(thisDevice.deviceIdentifier, thisDevice);
+                var device = (from x in Devices
+                              where x.room.RoomNum == thisDevice.room.RoomNum
+                              && x.devicenum == thisDevice.devicenum
+                              select x);
+                if (device == null)
+                {
+                    Devices.Add(thisDevice);
+                }
+                else
+                {
+                    Devices.Remove(device.FirstOrDefault());
+                    Devices.Add(thisDevice);
+                }
             }
         }
 
@@ -219,7 +232,13 @@ namespace LightwaveRF
                     }
                     if (DimMatch.Success)
                     {
-                        var thisDevice = new Device(new Room(int.Parse(DimMatch.Groups["Room"].Value)), int.Parse(DimMatch.Groups["Device"].Value), "Dev " + int.Parse(DimMatch.Groups["Device"].Value), DeviceType.OnOff, StateStrings.GetStateFromString(DimMatch.Groups["State"].Value));
+                        State deviceState = new State();
+                        if (DimMatch.Groups["State"].Value == "0")
+                            deviceState = State.Off;
+                        else
+                            deviceState = State.On;
+                        var thisDevice = new Device(new Room(int.Parse(DimMatch.Groups["Room"].Value)), int.Parse(DimMatch.Groups["Device"].Value), "Dev " + int.Parse(DimMatch.Groups["Device"].Value), DeviceType.OnOff, deviceState);
+                        thisDevice.DimLevel = (int)Math.Round(double.Parse(DimMatch.Groups["State"].Value)/32*100);
                         updateLastDeviceState(thisDevice);
                         if (OnDim != null)
                         {
@@ -393,7 +412,7 @@ namespace LightwaveRF
         public static string Dim(int room, int device, int percent)
         {
             string pstr;
-            if (percent == 0) percent = 1;
+            if (percent == 0) return(DeviceOnOff(room,device,State.Off));
             pstr = Math.Round(((double)percent / 100 * 32)).ToString();
             string text = nextind + ",!R" + room + @"D" + device + @"FdP" + pstr + @"|";
             return sendRaw(text).Replace(ind + ",", "");

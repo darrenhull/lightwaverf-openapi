@@ -56,13 +56,19 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="EnergyMeter.aspx" />
+    <Content Include="Heating.aspx" />
     <Content Include="LightwaveService.asmx" />
+    <Content Include="Moods.aspx" />
+    <Content Include="Raw.aspx" />
+    <Content Include="Sequences.aspx" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Timer.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -114,20 +120,62 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EnergyMeter.aspx.cs">
+      <DependentUpon>EnergyMeter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EnergyMeter.aspx.designer.cs">
+      <DependentUpon>EnergyMeter.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Heating.aspx.cs">
+      <DependentUpon>Heating.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Heating.aspx.designer.cs">
+      <DependentUpon>Heating.aspx</DependentUpon>
     </Compile>
     <Compile Include="LightwaveService.asmx.cs">
       <DependentUpon>LightwaveService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Moods.aspx.cs">
+      <DependentUpon>Moods.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Moods.aspx.designer.cs">
+      <DependentUpon>Moods.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Raw.aspx.cs">
+      <DependentUpon>Raw.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Raw.aspx.designer.cs">
+      <DependentUpon>Raw.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Sequences.aspx.cs">
+      <DependentUpon>Sequences.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Sequences.aspx.designer.cs">
+      <DependentUpon>Sequences.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Timer.aspx.cs">
+      <DependentUpon>Timer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Timer.aspx.designer.cs">
+      <DependentUpon>Timer.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

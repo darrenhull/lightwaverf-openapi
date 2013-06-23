@@ -40,6 +40,19 @@ namespace LightwaveRF
             {
                 return LightwaveRF.API.DeviceOnOff(room.RoomNum, devicenum,State.On);
             }
+            public string Open()
+            {
+                return LightwaveRF.API.OpenDevice(room.RoomNum, devicenum);
+            }
+            public string Close()
+            {
+                return LightwaveRF.API.CloseDevice(room.RoomNum, devicenum);
+            }
+            public string Stop()
+            {
+                return LightwaveRF.API.StopDevice(room.RoomNum, devicenum);
+            }
+
             public string FullLock()
             {
                 return LightwaveRF.API.FullLockDevice(room.RoomNum, devicenum);
