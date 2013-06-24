@@ -36,7 +36,7 @@ namespace TestApp
             try
             {
                 XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load("http://free.worldweatheronline.com/feed/weather.ashx?key=" + txtAPIKey.Text + "&q=" + txtPostcode.Text + "&num_of_days=1&format=xml");
+                xmlDoc.Load("http://api.worldweatheronline.com/free/v1/weather.ashx?key=" + txtAPIKey.Text + "&q=" + txtPostcode.Text + "&num_of_days=1&format=xml");
                 XmlNodeList Weatherxml = xmlDoc.GetElementsByTagName("temp_C");
                 if (Weatherxml.Count > 0) temp = double.Parse(Weatherxml[0].InnerText);
                 lbloutdoortemp.Text = temp.ToString("#0 Deg C");
