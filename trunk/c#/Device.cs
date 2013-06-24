@@ -34,10 +34,14 @@ namespace LightwaveRF
             }
             public string Off()
             {
+                if (deviceType == DeviceType.Boiler) return LightwaveRF.API.CentralHeatOnOff(State.Off);
+                if (deviceType == DeviceType.Radiator) return LightwaveRF.API.HeatOnOff(room.RoomNum, State.Off);
                 return LightwaveRF.API.DeviceOnOff(room.RoomNum, devicenum, State.Off);
             }
             public string On()
             {
+                if(deviceType == DeviceType.Boiler) return LightwaveRF.API.CentralHeatOnOff(State.On);
+                if(deviceType == DeviceType.Radiator) return LightwaveRF.API.HeatOnOff(room.RoomNum, State.On);
                 return LightwaveRF.API.DeviceOnOff(room.RoomNum, devicenum,State.On);
             }
             public string Open()

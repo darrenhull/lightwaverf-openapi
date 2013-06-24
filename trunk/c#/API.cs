@@ -101,7 +101,7 @@ namespace LightwaveRF
         /// Regex for on/off
         /// matches :Room, Device, and State
         /// </summary>
-        public const string OnOffRegEx ="...,(!R)(?<Room>[0-9])(D)(?<Device>[0-9])(F)(?<State>[0,1,(,),k,l,u,\\^])";
+        public const string OnOffRegEx ="...,(!R)(?<Room>[0-9]?[0-9])(D)(?<Device>[0-9])(F)(?<State>[0,1,(,),k,l,u,\\^])";
         public static event AllOffEventHandler OnAllOff;
         /// <summary>
         /// Regex for All off
@@ -247,7 +247,7 @@ namespace LightwaveRF
                     }
                     if (HeatMatch.Success)
                     {
-                        var thisDevice = new Device(new Room(int.Parse(HeatMatch.Groups["Room"].Value)), 0, "Rad " + int.Parse(HeatMatch.Groups["Room"].Value), DeviceType.Radiator, StateStrings.GetStateFromString(DimMatch.Groups["State"].Value));
+                        var thisDevice = new Device(new Room(int.Parse(HeatMatch.Groups["Room"].Value)), 0, "Rad " + int.Parse(HeatMatch.Groups["Room"].Value), DeviceType.Radiator, StateStrings.GetStateFromString(HeatMatch.Groups["State"].Value));
                         updateLastDeviceState(thisDevice);
                         if (OnHeat != null)
                         {

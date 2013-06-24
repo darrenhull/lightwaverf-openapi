@@ -4,6 +4,9 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+    <strong>Device Controls<br />
+    </strong>
+    <br />
     Room:
 <asp:DropDownList ID="cmbRoom" runat="server" AutoPostBack="True" 
         onselectedindexchanged="cmbRoom_SelectedIndexChanged">
