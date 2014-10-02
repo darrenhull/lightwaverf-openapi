@@ -9,7 +9,7 @@ This page captures info on the LightwaveRF heating devices, so we can derive wha
 
 I currently have a TRV.
 
-when a request for temperature is sent it looks like this:
+Getting temperature:
 
 {{{
 101,!R1F*r
@@ -23,3 +23,8 @@ the response is in JSON format:
 }}}
 
 representing an object containing the current temperature, battery level, target temperature etc...
+
+Setting the temperature:
+{{{
+101,!R1DhF*tP22.0
+}}}
