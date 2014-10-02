@@ -1,0 +1,25 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+This page captures info on the LightwaveRF heating devices, so we can derive what the protocol is
+
+
+= Details =
+
+I currently have a TRV.
+
+when a request for temperature is sent it looks like this:
+
+{{{
+101,!R1F*r
+}}}
+(Room1 Get temperature)
+
+the response is in JSON format:
+
+{{{
+*!{"trans":62,"mac":"03:09:3D","time":1412277443,"prod":"valve","serial":"BF4102","signal":0,"type":"temp","batt":2.50,"ver":56,"state":"run","cTemp":21.5,"cTarg":22.0,"output":100,"nTarg":18.0,"nSlot":"06:00","prof":4}
+}}}
+
+representing an object containing the current temperature, battery level, target temperature etc...
