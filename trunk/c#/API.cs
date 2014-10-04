@@ -25,6 +25,7 @@ namespace LightwaveRF
     {
         //!R1F*r
         //*!{"trans":62,"mac":"03:09:3D","time":1412277443,"prod":"valve","serial":"BF4102","signal":0,"type":"temp","batt":2.50,"ver":56,"state":"run","cTemp":21.5,"cTarg":22.0,"output":100,"nTarg":18.0,"nSlot":"06:00","prof":4}
+        public string rawResponse { get; set; }
         public string trans {get;set;}
         public string mac { get; set; }
         public DateTime time { get; set; }
@@ -43,7 +44,8 @@ namespace LightwaveRF
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             if(LightWaveLinkresponse.StartsWith("500,OK"))
             {
-                JsonValue parsedJson = JsonValue.Parse(LightWaveLinkresponse.Split('!')[1]);
+                rawResponse = LightWaveLinkresponse.Split('!')[1];
+                JsonValue parsedJson = JsonValue.Parse(rawResponse);
                 trans = (string)parsedJson["trans"];
                 mac = (string)parsedJson["mac"];
                 time = epoch.AddSeconds((int)parsedJson["time"]);
@@ -58,7 +60,23 @@ namespace LightwaveRF
                 nSlot = (string)parsedJson["nSlot"];
                 prof = (double)parsedJson["prof"];
             }
-
+        }
+        public override string ToString() 
+        {
+            return "Raw: " + rawResponse + "\n" +
+            "trans" + trans + "\n" +
+            "mac" + mac + "\n" +
+            "time" + time + "\n" +
+            "product" + product + "\n" +
+            "serial" + serial + "\n" +
+            "signal" + signal + "\n" +
+            "type" + type + "\n" +
+            "batt" + batt + "\n" +
+            "cTemp" + cTemp + "\n" +
+            "cTarg" + cTarg + "\n" +
+            "nTarg" + nTarg + "\n" +
+            "nSlot" + nSlot + "\n" +
+           "prof" + prof + "\n";
         }
     }
 

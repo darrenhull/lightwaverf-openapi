@@ -56,6 +56,12 @@ namespace LightwaveConsole
                         case "hotwater":
                             System.Console.WriteLine(LightwaveRF.API.HotWaterOnOff(LightwaveRF.StateStrings.GetStateFromString(args[1])));
                             return 0;
+                        /*case "radiator":
+                            System.Console.WriteLine(LightwaveRF.API.)
+                            break;*/
+                        case "queryradiator":
+                            System.Console.WriteLine(LightwaveRF.API.getHeatingDevice(int.Parse(args[1])));
+                            return 0;
                     }
                 }
                 catch (Exception ex)
@@ -67,17 +73,19 @@ namespace LightwaveConsole
             if (message == "Index was outside the bounds of the array.") message = "Not enough arguments.";
             if (message != "") System.Console.WriteLine(message); System.Console.WriteLine();
             System.Console.WriteLine("Usage:");
-            System.Console.WriteLine("switch device on or off   : LightwaveConsole Device    <room> <device> <state>");
-            System.Console.WriteLine("dim device                : LightwaveConsole Dim       <room> <device> <state>");
-            System.Console.WriteLine("radiator on/off           : LightwaveConsole Heat      <room> <state>");
-	        System.Console.WriteLine("All radiators             : LightwaveConsole AllHeat   <state>");
-            System.Console.WriteLine("Central Heating / Boiler  : LightwaveConsole Boiler    <state>");
-            System.Console.WriteLine("Hot Water                 : LightwaveConsole HotWater  <state>");
-            System.Console.WriteLine("All in room off           : LightwaveConsole Room      <room>");
-            System.Console.WriteLine("Set mood in room          : LightwaveConsole Mood      <room> <mood>");
-            System.Console.WriteLine("Store mood in room        : LightwaveConsole StoreMood <room> <mood>");
-            System.Console.WriteLine("Send Raw data to wifi     : LightwaveConsole Raw       <datatosend>");
-            System.Console.WriteLine("listen for other commands : LightwaveConsole Listen");
+            System.Console.WriteLine("switch device on or off     : LightwaveConsole Device    <room> <device> <state>");
+            System.Console.WriteLine("dim device                  : LightwaveConsole Dim       <room> <device> <state>");
+            System.Console.WriteLine("Set Radiator Temperature    : LightwaveConsole Radiator  <number> <temperature>");
+            System.Console.WriteLine("Get Radiator Information    : LightwaveConsole QueryRadiator <number>");
+            System.Console.WriteLine("Central Heating / Boiler    : LightwaveConsole Boiler    <state>");
+            System.Console.WriteLine("Hot Water                   : LightwaveConsole HotWater  <state>");
+            System.Console.WriteLine("All in room off             : LightwaveConsole Room      <room>");
+            System.Console.WriteLine("Set mood in room            : LightwaveConsole Mood      <room> <mood>");
+            System.Console.WriteLine("Store mood in room          : LightwaveConsole StoreMood <room> <mood>");
+            System.Console.WriteLine("Send Raw data to wifi       : LightwaveConsole Raw       <datatosend>");
+            System.Console.WriteLine("radiator on/off (deprecated): LightwaveConsole Heat      <room> <state>");
+            System.Console.WriteLine("All radiators  (deprecated) : LightwaveConsole AllHeat   <state>");
+            System.Console.WriteLine("listen for other commands   : LightwaveConsole Listen");
             System.Console.WriteLine();
             System.Console.WriteLine("eg:");
             System.Console.WriteLine("LightwaveConsole Device 1 1 1");
