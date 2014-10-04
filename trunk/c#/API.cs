@@ -261,8 +261,16 @@ namespace LightwaveRF
         /// <returns></returns>
         private static bool checkHeatingDemand()
         {
-
-            return false;
+            var demand = false;
+            for (int i = 1; i < 2; i++)
+            {
+                var radiator = getHeatingDevice(1);
+                if (radiator.cTarg > radiator.cTemp)
+                {
+                    demand = true;
+                }
+            }
+            return demand;
         }
 
         private static void listenThreadWorker()
