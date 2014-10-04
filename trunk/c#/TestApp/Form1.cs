@@ -179,5 +179,13 @@ namespace TestApp
             this.Hide();
             e.Cancel = true;
         }
+
+        private void chkHeatDemandControl_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkHeatDemandControl.Checked)
+            {
+                LightwaveRF.API.HeatingControlFromValveTemp();
+            }
+        }
     }
 }
