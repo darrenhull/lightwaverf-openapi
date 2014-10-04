@@ -86,6 +86,7 @@
             this.btnAllHeatOn = new System.Windows.Forms.Button();
             this.btnHeatControl = new System.Windows.Forms.Button();
             this.chkRadiatorState = new System.Windows.Forms.CheckBox();
+            this.chkHeatDemandControl = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -721,11 +722,23 @@
             this.chkRadiatorState.UseVisualStyleBackColor = true;
             this.chkRadiatorState.CheckedChanged += new System.EventHandler(this.chkRadiatorState_CheckedChanged);
             // 
+            // chkHeatDemandControl
+            // 
+            this.chkHeatDemandControl.AutoSize = true;
+            this.chkHeatDemandControl.Location = new System.Drawing.Point(559, 37);
+            this.chkHeatDemandControl.Name = "chkHeatDemandControl";
+            this.chkHeatDemandControl.Size = new System.Drawing.Size(125, 17);
+            this.chkHeatDemandControl.TabIndex = 33;
+            this.chkHeatDemandControl.Text = "Heat DemandControl";
+            this.chkHeatDemandControl.UseVisualStyleBackColor = true;
+            this.chkHeatDemandControl.CheckedChanged += new System.EventHandler(this.chkHeatDemandControl_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(708, 399);
+            this.Controls.Add(this.chkHeatDemandControl);
             this.Controls.Add(this.chkRadiatorState);
             this.Controls.Add(this.btnHeatControl);
             this.Controls.Add(this.btnAllHeatOn);
@@ -823,6 +836,7 @@
         private System.Windows.Forms.TextBox txtSequenceNameTimer;
         private System.Windows.Forms.TextBox txtTimername;
         private System.Windows.Forms.CheckBox chkRadiatorState;
+        private System.Windows.Forms.CheckBox chkHeatDemandControl;
     }
 }
 
