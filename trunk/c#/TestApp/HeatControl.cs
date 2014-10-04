@@ -35,6 +35,8 @@ namespace TestApp
         {
             try
             {
+                if(txtAPIKey.Text != "" && txtPostcode.Text != "")
+                { 
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load("http://api.worldweatheronline.com/free/v1/weather.ashx?key=" + txtAPIKey.Text + "&q=" + txtPostcode.Text + "&num_of_days=1&format=xml");
                 XmlNodeList Weatherxml = xmlDoc.GetElementsByTagName("temp_C");
@@ -77,6 +79,7 @@ namespace TestApp
                 else
                 {
                     lblHeatState.Text = "Heating still :" + newheatstate + DateTime.Now.ToString();
+                }
                 }
             }
             catch(Exception ex)
