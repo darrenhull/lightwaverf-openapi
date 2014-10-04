@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Json;
 
 namespace LightwaveRF
 {
@@ -16,6 +17,51 @@ namespace LightwaveRF
     public delegate void heatEventHandler(object sender, int room, State state);
     public delegate void rawEventHandler(object sender, string rawData);
     public delegate void responseEventHandler(object sender, string Data);
+
+    /// <summary>
+    /// holds all the parts of a heating valve response so that they can be queried
+    /// </summary>
+    public class HeatingValveResponse
+    {
+        //!R1F*r
+        //*!{"trans":62,"mac":"03:09:3D","time":1412277443,"prod":"valve","serial":"BF4102","signal":0,"type":"temp","batt":2.50,"ver":56,"state":"run","cTemp":21.5,"cTarg":22.0,"output":100,"nTarg":18.0,"nSlot":"06:00","prof":4}
+        public string trans {get;set;}
+        public string mac { get; set; }
+        public DateTime time { get; set; }
+        public string product { get; set; }
+        public string serial { get; set; }
+        public int signal { get; set; }
+        public string type { get; set; }
+        public double batt { get; set; }
+        public double cTemp { get; set; }
+        public double cTarg { get; set; }
+        public double nTarg { get; set; }
+        public string nSlot { get; set; }
+        public double prof { get; set; }
+        public HeatingValveResponse(string LightWaveLinkresponse)
+        {
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            if(LightWaveLinkresponse.StartsWith("500,OK"))
+            {
+                JsonValue parsedJson = JsonValue.Parse(LightWaveLinkresponse.Split('!')[1]);
+                trans = (string)parsedJson["trans"];
+                mac = (string)parsedJson["mac"];
+                time = epoch.AddSeconds((int)parsedJson["time"]);
+                product = (string)parsedJson["prod"];
+                serial = (string)parsedJson["serial"];
+                signal = (int)parsedJson["signal"];
+                type = (string)parsedJson["type"];
+                batt = (double)parsedJson["batt"];
+                cTemp = (double)parsedJson["cTemp"];
+                cTarg = (double)parsedJson["cTarg"];
+                nTarg = (double)parsedJson["nTarg"];
+                nSlot = (string)parsedJson["nSlot"];
+                prof = (double)parsedJson["prof"];
+            }
+
+        }
+    }
+
     public static class API
     {
         /// <summary>
@@ -168,19 +214,24 @@ namespace LightwaveRF
         /// 
         /// </summary>
         /// <returns>full string response from wifilink</returns>
-        private static string getResponse()
+        private static string getResponse(int nResponses)
         {
             Socket sock = new Socket(AddressFamily.InterNetwork,
                 SocketType.Dgram, ProtocolType.Udp);
-            sock.ReceiveTimeout = 1000;
+            sock.ReceiveTimeout = 10000;
             IPEndPoint iep = new IPEndPoint(IPAddress.Any, 9761);
             sock.Bind(iep);
             EndPoint ep = (EndPoint)iep;
+            string stringData = "";
             try
             {
-                byte[] data = new byte[1024];
-                int recv = sock.ReceiveFrom(data, ref ep);
-                string stringData = Encoding.ASCII.GetString(data, 0, recv);
+                for (int i = 0; i < nResponses; i++)
+                {
+                    byte[] data = new byte[1024];
+                    int recv = sock.ReceiveFrom(data, ref ep);
+                    stringData += Encoding.ASCII.GetString(data, 0, recv);
+                    stringData += "\n";
+                }
                 return stringData;
             }
             catch (Exception ex)
@@ -192,6 +243,28 @@ namespace LightwaveRF
                 sock.Close();
             }
         }
+
+        public static HeatingValveResponse getHeatingDevice(int index)
+        {
+            //!R1F*r
+            //*!{"trans":62,"mac":"03:09:3D","time":1412277443,"prod":"valve","serial":"BF4102","signal":0,"type":"temp","batt":2.50,"ver":56,"state":"run","cTemp":21.5,"cTarg":22.0,"output":100,"nTarg":18.0,"nSlot":"06:00","prof":4}
+            string response = sendRaw(500 + ",!R" + index.ToString() + "F*r",2);
+            return new HeatingValveResponse(response);
+            
+        }
+
+
+        /// <summary>
+        /// Checks all radiators to see if any need heat, and if so returns true.
+        /// else returns false
+        /// </summary>
+        /// <returns></returns>
+        private static bool checkHeatingDemand()
+        {
+
+            return false;
+        }
+
         private static void listenThreadWorker()
         {
             Socket sock = new Socket(AddressFamily.InterNetwork,
@@ -639,13 +712,13 @@ namespace LightwaveRF
         /// Send raw packet containing 'text' to the wifilink
         /// </summary>
         /// <param name="text">contents of packet.</param>
-        public static string sendRaw(string text)
+        public static string sendRaw(string text,int nResponse =1)
         {
             var udpClient = new UdpClient();
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, 9760);
             byte[] send_buffer = Encoding.ASCII.GetBytes(text);
             udpClient.Send(send_buffer, send_buffer.Length, endPoint);
-            return getResponse().Replace(ind + ",", "").Trim();
+            return getResponse(nResponse).Replace(ind + ",", "").Trim();
         }
     }
 }
