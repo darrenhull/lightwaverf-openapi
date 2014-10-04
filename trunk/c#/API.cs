@@ -67,6 +67,7 @@ namespace LightwaveRF
         /// <summary>
         /// Shuts down all worker threads 
         /// </summary>
+        /// 
         public static void Dispose()
         {
             if(radiatorStateThread!=null) radiatorStateThread.Abort();
@@ -76,10 +77,11 @@ namespace LightwaveRF
         }
         private static string RecordedSequence = "";
         private static string RecordedSequenceName = "";
+        private static Thread HeatingDemand = null;
         private static Thread recordsequencethread = null;
         public static int radiatorRefreshMins = 20;
         public static TimeSpan keepRadiatorStatefor = new TimeSpan(1, 0, 0, 0);
-
+        private static Device heatingDevice = null;
         public static bool MaintainRadiatorState
         {
             get
@@ -187,6 +189,42 @@ namespace LightwaveRF
             }
         }
 
+        public static void HeatingControlFromValveTemp(Device newHeatingDevice = null)
+        {
+            //set to old boiler control
+            if (newHeatingDevice == null) newHeatingDevice = new Device(new Room(16), 1, "Boiler", DeviceType.OnOff, State.Off);
+            heatingDevice = newHeatingDevice;
+            if(HeatingDemand == null)
+            {
+                HeatingDemand = new Thread(new ThreadStart(heatingDemandWorker));
+                HeatingDemand.Start();
+            }
+        }
+
+        private static void heatingDemandWorker()
+        {
+            while(true)
+            {
+                switch (checkHeatingDemand())
+                {
+                    case null:
+                    break;
+                    case true:
+                        if(heatingDevice.state != State.On)
+                        {
+                            heatingDevice.On();
+                        }
+                    break;
+                    default:
+                        if(heatingDevice.state != State.Off)
+                        {
+                            heatingDevice.Off();
+                        }
+                    break;
+                }
+                Thread.Sleep(300000);
+            }
+        }
         public static void updateLastDeviceState(Device thisDevice)
         {
             lock (LastDeviceState)
@@ -259,15 +297,25 @@ namespace LightwaveRF
         /// else returns false
         /// </summary>
         /// <returns></returns>
-        private static bool checkHeatingDemand()
+        private static bool? checkHeatingDemand()
         {
-            var demand = false;
+            bool? demand = null;
             for (int i = 1; i < 2; i++)
             {
                 var radiator = getHeatingDevice(1);
-                if (radiator.cTarg > radiator.cTemp)
+                if (radiator.cTarg != 0)
                 {
-                    demand = true;
+                    if (radiator.cTarg > radiator.cTemp)
+                    {//demand is greater than target and value was retrieved.
+                        demand = true;
+                    }
+                    else
+                    {//if the demand hasn't been set then set it to false..
+                        if (demand == null)
+                        {//(don't set it to false if it is true...)
+                            demand = false;
+                        }
+                    }
                 }
             }
             return demand;
