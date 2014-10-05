@@ -29,6 +29,10 @@ Setting the temperature:
 101,!R1DhF*tP22.0
 }}}
 
+Setting the valve position, appears to be the same command but with a different range
+{{{
+103,!R1DhF*tP56.0
+}}}
 
 Commands to set schedules:
 
