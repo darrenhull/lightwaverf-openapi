@@ -35,51 +35,51 @@ namespace TestApp
         {
             try
             {
-                if(txtAPIKey.Text != "" && txtPostcode.Text != "")
-                { 
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load("http://api.worldweatheronline.com/free/v1/weather.ashx?key=" + txtAPIKey.Text + "&q=" + txtPostcode.Text + "&num_of_days=1&format=xml");
-                XmlNodeList Weatherxml = xmlDoc.GetElementsByTagName("temp_C");
-                if (Weatherxml.Count > 0) temp = double.Parse(Weatherxml[0].InnerText);
-                lbloutdoortemp.Text = temp.ToString("#0 Deg C");
+                if (txtAPIKey.Text != "" && txtPostcode.Text != "")
+                {
+                    XmlDocument xmlDoc = new XmlDocument();
+                    xmlDoc.Load("http://api.worldweatheronline.com/free/v1/weather.ashx?key=" + txtAPIKey.Text + "&q=" + txtPostcode.Text + "&num_of_days=1&format=xml");
+                    XmlNodeList Weatherxml = xmlDoc.GetElementsByTagName("temp_C");
+                    if (Weatherxml.Count > 0) temp = double.Parse(Weatherxml[0].InnerText);
+                    lbloutdoortemp.Text = temp.ToString("#0 Deg C");
 
-                Weatherxml = xmlDoc.GetElementsByTagName("tempMaxC");
-                if (Weatherxml.Count > 0) maxtemp = double.Parse(Weatherxml[0].InnerText);
-                lblmaxtemp.Text = maxtemp.ToString("#0 Deg C");
+                    Weatherxml = xmlDoc.GetElementsByTagName("tempMaxC");
+                    if (Weatherxml.Count > 0) maxtemp = double.Parse(Weatherxml[0].InnerText);
+                    lblmaxtemp.Text = maxtemp.ToString("#0 Deg C");
 
-                Weatherxml = xmlDoc.GetElementsByTagName("tempMinC");
-                if (Weatherxml.Count > 0) mintemp = double.Parse(Weatherxml[0].InnerText);
-                lblmintemp.Text = mintemp.ToString("#0 Deg C");
+                    Weatherxml = xmlDoc.GetElementsByTagName("tempMinC");
+                    if (Weatherxml.Count > 0) mintemp = double.Parse(Weatherxml[0].InnerText);
+                    lblmintemp.Text = mintemp.ToString("#0 Deg C");
 
-                Weatherxml = xmlDoc.GetElementsByTagName("cloudcover");
-                if (Weatherxml.Count > 0) cloudcover = double.Parse(Weatherxml[0].InnerText);
-                lblCloudCover.Text = cloudcover.ToString("##");
-                lblLastUpdateWeather.Text = DateTime.Now.ToString() + " Weather updated";
-                LightwaveRF.State newheatstate;
-                if (mintemp > double.Parse(cmbDayMinTempOff.Text))
-                {
-                    newheatstate = LightwaveRF.State.Off;
-                }
-                else if (temp > double.Parse(cmbMaxTempOffHeat.Text))
-                {
-                    newheatstate = LightwaveRF.State.Off;
-                }
-                else
-                {
-                    newheatstate = LightwaveRF.State.On;
-                }
-                if (newheatstate != currentHeatState)
-                {
-                    string comment = "It's Cold Out";
-                    if (newheatstate == State.Off) comment = "Warm Outside";
-                    string retval = LightwaveRF.API.CentralHeatOnOff(newheatstate, comment);
-                    lblHeatState.Text = "Heating now set to : " + newheatstate + " " + DateTime.Now.ToString() + "Response: " + retval;
-                    currentHeatState = newheatstate;
-                }
-                else
-                {
-                    lblHeatState.Text = "Heating still :" + newheatstate + DateTime.Now.ToString();
-                }
+                    Weatherxml = xmlDoc.GetElementsByTagName("cloudcover");
+                    if (Weatherxml.Count > 0) cloudcover = double.Parse(Weatherxml[0].InnerText);
+                    lblCloudCover.Text = cloudcover.ToString("##");
+                    lblLastUpdateWeather.Text = DateTime.Now.ToString() + " Weather updated";
+                    LightwaveRF.State newheatstate;
+                    if (mintemp > double.Parse(cmbDayMinTempOff.Text))
+                    {
+                        newheatstate = LightwaveRF.State.Off;
+                    }
+                    else if (temp > double.Parse(cmbMaxTempOffHeat.Text))
+                    {
+                        newheatstate = LightwaveRF.State.Off;
+                    }
+                    else
+                    {
+                        newheatstate = LightwaveRF.State.On;
+                    }
+                    if (newheatstate != currentHeatState)
+                    {
+                        string comment = "It's Cold Out";
+                        if (newheatstate == State.Off) comment = "Warm Outside";
+                        string retval = LightwaveRF.API.CentralHeatOnOff(newheatstate, comment);
+                        lblHeatState.Text = "Heating now set to : " + newheatstate + " " + DateTime.Now.ToString() + "Response: " + retval;
+                        currentHeatState = newheatstate;
+                    }
+                    else
+                    {
+                        lblHeatState.Text = "Heating still :" + newheatstate + DateTime.Now.ToString();
+                    }
                 }
             }
             catch(Exception ex)

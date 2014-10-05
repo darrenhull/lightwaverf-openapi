@@ -7,6 +7,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Json;
+using System.Diagnostics;
 
 namespace LightwaveRF
 {
@@ -25,20 +26,69 @@ namespace LightwaveRF
     {
         //!R1F*r
         //*!{"trans":62,"mac":"03:09:3D","time":1412277443,"prod":"valve","serial":"BF4102","signal":0,"type":"temp","batt":2.50,"ver":56,"state":"run","cTemp":21.5,"cTarg":22.0,"output":100,"nTarg":18.0,"nSlot":"06:00","prof":4}
+        /// <summary>
+        /// the raw response from the valve
+        /// </summary>
         public string rawResponse { get; set; }
+        /// <summary>
+        /// Transmit power?
+        /// </summary>
         public string trans {get;set;}
+        /// <summary>
+        /// mac address of the wifilink?
+        /// </summary>
         public string mac { get; set; }
+        /// <summary>
+        /// time of last state received from valve
+        /// </summary>
         public DateTime time { get; set; }
+        /// <summary>
+        /// product eg 'valve'
+        /// </summary>
         public string product { get; set; }
+        /// <summary>
+        /// serial no of the valve
+        /// </summary>
         public string serial { get; set; }
+        /// <summary>
+        /// signal strength
+        /// </summary>
         public int signal { get; set; }
         public string type { get; set; }
+        /// <summary>
+        /// current valve position % 10% = 10% closed.
+        /// </summary>
+        public int output { get; set; }
+
+        /// <summary>
+        /// battery (volts)
+        /// </summary>
         public double batt { get; set; }
+        /// <summary>
+        /// Current Temperature
+        /// </summary>
         public double cTemp { get; set; }
+        /// <summary>
+        /// Target Temperature
+        /// </summary>
         public double cTarg { get; set; }
+        /// <summary>
+        /// Next target temperature
+        /// </summary>
         public double nTarg { get; set; }
+        /// <summary>
+        /// Time that next target is active
+        /// </summary>
         public string nSlot { get; set; }
+        /// <summary>
+        /// ???
+        /// </summary>
         public double prof { get; set; }
+
+        /// <summary>
+        /// state of the valve ('run' , 'boost'?)
+        /// </summary>
+        public string state { get; set; }
         public HeatingValveResponse(string LightWaveLinkresponse)
         {
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -51,6 +101,8 @@ namespace LightwaveRF
                 time = epoch.AddSeconds((int)parsedJson["time"]);
                 product = (string)parsedJson["prod"];
                 serial = (string)parsedJson["serial"];
+                output = (int)parsedJson["output"];
+                state = (string)parsedJson["state"];
                 signal = (int)parsedJson["signal"];
                 type = (string)parsedJson["type"];
                 batt = (double)parsedJson["batt"];
@@ -59,24 +111,27 @@ namespace LightwaveRF
                 nTarg = (double)parsedJson["nTarg"];
                 nSlot = (string)parsedJson["nSlot"];
                 prof = (double)parsedJson["prof"];
+                Debug.Write(this.ToString());
             }
         }
         public override string ToString() 
         {
             return "Raw: " + rawResponse + "\n" +
-            "trans" + trans + "\n" +
-            "mac" + mac + "\n" +
-            "time" + time + "\n" +
-            "product" + product + "\n" +
-            "serial" + serial + "\n" +
-            "signal" + signal + "\n" +
-            "type" + type + "\n" +
-            "batt" + batt + "\n" +
-            "cTemp" + cTemp + "\n" +
-            "cTarg" + cTarg + "\n" +
-            "nTarg" + nTarg + "\n" +
-            "nSlot" + nSlot + "\n" +
-           "prof" + prof + "\n";
+            "trans: " + trans + "\n" +
+            "mac: " + mac + "\n" +
+            "time: " + time + "\n" +
+            "product: " + product + "\n" +
+            "serial: " + serial + "\n" +
+            "signal: " + signal + "\n" +
+            "state: " + state + "\n" +
+            "type: " + type + "\n" +
+            "batt: " + batt + "\n" +
+            "output: " + output + "\n" +
+            "cTemp: " + cTemp + "\n" +
+            "cTarg: " + cTarg + "\n" +
+            "nTarg: " + nTarg + "\n" +
+            "nSlot: " + nSlot + "\n" +
+            "prof: " + prof + "\n";
         }
     }
 
@@ -106,7 +161,7 @@ namespace LightwaveRF
             {
                 if(radiatorStateThread != null)
                 {
-                    if (radiatorStateThread.ThreadState == ThreadState.Aborted || radiatorStateThread.ThreadState == ThreadState.Stopped || radiatorStateThread.ThreadState == ThreadState.WaitSleepJoin)
+                    if (radiatorStateThread.ThreadState == System.Threading.ThreadState.Aborted || radiatorStateThread.ThreadState == System.Threading.ThreadState.Stopped || radiatorStateThread.ThreadState == System.Threading.ThreadState.WaitSleepJoin)
                     {
                         radiatorStateThread = null;
                     }
@@ -193,6 +248,7 @@ namespace LightwaveRF
         /// </summary>
         public const string heatRegEx = "...,(!R)(?<Room>[0-9])(DhF)(?<State>[0-9])";//"533,!R" + Room + "DhF" + statestr + "|";
         public static event rawEventHandler Raw;
+
         /// <summary>
         /// Listen for commands from other devices (and this device) be sure to call Dispose() to stop this.
         /// </summary>
@@ -207,10 +263,15 @@ namespace LightwaveRF
             }
         }
 
+        /// <summary>
+        /// Start monitoring all valves 
+        /// where any valve requires heat - switch on the device which is passed.
+        /// </summary>
+        /// <param name="newHeatingDevice"></param>
         public static void HeatingControlFromValveTemp(Device newHeatingDevice = null)
         {
             //set to old boiler control
-            if (newHeatingDevice == null) newHeatingDevice = new Device(new Room(16), 1, "Boiler", DeviceType.OnOff, State.Off);
+            if (newHeatingDevice == null) newHeatingDevice = new Device(new Room(16), 1, "Boiler", DeviceType.OnOff, State.Open);
             heatingDevice = newHeatingDevice;
             if(HeatingDemand == null)
             {
@@ -219,6 +280,11 @@ namespace LightwaveRF
             }
         }
 
+        /// <summary>
+        /// Worker process for heating demand thread
+        /// this is an endless loop to monitor the temperatures in the values
+        /// and switch on the boiler if there is a demand from any of the valves
+        /// </summary>
         private static void heatingDemandWorker()
         {
             while(true)
@@ -243,6 +309,11 @@ namespace LightwaveRF
                 Thread.Sleep(300000);
             }
         }
+
+        /// <summary>
+        /// Updates a device
+        /// </summary>
+        /// <param name="thisDevice"></param>
         public static void updateLastDeviceState(Device thisDevice)
         {
             lock (LastDeviceState)
@@ -274,7 +345,7 @@ namespace LightwaveRF
         {
             Socket sock = new Socket(AddressFamily.InterNetwork,
                 SocketType.Dgram, ProtocolType.Udp);
-            sock.ReceiveTimeout = 10000;
+            sock.ReceiveTimeout = 2000;
             IPEndPoint iep = new IPEndPoint(IPAddress.Any, 9761);
             sock.Bind(iep);
             EndPoint ep = (EndPoint)iep;
@@ -300,6 +371,11 @@ namespace LightwaveRF
             }
         }
 
+        /// <summary>
+        /// Gets the current state of valve no [index]
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public static HeatingValveResponse getHeatingDevice(int index)
         {
             //!R1F*r
@@ -308,7 +384,6 @@ namespace LightwaveRF
             return new HeatingValveResponse(response);
             
         }
-
 
         /// <summary>
         /// Checks all radiators to see if any need heat, and if so returns true.
@@ -339,6 +414,9 @@ namespace LightwaveRF
             return demand;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private static void listenThreadWorker()
         {
             Socket sock = new Socket(AddressFamily.InterNetwork,
@@ -408,6 +486,7 @@ namespace LightwaveRF
                 sock.Close();
             }
         }
+
         /// <summary>
         /// Switches off all devices in room
         /// </summary>
@@ -427,7 +506,7 @@ namespace LightwaveRF
         /// <returns>String "OK" otherwise error message</returns>
         public static string RecordSequence(string SequenceName)
         {
-            if (recordsequencethread == null || recordsequencethread.ThreadState==ThreadState.Stopped)
+            if (recordsequencethread == null || recordsequencethread.ThreadState==System.Threading.ThreadState.Stopped)
             {
                 RecordedSequenceName = SequenceName;
                 recordsequencethread = new Thread(new ThreadStart(recordSequenceWorker));
@@ -457,6 +536,12 @@ namespace LightwaveRF
             {
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="rawData"></param>
         private static void AddEventToSequence(object sender, string rawData)
         {
             //!FeP"Test"=!R1D1F1,00:00:03,!R1Fa,00:00:03,!R1D2F0,00:00:03
@@ -519,6 +604,7 @@ namespace LightwaveRF
             string text =nextind + "!FqP\"" + SequenceName +"\"|Start Sequence|\"" + SequenceName +"\"";
             return sendRaw(text).Replace(ind + ",", "");
         }
+
         /// <summary>
         /// sets mood in room
         /// </summary>
@@ -530,6 +616,7 @@ namespace LightwaveRF
             string text = nextind + ",!R"+ room + @"FmP" + mood + @"|Room " + room.ToString() + " Mood " + mood.ToString();
             return sendRaw(text).Replace(ind + ",", "");
         }
+
         /// <summary>
         /// Save the mood preset
         /// </summary>
@@ -541,6 +628,7 @@ namespace LightwaveRF
             string text = nextind + ",!R"+ room + @"FsP" + mood + @"|MOOD NOW SET";
             return sendRaw(text).Replace(ind + ",", "");
         }
+
         /// <summary>
         /// Get reading from the wireless meter.
         /// </summary>
@@ -549,6 +637,7 @@ namespace LightwaveRF
             string text = nextind + ",@?W";
             return new MeterReading(sendRaw(text).Substring(4)); //Replace(ind + ",", "");
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -564,6 +653,7 @@ namespace LightwaveRF
             string text = nextind + ",!R" + room + @"D" + device + @"FdP" + pstr + @"|";
             return sendRaw(text).Replace(ind + ",", "");
         }
+
         /// <summary>
         /// send on/off command to a room/device
         /// </summary>
@@ -576,6 +666,7 @@ namespace LightwaveRF
             string text = nextind + ",!R" + room + @"D" + device + @"F" + StateStrings.GetStateString(state) + @"|";
             return sendRaw(text).Replace(ind + ",", "");
         }
+
         /// <summary>
         /// send on/off command to a room/device
         /// </summary>
@@ -670,7 +761,8 @@ namespace LightwaveRF
             string text = nextind + ",!R" + room + @"D" + device + "Fl|";
             return sendRaw(text).Replace(ind + ",", "");
         }
-                /// <summary>
+
+        /// <summary>
         /// unlock device
         /// </summary>
         /// <param name="Room">room number </param>
@@ -775,7 +867,7 @@ namespace LightwaveRF
             Listen();
             radiatorStateUntilDate = untilDate;
             radiatorStateRefreshMins = refreshMins;
-            if (radiatorStateThread == null || radiatorStateThread.ThreadState == ThreadState.Stopped)
+            if (radiatorStateThread == null || radiatorStateThread.ThreadState == System.Threading.ThreadState.Stopped)
             {
                 radiatorStateThread = new Thread(new ThreadStart(RadiatorStateWorker));
                 radiatorStateThread.Start();
