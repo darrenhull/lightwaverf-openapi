@@ -81,12 +81,17 @@ namespace LightwaveRF
         /// </summary>
         public string nSlot { get; set; }
         /// <summary>
-        /// ???
+        /// positioner offset (from calibration)
         /// </summary>
         public double prof { get; set; }
 
         /// <summary>
-        /// state of the valve ('run' , 'boost'?)
+        /// version of the valve?
+        /// </summary>
+        public double ver { get; set; }
+
+        /// <summary>
+        /// state of the valve ('run' , 'calib', 'man' )
         /// </summary>
         public string state { get; set; }
         public HeatingValveResponse(string LightWaveLinkresponse)
@@ -94,23 +99,31 @@ namespace LightwaveRF
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             if(LightWaveLinkresponse.StartsWith("500,OK"))
             {
-                rawResponse = LightWaveLinkresponse.Split('!')[1];
-                JsonValue parsedJson = JsonValue.Parse(rawResponse);
-                trans = (string)parsedJson["trans"];
-                mac = (string)parsedJson["mac"];
-                time = epoch.AddSeconds((int)parsedJson["time"]);
-                product = (string)parsedJson["prod"];
-                serial = (string)parsedJson["serial"];
-                output = (int)parsedJson["output"];
-                state = (string)parsedJson["state"];
-                signal = (int)parsedJson["signal"];
-                type = (string)parsedJson["type"];
-                batt = (double)parsedJson["batt"];
-                cTemp = (double)parsedJson["cTemp"];
-                cTarg = (double)parsedJson["cTarg"];
-                nTarg = (double)parsedJson["nTarg"];
-                nSlot = (string)parsedJson["nSlot"];
-                prof = (double)parsedJson["prof"];
+                try
+                {
+                    rawResponse = LightWaveLinkresponse.Split('!')[1];
+                    JsonValue parsedJson = JsonValue.Parse(rawResponse);
+                    trans = (string)parsedJson["trans"];
+                    mac = (string)parsedJson["mac"];
+                    time = epoch.AddSeconds((int)parsedJson["time"]);
+                    product = (string)parsedJson["prod"];
+                    serial = (string)parsedJson["serial"];
+                    output = (int)parsedJson["output"];
+                    state = (string)parsedJson["state"];
+                    signal = (int)parsedJson["signal"];
+                    type = (string)parsedJson["type"];
+                    batt = (double)parsedJson["batt"];
+                    cTemp = (double)parsedJson["cTemp"];
+                    cTarg = (double)parsedJson["cTarg"];
+                    nTarg = (double)parsedJson["nTarg"];
+                    nSlot = (string)parsedJson["nSlot"];
+                    prof = (double)parsedJson["prof"];
+                    ver = (double)parsedJson["ver"];
+                }
+                catch (Exception e)
+                {
+                    Debug.Write(e + rawResponse);
+                }
                 Debug.Write(this.ToString());
             }
         }
@@ -131,6 +144,7 @@ namespace LightwaveRF
             "cTarg: " + cTarg + "\n" +
             "nTarg: " + nTarg + "\n" +
             "nSlot: " + nSlot + "\n" +
+            "ver" + ver + "\n" +
             "prof: " + prof + "\n";
         }
     }
@@ -345,7 +359,7 @@ namespace LightwaveRF
         {
             Socket sock = new Socket(AddressFamily.InterNetwork,
                 SocketType.Dgram, ProtocolType.Udp);
-            sock.ReceiveTimeout = 2000;
+            sock.ReceiveTimeout = 5000;
             IPEndPoint iep = new IPEndPoint(IPAddress.Any, 9761);
             sock.Bind(iep);
             EndPoint ep = (EndPoint)iep;
@@ -395,10 +409,11 @@ namespace LightwaveRF
             bool? demand = null;
             for (int i = 1; i < 2; i++)
             {
-                var radiator = getHeatingDevice(1);
+                var radiator = getHeatingDevice(i);
                 if (radiator.cTarg != 0)
                 {
-                    if (radiator.cTarg > radiator.cTemp)
+                    //if demand greater than 10 percent, then fire up boiler
+                    if (radiator.output > 10)
                     {//demand is greater than target and value was retrieved.
                         demand = true;
                     }
@@ -409,6 +424,20 @@ namespace LightwaveRF
                             demand = false;
                         }
                     }
+                }
+                if(radiator.cTarg != 0)
+                { 
+                string newFileName = "C:\\temp\\valves" + i +".csv";
+                string csvline = radiator.time + "," + radiator.cTarg + "," + radiator.cTemp + "," + radiator.output + Environment.NewLine;
+
+
+                if (!System.IO.File.Exists(newFileName))
+                {
+                    string clientHeader = "Time" + "," + "TI300" + i + ".SP,TI300" + i + ".PV,TI300" + i + ".OP" + Environment.NewLine;
+                    System.IO.File.WriteAllText(newFileName, clientHeader);
+                }
+
+                System.IO.File.AppendAllText(newFileName, csvline);
                 }
             }
             return demand;
